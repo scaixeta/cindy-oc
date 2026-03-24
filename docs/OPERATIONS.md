@@ -8,11 +8,11 @@ Este documento descreve como o `Cindy OC` deve ser operado no estado atual, pres
 
 - Ambiente principal: `Windows + VS Code`
 - Modo de operacao: `Local-first com infraestrutura remota`
-- Sprint ativa: `S1`
-- Escopo operacional aprovado: `Telegram MVP operacional, consolidacao do contrato de mensagens e limpeza tecnica da infraestrutura minima`
-- Decisao do PO: `MVP com Railway - ver D-S0-04 em Dev_Tracking_S0.md`
-- Infraestrutura ativa: `Railway com n8n-runtime (n8nio/n8n:1.64.0) e Postgres`
-- Canal de comunicacao MVP: `Telegram integrado (bot operacional em telegram-bot.js)`
+- Sprint ativa: `S2`
+- Escopo operacional aprovado: `OpenClaw Fase 1 - Instalacao, confirmacao, configuracao e lockdown`
+- S1 validada: `Telegram MVP, dispatcher, testes E2E 6/6`
+- Infraestrutura ativa: `Railway com n8n-runtime e Postgres, Telegram MVP operacional`
+- OpenClaw: `Fase 1 em preparacao - lockdown por padrao`
 
 O projeto opera com base em:
 
@@ -31,7 +31,7 @@ Antes de qualquer execucao, ler na seguinte ordem:
 3. `Cindy_Contract.md`
 4. `README.md`
 5. `Dev_Tracking.md`
-6. `Dev_Tracking_S1.md`
+6. `Dev_Tracking_S2.md`
 7. apenas os docs canonicos necessarios
 
 ## 3. Plan-First
@@ -47,29 +47,24 @@ Antes de qualquer execucao, ler na seguinte ordem:
 - Commit e push exigem comando explicito do PO
 - Nenhuma camada externa pode sobrepor o tracking DOC2.5 do repositorio
 
-## 5. Fluxo operacional atual
+## 5. Fluxo operacional atual (S1 validado)
 
-Fluxo atual:
+Fluxo validado na S1:
 
 `Telegram -> Cindy -> resposta direta ou n8n-runtime via webhook -> Telegram`
 
-Condicoes do fluxo atual:
+Condicoes do fluxo (S1):
 
-- `Telegram` integrado via long polling loop operacional em telegram-bot.js
-- `Mensagens com prefixo n8n:` ja podem acionar o webhook `cindy-telegram` no `n8n-runtime`
-- `OpenClaw` permanece opcional e fora do escopo atual
-- `Slack` foi abandonado como canal MVP
-- `VS Code` segue como superficie real de execucao local
-- `Railway` com n8n-runtime e Postgres esta ativo
-- `Dev_Tracking_SX.md` continua sendo a fonte de verdade do que foi feito
-- `O fluxo conversacional acima ja possui um loop MVP funcional e agora entra em fase de consolidacao operacional`
+- `Telegram` integrado via long polling com dispatcher
+- `Mensagens com prefixo n8n:` aciona webhook `cindy-telegram` no `n8n-runtime` ✅
+- Suite de testes 6/6 validada
 
 ## 6. Evidencias e classificacao
 
 - Evidencia primaria: `regras, contrato, tracking, docs e configuracoes reais do repo`
 - Evidencia secundaria: `sumarios e notas operacionais`
 - Inferencia: `conclusao derivada ainda nao confirmada pelo PO`
-- Pendente de validacao: `OpenClaw, webhook opcional do Telegram e qualquer detalhe externo ainda nao implantado`
+- OpenClaw Fase 1: `Em execucao (S2) - lockdown por padrao`
 
 ## 7. Rotinas operacionais
 
@@ -77,7 +72,7 @@ Condicoes do fluxo atual:
 
 - validar `README.md`
 - validar os 4 documentos canonicos em `docs/`
-- validar `Dev_Tracking.md` e `Dev_Tracking_S1.md`
+- validar `Dev_Tracking.md` e `Dev_Tracking_S2.md`
 - validar `tests/bugs_log.md`
 
 ### 7.2 Higiene documental
@@ -96,7 +91,7 @@ Condicoes do fluxo atual:
 
 ### Testes automatizados
 
-- `Pendente de validacao`
+- `test-automation.js` - suite de testes E2E Telegram/n8n
 
 ## 9. Seguranca operacional
 
@@ -104,95 +99,110 @@ Condicoes do fluxo atual:
 - nunca documentar segredos
 - nao presumir acesso a sistemas externos sem prova documental
 - manter alteracoes dentro do menor raio de impacto possivel
+- **OpenClaw Fase 1**: bloqueado por padrao, permissoes minimas
 
 ## 10. Resposta a falhas
 
 1. confirmar contexto da sprint
-2. registrar bug ou teste
+2. registrar bug ou teste em `tests/bugs_log.md`
 3. corrigir o artefato minimo necessario
 4. atualizar `Timestamp UTC`
 5. registrar a decisao ou observacao relevante em `Dev_Tracking`
 
-## 11. Contrato Minimo de Mensagens (MVP)
+## 11. Contrato Minimo de Mensagens (MVP - S1)
 
 ### 11.0 Status de Implementacao
 
 | Componente | Status | Observacao |
 |---|---|---|
 | Long polling via getUpdates | ✅ Implementado | Loop ativo em telegram-bot.js |
-| Resposta direta (/start, oi, texto) | ✅ Implementado | Funcao sendMessage ativa com saudacao atualizada |
-| Roteamento n8n: | ✅ Implementado | Funcao callN8n ativa com timeout 10s e webhook `cindy-telegram` validado |
-| Validacao E2E (n8n:) | ✅ Passado | TEST-S1-03: Telegram->bot->n8n->Telegram concluido |
-| Webhook Telegram | ❌ Nao implementado | Long polling suficiente |
-| OpenClaw | ❌ Fora do escopo | Diferido |
+| Resposta direta (/start, oi, texto) | ✅ Implementado | Funcao sendMessage ativa |
+| Roteamento n8n: | ✅ Implementado | Timeout 10s, webhook `cindy-telegram` |
+| Validacao E2E (n8n:) | ✅ Passado | TEST-S1-06: 6/6 testes passaram |
+| Dispatcher | ✅ Implementado | routeMessage + handleFallback |
+| Fallback operacional | ✅ Implementado | Erros e timeouts controlados |
 
-### 11.1 Entrada do Telegram
+## 12. Rotina Operacional Minima (S1 validada)
 
-```json
-{
-  "message_id": 1,
-  "chat": { "id": 8687754084, "type": "private" },
-  "text": "/start",
-  "date": 1774309008
-}
+### 12.1 Check de Startup
+
+Ao iniciar `telegram-bot.js`:
+```
+========================================
+Cindy OC - Telegram Bot MVP
+[INIT] Token loaded: YES
+[INIT] n8n URL: https://n8n-runtime-production.up.railway.app
+[INIT] n8n webhook path: cindy-telegram
+[STATUS] Bot ready and listening...
 ```
 
-Campos relevantes para roteamento:
-- `text`: conteúdo da mensagem
-- `chat.id`: chat_id do remetente
-- `command marker`: prefixo `/` indica comando
+### 12.2 Observabilidade em Runtime
 
-### 11.2 Classificacao Cindy
+Logs gerados durante execucao:
+- `[INCOMING] <texto>` - mensagem recebida
+- `[TYPE] <direct|n8n|openclaw>` - tipo de roteamento
+- `[OUTGOING N8N] <resposta>` - resposta do n8n
+- `[OUTGOING DIRECT] <resposta>` - resposta direta
+- `[OUTGOING FALLBACK] <mensagem>` - fallback acionado
+- `[STATS] Messages: X, Errors: Y` - contadores de runtime
 
-| Tipo de entrada | Acao |
-|---|---|
-| `/start` | Resposta direta de Boas-vindas |
-| `oi` / `olá` | Resposta direta de saudacao |
-| `n8n:` prefixo | Encaminhar para n8n-runtime |
-| Demais texto | Resposta direta generica |
+## 13. Estado do Servico n8n (S1)
 
-### 11.3 Contracto n8n (quando acionado)
+O servico n8n em Railway:
+- Provisionado e ativo em `n8n-runtime-production.up.railway.app`
+- Webhook `cindy-telegram` ativo e respondendo
+- Em estado de espera para futuras automacoes
 
-- **Quando chamar**: apenas quando a mensagem iniciar com `n8n:`
-- **Endpoint atual**: `POST {N8N_URL}/webhook/{N8N_WEBHOOK_PATH}` com `N8N_WEBHOOK_PATH=cindy-telegram`
-- **Payload enviado para n8n**:
-```json
-{
-  "chat_id": 8687754084,
-  "text": "mensagem original após n8n:",
-  "source": "telegram",
-  "timestamp": "ISO-8601"
-}
-```
-- **Resposta esperada do n8n**: texto simples para reply
-- **Timeout**: 10 segundos, fallback para "Servico temporariamente indisponivel"
-- **Fora do escopo**: memoria, contexto complexo, orquestracao multi-step
+## 14. OpenClaw Fase 1 - Regras Operacionais (S2)
 
-### 11.4 Resposta para Telegram
+### 14.1 Escopo da Fase 1
 
-| Cenário | Mensagem |
-|---|---|
-| Sucesso n8n | Resposta retornada pelo n8n |
-| Timeout n8n | "Servico temporariamente indisponivel" |
-| Comando invalido | "Desculpe, nao entendi. Use /start para comecar." |
-| Comando /start | "Olá, sou a Cindy uma IA da Sentivis. Posso te ajudar?" |
-| Saudação oi/olá | "Olá, sou a Cindy uma IA da Sentivis. Posso te ajudar?" |
-| Texto generico | "Mensagem recebida: {texto}" |
+- Instalacao do OpenClaw
+- Confirmacao de startup e saude operacional minima
+- Configuracao minima necessaria para operacao controlada
+- Lockdown: bloqueado por padrao, liberar apenas o estritamente necessario
 
-### 11.5 Fora do Escopo
+### 14.2 Postura de Seguranca
 
-- OpenClaw na interface
-- Multicanal (Slack, WhatsApp, etc)
-- Memoria persitente de conversa
-- Workflows complexos no n8n
-- Autenticacao avancada
+- **Bloqueado por padrao** (deny-by-default)
+- Permissoes minimas
+- Features minimas
+- Exposição minima
+- Mentalidade de allowlist
+- Nenhuma superficie aberta alem do necessario
 
-## 12. Referencias minimas
+### 14.3 Fluxo de Trabalho S2
+
+1. **Preparar** - ST-S2-01: Verificar pre-requisitos workspace
+2. **Instalar** - ST-S2-02: Instalar OpenClaw no caminho local aprovado
+3. **Confirmar** - ST-S2-03: Validar startup e saude operacional
+4. **Configurar** - ST-S2-04: Aplicar configuracao minima
+5. **Bloquear** - ST-S2-05: Desabilitar capacidades nao essenciais
+6. **Baseline** - ST-S2-06: Definir baseline de release controlado
+7. **Checklist** - ST-S2-07: Registrar checklist operacional
+8. **Aceite** - ST-S2-08: Definir criterios de aceite
+
+### 14.4 Critérios de Bloqueio
+
+Sempre que uma funcionalidade nao estiver explicitamente validada para a Fase 1:
+- Bloquear por padrao
+- Registrar como pendente
+- Nao habilitar ate aprovacao explicita do PO
+
+### 14.5 Fora do Escopo (ate validacao S2)
+
+- Funcionalidades OpenClaw alem do minimo
+- Expansao de permissoes
+- Integracoes externas
+- Fase 2
+
+## 15. Referencias minimas
 
 - `README.md`
 - `docs/SETUP.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DEVELOPMENT.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S1.md`
+- `Dev_Tracking_S2.md`
 - `tests/bugs_log.md`
+

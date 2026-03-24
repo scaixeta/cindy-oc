@@ -7,9 +7,9 @@ Este documento descreve como preparar o contexto minimo para trabalhar no `Cindy
 ## 1. Contexto do repositorio
 
 - Projeto: `Cindy OC`
-- Fase atual: `Bootstrap local`
-- Sprint ativa: `S0`
-- Escopo aprovado: `Estrutura canonica, baseline minimo da Cindy e preparacao para evolucao local`
+- Fase atual: `OpenClaw Fase 1 - Instalacao, confirmacao, configuracao e lockdown`
+- Sprint ativa: `S2`
+- Escopo aprovado: `Instalacao OpenClaw, confirmacao runtime, configuracao controlada, lockdown`
 - Tipo de repositorio: `Projeto derivado da Cindy para operacao local`
 
 ## 2. Requisitos minimos
@@ -25,7 +25,7 @@ Cindy-OC/
 ├── README.md
 ├── Cindy_Contract.md
 ├── Dev_Tracking.md
-├── Dev_Tracking_S0.md
+├── Dev_Tracking_S2.md
 ├── docs/
 │   ├── SETUP.md
 │   ├── ARCHITECTURE.md
@@ -34,11 +34,8 @@ Cindy-OC/
 ├── rules/
 ├── tests/
 ├── Templates/
-├── .agents/
-├── .cline/
-├── .clinerules/
-├── .codex/
-└── Sprint/
+├── Sprint/
+└── ...
 ```
 
 ## 4. Fontes de evidencia atuais
@@ -48,73 +45,41 @@ Cindy-OC/
 - `README.md`
 - `rules/WORKSPACE_RULES.md`
 - `Cindy_Contract.md`
-
-### 4.2 Classificacao inicial das evidencias
-
-- Confirmado: `Projeto local em C:\Cindy-OC com sprint S0 ativa`
-- Inferido: `Railway sera avaliado como camada futura de servicos`
-- Pendente de validacao: `Integracoes reais com OpenClaw, Slack, n8n e ThingsBoard`
-
-### 4.3 Preservacao de evidencia
-
-- Nao apagar arquivos de evidencia existentes sem justificativa explicita
-- Nao sobrescrever conteudo do usuario sem necessidade comprovada
-- Tratar docs canonicos e tracking como fontes primarias do projeto
-
-## 5. Conferir a trilha canonica
-
-Exemplos Windows (PowerShell):
-
-```powershell
-Set-Location C:\Cindy-OC
-Get-ChildItem
-Get-ChildItem docs
-Get-ChildItem rules
-Get-ChildItem tests
-```
-
-Arquivos minimos esperados:
-
-- `README.md`
-- `Cindy_Contract.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S0.md`
-- `tests/bugs_log.md`
-- `rules/WORKSPACE_RULES.md`
+- `Dev_Tracking_S2.md`
 
-## 6. Leitura minima antes de agir
+### 4.2 Infraestrutura validada
 
-1. `rules/WORKSPACE_RULES.md`
-2. regra global do runtime ativo
-3. `Cindy_Contract.md`
-4. `README.md`
-5. `Dev_Tracking.md`
-6. `Dev_Tracking_S0.md`
-7. apenas os docs canonicos necessarios
+- Railway - ativo
+- n8n-runtime - ativo
+- Postgres - saudavel
+- Telegram MVP - operacional com dispatcher
 
-## 7. Configuracoes locais
+## 5. Configuracoes locais
 
 - Operacao local-first no `VS Code`
 - `Codex` e `Cline` sao os agentes locais esperados
-- `OpenClaw` e camada externa futura, opcional e nao configurada agora
-- Nao presumir `.env`, tokens, webhooks, VPS, servicos Railway ou integracoes reais nesta fase
+- `OpenClaw` Fase 1: em preparacao para instalacao e lockdown
+- Fase anterior S1 validada: Telegram MVP, dispatcher, testes E2E 6/6
 
-## 8. Limites atuais do setup
+## 6. Limites do setup
 
-- O setup atual cobre apenas `estrutura local, documentacao e baseline minimo`
-- O setup atual nao inclui `deploy`
-- O setup atual nao inclui `provisionamento Railway`
-- O setup atual nao inclui `wiring real com OpenClaw ou Slack`
+- O setup atual cobre `infraestrutura validada (Railway, n8n, Postgres, Telegram) e OpenClaw Fase 1`
+- O setup atual inclui `instalacao OpenClaw` (S2)
+- O setup atual NAO inclui `funcionalidades OpenClaw` (ate Fase 1 validada)
+- O setup atual NAO inclui `expansao de permissoes` (lockdown por padrao)
 
-## 9. O que ainda nao esta configurado
+## 7. O que ainda nao esta configurado
 
-- `Projeto Railway e servicos reais`
-- `Instancia real de n8n ou ThingsBoard`
-- `Fluxo operacional externo com OpenClaw`
+- `OpenClaw` - Fase 1 em execucao (ST-S2-01 a ST-S2-08)
+- `Funcionalidades OpenClaw` - Apenas lockdown e baseline controlados
+- `Expansao de superficie` - Bloqueado por padrao ate validacao
 
-## 10. Proximos passos
+## 8. Proximos passos
 
 - Abrir `C:\Cindy-OC` no `VS Code`
 - Ler `docs/ARCHITECTURE.md`
 - Ler `docs/DEVELOPMENT.md`
 - Ler `docs/OPERATIONS.md`
+- Executar ST-S2-01: Preparar workspace e pre-requisitos para OpenClaw
+

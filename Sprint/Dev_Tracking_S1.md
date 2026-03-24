@@ -26,6 +26,19 @@
 | Done | `ST-S1-03 - Avaliar a necessidade real de webhook no Telegram MVP` |
 | Done | `ST-S1-04 - Definir quando OpenClaw entra no fluxo operacional real` |
 | Done | `ST-S1-05 - Conectar o roteamento n8n: a um webhook real do n8n-runtime` |
+| Done | `ST-S1-06 - Hardening operacional minimo do telegram-bot.js` |
+| Done | `ST-S1-07 - Preservacao operacional do servico n8n em estado de espera` |
+| Done | `ST-S1-08 - Observabilidade minima e rotina operacional basica` |
+| Done | `ST-S1-09 - Definir contrato de entrada do OpenClaw no fluxo Telegram -> Cindy -> n8n` |
+| Done | `ST-S1-10 - Definir ponto de handoff operacional entre bot atual e futura camada OpenClaw` |
+| Done | `ST-S1-11 - Consolidar checklist de readiness minimo para entrada do OpenClaw` |
+| Done | `ST-S1-12 - Padronizar sinais minimos de observabilidade para diagnostico do OpenClaw` |
+| Done | `ST-S1-13 - Definir primeiro caso de uso real que o OpenClaw deve orquestrar sobre n8n` |
+| Done | `ST-S1-14 - Registrar criterios de aceite para fechamento da S1 apos preparacao do OpenClaw` |
+| Done | `ST-S1-15 - Consolidar o dispatcher em telegram-bot.js com roteamento explicito para normal, n8n: e openclaw:` |
+| Done | `ST-S1-16 - Padronizar fallback operacional para erro, timeout e rota openclaw nao implementada` |
+| Done | `ST-S1-17 - Criar automacao de teste n8n E2E com suite completa executada automaticamente` |
+| Done | `ST-S1-18 - Congelar comportamento atual do S1 MVP e preparar para fechamento` |
 
 Estados possiveis:
 - `To-Do`, `Doing`, `Done`, `Accepted`, `Pending-SX`
@@ -47,12 +60,24 @@ Estados possiveis:
 `[D-S1-07] - Implementacao local do contrato: telegram-bot.js roteia mensagens "n8n:" para o n8n-runtime com timeout 10s e fallback`
 
 `[D-S1-08] - Webhook real do n8n-runtime configurado e validado em /webhook/cindy-telegram para atender o roteamento "n8n:" do Telegram MVP`
+`[D-S1-09] - Hardening operacional do telegram-bot.js: retry logic (3 tentativas), contadores de messages/errors, logs estruturados com prefixos [INCOMING], [OUTGOING], [STATS]`
+`[D-S1-10] - Servico n8n preservado em estado de espera: tetaprovido em Railway, webhook cindy-telegram ativo, aguardando futuras automacoes`
+`[D-S1-11] - Observabilidade minima implementada: startup confirmation, logs estruturados, stats de runtime visiveis no console`
+`[D-S1-12] - Contrato de entrada do OpenClaw: mensagens com prefixo "openclaw:" serao roteadas para a camada OpenClaw apos implementacao (por agora apenas via placeholder)`
+`[D-S1-13] - Ponto de handoff operacional: o telegram-bot.js processa n8n: prefixo e retorna resposta; futuro OpenClaw entrara como camada intermediária entre bot e n8n`
+`[D-S1-14] - Primeiro caso de uso OpenClaw definido: orquestrar workflow de automacao simples no n8n via webhook (ex: processar formulario, gerar relatorio)`
+`[D-S1-15] - Critérios de aceite para fechamento S1 (preparação OpenClaw): (1) contrato de entrada documentado, (2) ponto de handoff definido, (3) checklist de readiness definido, (4) sinais de observabilidade definidos, (5) primeiro use case definido`
+`[D-S1-16] - Dispatcher implementado: routeMessage() e handleFallback() isolados, comportamento atual preservado, zero breaking changes`
+`[D-S1-17] - Testes reais executados: /start, oi, n8n: test, openclaw: all passed`
 
 ## 5. Referencias a Testes e Bugs (resumo)
 
 - `TEST-S1-01 - Webhook real do n8n-runtime respondeu 200 com payload enviado pelo contrato minimo`
-- `TEST-S1-01 - Webhook real do n8n-runtime respondeu 200 com payload enviado pelo contrato minimo`
 - `TEST-S1-02 - Telegram Bot API enviou mensagem com sucesso para o chat configurado`
+- `TEST-S1-03 - E2E Telegram MVP: Telegram -> bot -> n8n -> Telegram validado`
+- `TEST-S1-04 - Dispatcher validado: /start, oi, n8n:, openclaw: respondem corretamente`
+- `TEST-S1-05 - Fallback operacional validado: erros e timeouts retornam mensagens controladas`
+- `TEST-S1-06 - Automacao n8n E2E via test-automation.js: 6/6 testes passaram (/start, oi, n8n: test echo, n8n: test success, n8n: test fail, openclaw: teste)`
 
 ## 6. Timestamp UTC
 
@@ -92,14 +117,14 @@ Event | Start | Finish | Status
 - Validacoes manuais devem ser registradas quando nao houver automacao real
 - O resumo desta sprint deve permanecer coerente com `README.md`, `Dev_Tracking.md` e `tests/bugs_log.md`
 
-## 8. Estado final da Sprint
+-## 8. Estado final da Sprint
 
-Preencher ao encerrar a sprint `S1`.
+Sprint encerrada em 2026-03-24 sob comando do PO.
 
-- Itens concluidos: `Pendente de validacao`
-- Itens pendentes e realocados: `Pendente de validacao`
-- Observacoes finais: `Sprint ativa`
+- Itens concluidos: `ST-S1-01 a ST-S1-18 - Todos concluidos`
+- Itens pendentes e realocados: `Nenhum`
+- Observacoes finais: `Sprint S1 encerrada. Telegram MVP operacional, dispatcher implementado, suite de testes automatizados 6/6 passaram. OpenClaw preparado para Fase 1.`
 
-## 9. Referencia de Fechamento da Sprint
+-## 9. Referencia de Fechamento da Sprint
 
-- `S1-END: Pendente de validacao`
+- `S1-END: 2026-03-24T03:01:00-FN - Encerrada sob comando do PO. Pronto para S2.`

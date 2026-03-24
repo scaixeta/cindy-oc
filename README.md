@@ -23,33 +23,30 @@ Objetivos principais:
 
 ## 2. Estado atual
 
-- Sprint ativa: `S1`
+- Sprint ativa: `S2`
 - Estado da sprint: `Doing`
-- Fase atual: `Operacionalizacao do canal conversacional MVP`
-- Escopo aprovado: `Telegram MVP operacional, consolidacao do contrato de mensagens e limpeza tecnica da infraestrutura minima`
-- Estado tecnico validado: `Postgres saudavel, n8n-runtime ativo, dominio publico respondendo, API n8n validada e bot Telegram operacional`
+- Fase atual: `OpenClaw Fase 1 - Instalacao, confirmacao, configuracao e lockdown`
+- Escopo aprovado: `Instalacao OpenClaw, confirmacao runtime, configuracao controlada, lockdown`
+- Estado tecnico validado: `Postgres saudavel, n8n-runtime ativo, Telegram MVP operacional com dispatcher, suite de testes 6/6`
 
 ## 3. Controle de sprints
 
 | Sprint | Periodo | Estado | Tracking | Observacoes |
 | --- | --- | --- | --- | --- |
-| `S1` | `2026-03-23` | `Doing` | `Dev_Tracking_S1.md` | Operacionalizacao do canal Telegram e contrato minimo de mensagens |
-| `S0` | `2026-03-20` | `Accepted` | `Sprint/Dev_Tracking_S0.md` | Bootstrap, Railway, n8n e Telegram MVP validados |
+| `S2` | `2026-03-24` | `Doing` | `Dev_Tracking_S2.md` | OpenClaw Fase 1: instalacao, confirmacao, lockdown |
+| `S1` | `2026-03-23` | `Accepted` | `Sprint/Dev_Tracking_S1.md` | Telegram MVP, dispatcher, testes E2E 6/6 |
+| `S0` | `2026-03-20` | `Accepted` | `Sprint/Dev_Tracking_S0.md` | Bootstrap, Railway, n8n validados |
 
 ## 4. Pendencias Ativas
 
-- `Definir contrato minimo Cindy -> Telegram -> n8n`
-- `Decidir o destino do servico vazio n8n`
-- `Validar quando OpenClaw sera conectado ao fluxo`
-- `Limpar servico vazio n8n (futuro)`
-- `Atualizar a KB e os artefatos canonicos sempre que houver mudanca tecnica relevante`
+- `ST-S2-01 a ST-S2-08 - OpenClaw Fase 1: preparacao, instalacao, confirmacao, configuracao, lockdown, baseline, checklist, aceite`
 
 ## 5. Artefatos Canonicos
 
 - `README.md`
 - `Cindy_Contract.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S1.md`
+- `Dev_Tracking_S2.md`
 - `docs/SETUP.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DEVELOPMENT.md`
