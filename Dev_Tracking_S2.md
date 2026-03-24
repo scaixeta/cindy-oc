@@ -84,4 +84,37 @@ Preencher ao encerrar a sprint `S2`.
 
 - `S2-END: Pendente de validacao`
 
+---
+
+## 9. Execucoes de Atualizacao n8n (Fora do Escopo S2)
+
+| Timestamp | Acao | Resultado |
+|---|---|---|
+| `2026-03-23T23:42:00-FN` | `Atualizar n8n para latest via n8n-runtime-v2` | `n8n 2.12.3 ativo, migrations OK, workflow "Cindy Telegram Router" ativado` |
+| `2026-03-23T23:42:30-FN` | `Dominio temporario n8n-runtime-v2-production.up.railway.app` | `Servico disponivel,health validado` |
+
+**Nota**: A execucao foi necessaria para garantir baseline atualizado antes de qualquer trabalho com OpenClaw. O servico original `n8n-runtime` permanece em 1.64.0 ate decisao do PO sobre swap de dominio.
+
+---
+
+## 10. Execucoes de MCP Search (S2)
+
+| Timestamp | Acao | Resultado |
+|---|---|---|
+| `2026-03-24T00:55:00-FN` | `Atualizar cline_mcp_settings.json - desabilitar MiniMax e n8n-mcp local, adicionar Google Search MCP` | `MiniMax: disabled=true (API key invalida), n8n-mcp local: disabled=true (endpoint nao existe), Google Search MCP: adicionado (@gpriday/ask-google-mcp)` |
+| `2026-03-24T00:55:30-FN` | `Mover .env-n8n-vars para .scr/` | `Arquivo movido para SOT de credenciais` |
+
+**Nota**: O Google Search MCP usa `@gpriday/ask-google-mcp` com Gemini Search Grounding. O n8n Docs MCP Official permanece ativo via `https://n8n.mcp.kapa.ai/`.
+
+---
+
+## 11. Bug Registrado
+
+| ID | Descricao | Status |
+|---|---|---|
+| `BUG-S2-01` | `MiniMax MCP apresenta erro "invalid api key" (2049)` | `Aguardando correcao upstream ou nova API key` |
+| `BUG-S2-02` | `n8n-mcp local: endpoint /mcp nao existe no servidor` | `Desabilitado temporariamente` |
+
+**Workaround**: Usar Google Search MCP e n8n Docs MCP Official como alternativas temporarias.
+
 
