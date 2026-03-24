@@ -79,6 +79,24 @@ Centralizar o registro de bugs e testes por sprint com rastreabilidade suficient
   - Resultado: `n8n respondeu "n8n recebeu: teste de integracao" e o bot enviou ao chat; timeout/fallback nao acionado`
   - Status: `Passed`
 
+## 5. Sprint S2
+
+### Bugs Registrados
+
+- `BUG-S2-01` - `MiniMax MCP apresenta erro "invalid api key" (erro 2049)`
+  - Evidencia: `Chamada ao MiniMax retorna "API Error: 2049-invalid api key"`
+  - Impacto: `Search capability temporariamente Indisponivel`
+  - Status: `Workaround: desabilitado, usar Google Search MCP como alternativa`
+
+- `BUG-S2-02` - `n8n-mcp local: endpoint /mcp nao existe no servidor Railway`
+  - Evidencia: `POST para /mcp retorna "Cannot POST /mcp"`
+  - Impacto: `n8n MCP local temporariamente Indisponivel`
+  - Status: `Workaround: desabilitado, usar n8n Docs MCP Official como alternativa`
+
+### Testes Registrados
+
+(Nenhum teste registrado para S2 ate o momento)
+
 ## 6. Timestamp UTC
 
 Usar formato DOC2.5 (ISO 8601, 24h): `YYYY-MM-DDTHH:MM:SS-ST` para inicio e `YYYY-MM-DDTHH:MM:SS-FN` para fim.
