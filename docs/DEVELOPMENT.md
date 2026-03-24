@@ -15,29 +15,30 @@ Este documento descreve como o `Cindy OC` deve evoluir seguindo DOC2.5, com dese
 
 ## 2. Estado atual de desenvolvimento
 
-- Fase atual: `Bootstrap local com infraestrutura Railway ativa e n8n validado`
-- Sprint ativa: `S0`
-- Escopo de desenvolvimento aprovado: `Estrutura inicial, docs canonicos, baseline minimo e MVP com Railway`
+- Fase atual: `Operacionalizacao do canal conversacional MVP`
+- Sprint ativa: `S1`
+- Escopo de desenvolvimento aprovado: `Telegram MVP operacional, consolidacao do contrato de mensagens e limpeza tecnica da infraestrutura minima`
 - Decisao do PO: `MVP com Railway - ver D-S0-04 em Dev_Tracking_S0.md`
 - Fora do escopo atual: `OpenClaw e integracoes externas ainda nao implantadas`
 - Infraestrutura ativa: `Railway com n8n-runtime (n8nio/n8n:1.64.0) e Postgres`
-- Canal de comunicacao MVP: `Telegram (proxima etapa)`
+- Canal de comunicacao MVP: `Telegram integrado (bot operacional em telegram-bot.js)`
+- Integracao operacional atual com n8n: `Webhook cindy-telegram validado no n8n-runtime para mensagens com prefixo n8n:`
 - Higiene de segredos: `.scr/.env` local, sem credenciais Slack ativas no estado atual
 
 ## 3. Roadmap por fases
 
 ### 3.1 Fase atual
 
-- `Bootstrap local com infraestrutura minima ativa`
-- Objetivo: `Criar o workspace derivado, ativar a infraestrutura minima em Railway e validar o n8n`
-- Entregas esperadas: `Docs canonicos, tracking, regras, templates, skills minimas, Railway ativo, Postgres saudavel e n8n validado`
-- Limites explicitos: `Sem Telegram implantado, sem OpenClaw ativo e sem automacao conversacional final`
+- `Canal conversacional MVP`
+- Objetivo: `Consolidar Telegram como canal conversacional minimo e definir o contrato de mensagens com o restante do projeto`
+- Entregas esperadas: `Telegram MVP estavel, contrato Cindy -> Telegram -> n8n e decisao sobre cleanup tecnico do servico vazio n8n`
+- Limites explicitos: `Sem OpenClaw ativo e sem multicanais`
 
 ### 3.2 Proxima fase
 
-- `Canal conversacional MVP`
-- Objetivo: `Definir e validar Telegram como primeiro canal conversacional do projeto`
-- Dependencias para iniciar: `Token do bot, estrategia inicial de long polling ou webhook e aprovacao do PO`
+- `Integracoes controladas`
+- Objetivo: `Avaliar como OpenClaw, n8n e outros servicos entram no fluxo operacional real`
+- Dependencias para iniciar: `Conclusao da S1 e nova aprovacao do PO`
 
 ### 3.3 Fases posteriores
 
@@ -50,7 +51,7 @@ Este documento descreve como o `Cindy OC` deve evoluir seguindo DOC2.5, com dese
 - `rules/WORKSPACE_RULES.md`
 - `README.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S0.md`
+- `Dev_Tracking_S1.md`
 - apenas os docs canonicos necessarios
 
 ### 4.2 Planejar
@@ -69,7 +70,7 @@ Este documento descreve como o `Cindy OC` deve evoluir seguindo DOC2.5, com dese
 
 ### 4.4 Atualizar rastreabilidade
 
-- manter `Dev_Tracking_S0.md` coerente
+- manter `Dev_Tracking_S1.md` coerente
 - atualizar `Dev_Tracking.md` quando necessario
 - sincronizar docs canonicos se a realidade do projeto mudou
 
@@ -97,7 +98,7 @@ O projeto porta o minimo util destes blocos:
 
 ## 8. Mudancas explicitamente bloqueadas nesta fase
 
-- `Inventar integracoes prontas com OpenClaw, Telegram ou qualquer servico externo nao validado`
+- `Inventar integracoes prontas com OpenClaw ou qualquer servico externo nao validado`
 - `Promover infraestrutura externa sem aprovacao`
 
 ## 9. Tests e bugs
@@ -113,5 +114,5 @@ O projeto porta o minimo util destes blocos:
 - `docs/ARCHITECTURE.md`
 - `docs/OPERATIONS.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S0.md`
+- `Dev_Tracking_S1.md`
 - `tests/bugs_log.md`

@@ -9,7 +9,7 @@ Descrever a arquitetura conceitual inicial do `Cindy OC`, com foco na separacao 
 - Papel do projeto: `Workspace local derivado da Cindy para desenvolvimento assistido`
 - Tipo de arquitetura: `Local-first com camadas externas opcionais`
 - Escopo arquitetural atual: `Governanca, tracking, runtimes locais e baseline de skills`
-- Limite do modelo atual: `Apenas a infraestrutura remota minima validada faz parte do estado atual; Telegram e OpenClaw ainda nao foram implantados`
+- Limite do modelo atual: `Telegram MVP e a infraestrutura remota minima validada fazem parte do estado atual; OpenClaw ainda nao foi implantado`
 
 ## 2. Camadas principais
 
@@ -32,7 +32,7 @@ Descrever a arquitetura conceitual inicial do `Cindy OC`, com foco na separacao 
 ## 3. Componentes principais
 
 - `Sergio` - arquiteto e aprovador final
-- `Telegram` - canal de comunicacao MVP priorizado para a proxima etapa
+- `Telegram` - canal de comunicacao MVP integrado (bot operacional em telegram-bot.js)
 - `OpenClaw` - camada externa opcional de apoio/orquestracao (fora do escopo atual)
 - `Cindy` - governanca, contexto e despacho
 - `Codex` e `Cline` - agentes locais
@@ -61,14 +61,14 @@ Descrever a arquitetura conceitual inicial do `Cindy OC`, com foco na separacao 
 ## 5. Fronteiras arquiteturais
 
 - O que faz parte: `Repositorio local, docs, tracking, rules, runtimes e skills portadas`
-- O que nao faz parte: `OpenClaw ativo, Telegram ativo, ThingsBoard, VPS ou automacoes externas nao implantadas`
+- O que nao faz parte: `OpenClaw ativo, ThingsBoard, VPS ou automacoes externas nao implantadas`
 - Dependencias externas reais: `Railway com n8n-runtime, Postgres e dominio publico validado`
-- Integracoes ainda nao implantadas: `Telegram, OpenClaw e ThingsBoard`
+- Integracoes ainda nao implantadas: `OpenClaw e ThingsBoard`
 - Nota: Railway aprovado pelo PO como camada de servicos do MVP e validado tecnicamente na S0
 
 ## 6. Evidencias e verdade canonica
 
-- Fontes primarias: `rules/WORKSPACE_RULES.md, Cindy_Contract.md, README.md, Dev_Tracking.md, Dev_Tracking_S0.md`
+- Fontes primarias: `rules/WORKSPACE_RULES.md, Cindy_Contract.md, README.md, Dev_Tracking.md, Dev_Tracking_S1.md`
 - Fontes secundarias: `docs canonicos e SKILLS_PORTED`
 - Inferencias arquiteturais ativas: `n8n e ThingsBoard como opcoes futuras`
 - Decisoes do PO: `MVP com Railway (D-S0-04)`
@@ -79,7 +79,7 @@ Descrever a arquitetura conceitual inicial do `Cindy OC`, com foco na separacao 
 - `[ARCH-D-01] O projeto e local-first e nao transfere a fonte de verdade para camadas externas`
 - `[ARCH-D-02] OpenClaw nao sobrepoe o tracking DOC2.5`
 - `[ARCH-D-03] Railway: MVP com Railway conforme decisao do PO (D-S0-04)`
-- `[ARCH-D-04] O primeiro canal conversacional do MVP deixa de ser Slack e passa a ser Telegram, mantendo-se apenas em estado de planejamento`
+- `[ARCH-D-04] Telegram integrado ao MVP por long polling minimo em telegram-bot.js`
 
 ## 8. Relacao com outros artefatos
 
@@ -88,5 +88,5 @@ Descrever a arquitetura conceitual inicial do `Cindy OC`, com foco na separacao 
 - `docs/DEVELOPMENT.md`
 - `docs/OPERATIONS.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S0.md`
+- `Dev_Tracking_S1.md`
 - `tests/bugs_log.md`

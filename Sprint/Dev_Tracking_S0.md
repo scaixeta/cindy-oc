@@ -27,7 +27,7 @@
 | Done | `ST-S0-06 - Portar conhecimento generico de comunicacao entre Railway, n8n e servidores para a KB do projeto` |
 | Done | `ST-S0-07 - Documentar o procedimento validado de login Railway na KB do projeto` |
 | Done | `ST-S0-08 - Provisionar a primeira instancia funcional de n8n no Railway com Postgres e imagem fixa` |
-| To-Do | `ST-S0-05 - Definir quando OpenClaw entra no fluxo operacional real` |
+| Pending-S1 | `ST-S0-05 - Definir quando OpenClaw entra no fluxo operacional real` |
 
 Estados possiveis:
 - `To-Do`, `Doing`, `Done`, `Accepted`, `Pending-SX`
@@ -56,6 +56,10 @@ Estados possiveis:
 
 `[D-S0-11] - Documentacao canonica e KB foram reconciliadas com o estado real: Railway ativo, Postgres saudavel, n8n-runtime validado, Slack despriorizado e Telegram mantido como proxima etapa`
 
+`[D-S0-12] - Telegram integrado ao MVP: bot criado via @BotFather, credenciais salvas em .scr/.env, loop de long polling implementado em telegram-bot.js e validado com resposta real`
+
+`[D-S0-13] - Sprint S0 encerrada sob ordem explicita do PO; proximo foco operacional movido para a S1`
+
 ## 5. Referencias a Testes e Bugs (resumo)
 
 - `BUG-S0-01 - Nenhum bug estrutural observado na materializacao inicial - ver tests/bugs_log.md`
@@ -66,6 +70,7 @@ Estados possiveis:
 - `TEST-S0-05 - Validacao do deploy funcional do n8n no Railway com Postgres - ver tests/bugs_log.md`
 - `BUG-S0-02 - Deriva documental apos ativacao real da infraestrutura Railway/n8n - ver tests/bugs_log.md`
 - `TEST-S0-06 - Reconciliacao da documentacao canonica e KB com o estado tecnico real - ver tests/bugs_log.md`
+- `TEST-S0-07 - Validacao do Telegram Bot MVP com loop de long polling - ver tests/bugs_log.md`
 
 ## 6. Timestamp UTC
 
@@ -90,6 +95,9 @@ Event | Start | Finish | Status
 `D-S0-09` | `2026-03-20T21:50:00-ST` | `2026-03-20T21:50:30-FN` | `Logged`
 `D-S0-10` | `2026-03-20T22:00:00-ST` | `2026-03-20T22:00:30-FN` | `Logged`
 `D-S0-11` | `2026-03-20T22:05:05-ST` | `2026-03-20T22:05:35-FN` | `Logged`
+`D-S0-12` | `2026-03-23T20:43:00-ST` | `2026-03-23T20:43:30-FN` | `Logged`
+`TEST-S0-07` | `2026-03-23T20:43:30-ST` | `2026-03-23T20:44:00-FN` | `Passed`
+`D-S0-13` | `2026-03-23T23:48:08-ST` | `2026-03-23T23:48:38-FN` | `Logged`
 
 ## 7. Politica de Commits e Testes (DOC2.5)
 
@@ -109,10 +117,10 @@ Event | Start | Finish | Status
 
 Preencher ao encerrar a sprint `S0`.
 
-- Itens concluidos: `Bootstrap inicial e baseline minimo`
-- Itens pendentes e realocados: `Cleanup do servico vazio n8n, Telegram como canal MVP, OpenClaw e integracoes externas`
-- Observacoes finais: `Sprint ainda ativa`
+- Itens concluidos: `Bootstrap inicial, baseline minimo, Railway/n8n operacionais e Telegram MVP funcional`
+- Itens pendentes e realocados: `Contrato minimo Cindy -> Telegram -> n8n, cleanup do servico vazio n8n, OpenClaw e integracoes externas`
+- Observacoes finais: `Sprint encerrada pelo PO em 2026-03-23`
 
 ## 9. Referencia de Fechamento da Sprint
 
-- `S0-END: Pendente de validacao`
+- `S0-END: Accepted em 2026-03-23`

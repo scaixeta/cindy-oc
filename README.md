@@ -1,8 +1,8 @@
 # Cindy OC
 
-## Bootstrap Local DOC2.5
+## Operacao DOC2.5
 
-Workspace derivado da Cindy para desenvolvimento local em `VS Code`, com `Codex` e `Cline` como agentes locais, `OpenClaw` como camada externa opcional e futura, e baseline minima ja validada para operar com `Railway`, `n8n` e conteineres.
+Workspace derivado da Cindy para desenvolvimento local em `VS Code`, com `Codex` e `Cline` como agentes locais, `OpenClaw` como camada externa opcional e futura, e baseline minima validada para operar com `Railway`, `n8n`, `Postgres` e Telegram.
 
 ---
 
@@ -23,23 +23,24 @@ Objetivos principais:
 
 ## 2. Estado atual
 
-- Sprint ativa: `S0`
+- Sprint ativa: `S1`
 - Estado da sprint: `Doing`
-- Fase atual: `Bootstrap local com infraestrutura Railway ativa e n8n validado`
-- Escopo aprovado: `Estrutura canonica, baseline minimo, MVP com Railway e primeira validacao tecnica do n8n`
-- Decisao do PO: `MVP com Railway (ver D-S0-04 em Dev_Tracking_S0.md)`
-- Estado tecnico validado: `Postgres saudavel, n8n-runtime ativo, dominio publico respondendo e API n8n validada`
+- Fase atual: `Operacionalizacao do canal conversacional MVP`
+- Escopo aprovado: `Telegram MVP operacional, consolidacao do contrato de mensagens e limpeza tecnica da infraestrutura minima`
+- Estado tecnico validado: `Postgres saudavel, n8n-runtime ativo, dominio publico respondendo, API n8n validada e bot Telegram operacional`
 
 ## 3. Controle de sprints
 
 | Sprint | Periodo | Estado | Tracking | Observacoes |
 | --- | --- | --- | --- | --- |
-| `S0` | `2026-03-20` | `Doing` | `Dev_Tracking_S0.md` | Bootstrap inicial com n8n-runtime em Railway |
+| `S1` | `2026-03-23` | `Doing` | `Dev_Tracking_S1.md` | Operacionalizacao do canal Telegram e contrato minimo de mensagens |
+| `S0` | `2026-03-20` | `Accepted` | `Sprint/Dev_Tracking_S0.md` | Bootstrap, Railway, n8n e Telegram MVP validados |
 
 ## 4. Pendencias Ativas
 
+- `Definir contrato minimo Cindy -> Telegram -> n8n`
+- `Decidir o destino do servico vazio n8n`
 - `Validar quando OpenClaw sera conectado ao fluxo`
-- `Integrar Telegram como canal de comunicacao MVP (proxima etapa, ainda nao implementada)`
 - `Limpar servico vazio n8n (futuro)`
 - `Atualizar a KB e os artefatos canonicos sempre que houver mudanca tecnica relevante`
 
@@ -48,7 +49,7 @@ Objetivos principais:
 - `README.md`
 - `Cindy_Contract.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S0.md`
+- `Dev_Tracking_S1.md`
 - `docs/SETUP.md`
 - `docs/ARCHITECTURE.md`
 - `docs/DEVELOPMENT.md`

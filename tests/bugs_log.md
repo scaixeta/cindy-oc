@@ -8,7 +8,7 @@ Centralizar o registro de bugs e testes por sprint com rastreabilidade suficient
 
 - Registrar bugs e testes por sprint
 - Usar formato padronizado de identificacao
-- Manter referencia cruzada com `Dev_Tracking_S0.md`
+- Manter referencia cruzada com `Dev_Tracking_SX.md`
 - Bugs: `BUG-SX-YY`
 - Testes: `TEST-SX-YY`
 - Registrar fatos observaveis, nao suposicoes
@@ -27,6 +27,11 @@ Centralizar o registro de bugs e testes por sprint com rastreabilidade suficient
   - Status: `Resolved`
 
 ### 5. Testes Registrados
+
+- `TEST-S0-07` - `Validacao do Telegram Bot MVP com loop de long polling`
+  - Escopo: `Credenciais em .scr/.env, token validado via getMe, chat ID obtido via getUpdates, bot operational loop em telegram-bot.js`
+  - Resultado: `Bot respondeu '/start' com 'Oi! Sou a Cindy. Estou ouvindo.' - loop funcional`
+  - Status: `Passed`
 
 - `TEST-S0-01` - `Validacao manual da estrutura canonica inicial`
   - Escopo: `README, contrato, tracking, docs, rules, tests, Templates e baseline minimo de runtimes`
@@ -53,6 +58,27 @@ Centralizar o registro de bugs e testes por sprint com rastreabilidade suficient
   - Resultado: `Documentacao reconciliada com a infraestrutura validada e com a despriorizacao do Slack`
   - Status: `Passed`
 
+## 4. Sprint S1
+
+### 4. Bugs Registrados
+
+- `Nenhum bug real registrado ate o momento`
+
+### 5. Testes Registrados
+
+- `TEST-S1-01` - `Validacao do webhook real do n8n-runtime para o contrato minimo do Telegram`
+  - Escopo: `Webhook cindy-telegram ativo no n8n-runtime, payload com chat_id e text enviado conforme o contrato minimo, resposta JSON validada`
+  - Resultado: `POST para /webhook/cindy-telegram retornou HTTP 200 com "n8n recebeu: integracao n8n ok"`
+  - Status: `Passed`
+- `TEST-S1-02` - `Validacao de envio do bot Telegram para o chat configurado`
+  - Escopo: `Telegram Bot API com TELEGRAM_BOT_TOKEN e TELEGRAM_CHAT_ID locais`
+  - Resultado: `sendMessage retornou HTTP 200 e ok=true`
+  - Status: `Passed`
+- `TEST-S1-03` - `Validacao end-to-end Telegram -> telegram-bot.js -> n8n (cindy-telegram) -> Telegram`
+  - Escopo: `Mensagem "n8n: teste de integracao" roteada pelo bot para o webhook cindy-telegram e resposta retornada ao Telegram`
+  - Resultado: `n8n respondeu "n8n recebeu: teste de integracao" e o bot enviou ao chat; timeout/fallback nao acionado`
+  - Status: `Passed`
+
 ## 6. Timestamp UTC
 
 Usar formato DOC2.5 (ISO 8601, 24h): `YYYY-MM-DDTHH:MM:SS-ST` para inicio e `YYYY-MM-DDTHH:MM:SS-FN` para fim.
@@ -67,10 +93,13 @@ TEST-S0-04 | 2026-03-20T20:24:30-ST | 2026-03-20T20:25:30-FN | Passed
 TEST-S0-05 | 2026-03-20T21:18:30-ST | 2026-03-20T21:19:30-FN | Passed
 BUG-S0-02 | 2026-03-20T22:05:05-ST | 2026-03-20T22:05:20-FN | Resolved
 TEST-S0-06 | 2026-03-20T22:05:20-ST | 2026-03-20T22:05:50-FN | Passed
+TEST-S0-07 | 2026-03-23T20:43:30-ST | 2026-03-23T20:44:00-FN | Passed
+TEST-S1-01 | 2026-03-23T23:54:00-ST | 2026-03-23T23:54:30-FN | Passed
+TEST-S1-02 | 2026-03-23T23:55:00-ST | 2026-03-23T23:55:30-FN | Passed
 
 ## 7. Regras de Qualidade do Log
 
 - Cada bug deve apontar para pelo menos uma evidencia observavel
 - Cada teste deve descrever o escopo realmente validado
 - O `Timestamp UTC` deve refletir eventos ja executados
-- O log deve permanecer coerente com `README.md`, `Dev_Tracking.md` e `Dev_Tracking_S0.md`
+- O log deve permanecer coerente com `README.md`, `Dev_Tracking.md` e `Dev_Tracking_SX.md`
