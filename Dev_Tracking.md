@@ -46,7 +46,7 @@
 - `2026-03-24T03:05:00-ST` - `Sprint S2 aberta para OpenClaw Fase 1`
 - `2026-03-24T03:05:30-FN` - `Sprint S1 encerrada e movida para Sprint/`
 - `2026-03-24T00:55:00-FN` - `MCP Search hardening: desabilitado MiniMax (API key invalida) e n8n-mcp local (endpoint nao existe), adicionado Google Search MCP via @gpriday/ask-google-mcp`
-- `2026-03-24T00:56:00-FN` - `.env-n8n-vars movido para .scr/ (SOT de credenciais)`
+- 2026-03-24T17:40:00-FN - .env-n8n-vars consolidado no .scr/.env (SOT única)
 
 ## Observacoes
 

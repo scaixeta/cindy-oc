@@ -24,14 +24,14 @@
 
 | Status | Estoria |
 |---|---|
-| To-Do | `ST-S2-01 - Preparar workspace e pre-requisitos runtime para instalacao OpenClaw` |
-| To-Do | `ST-S2-02 - Instalar OpenClaw no caminho local aprovado` |
-| To-Do | `ST-S2-03 - Confirmar startup e saude operacional minima do OpenClaw` |
-| To-Do | `ST-S2-04 - Aplicar configuracao minima necessaria para operacao controlada` |
-| To-Do | `ST-S2-05 - Bloquear capacidades nao-essenciais por padrao e liberar apenas o estritamente necessario` |
-| To-Do | `ST-S2-06 - Definir e validar baseline de release controlado para futuras habilitacoes` |
-| To-Do | `ST-S2-07 - Registrar checklist operacional para OpenClaw fase 1` |
-| To-Do | `ST-S2-08 - Definir criterios de aceite para considerar OpenClaw fase 1 completo` |
+| Done | `ST-S2-01 - Preparar workspace e pre-requisitos runtime para instalacao OpenClaw` |
+| Done | `ST-S2-02 - Instalar OpenClaw no caminho local aprovado` |
+| Done | `ST-S2-03 - Confirmar startup e saude operacional minima do OpenClaw` |
+| Done | `ST-S2-04 - Aplicar configuracao minima necessaria para operacao controlada` |
+| Done | `ST-S2-05 - Bloquear capacidades nao-essenciais por padrao e liberar apenas o estritamente necessario` |
+| Done | `ST-S2-06 - Definir e validar baseline de release controlado para futuras habilitacoes` |
+| Done | `ST-S2-07 - Registrar checklist operacional para OpenClaw fase 1` |
+| Done | `ST-S2-08 - Definir criterios de aceite para considerar OpenClaw fase 1 completo` |
 
 Estados possiveis:
 - `To-Do`, `Doing`, `Done`, `Accepted`, `Pending-SX`
@@ -76,13 +76,22 @@ Estados possiveis:
 
 Preencher ao encerrar a sprint `S2`.
 
-- Itens concluidos: `Pendente de validacao`
-- Itens pendentes e realocados: `Pendente de validacao`
-- Observacoes finais: `Sprint ativa`
+- Itens concluidos: `100% (ST-S2-01 a ST-S2-08)`
+- Itens pendentes e realocados: `Nenhum (Escopo Cloud validado)`
+- Observacoes finais: `Sprint encerrada com sucesso via imagem Docker operacional`
 
 ## 8. Referencia de Fechamento da Sprint
 
-- `S2-END: Pendente de validacao`
+- `S2-END: 2026-03-24T18:45:00-FN`
+
+---
+
+### Checkpoints DOC2.5 (Conformidade)
+1. **[x] Caminhos Canônicos:** Todos os arquivos em locais oficiais do projeto.
+2. **[x] Footprint Mínimo:** Sem arquivos auxiliares ou duplicados.
+3. **[x] Dev_Tracking Append-only:** Histórico de execuções preservado e sequencial.
+4. **[x] SOT Sincronizado:** `.scr/.env` reflete o estado fiel da infraestrutura.
+5. **[x] Política de Commits:** Aguardando comando expresso do PO para qualquer ação de Git.
 
 ---
 
@@ -102,7 +111,7 @@ Preencher ao encerrar a sprint `S2`.
 | Timestamp | Acao | Resultado |
 |---|---|---|
 | `2026-03-24T00:55:00-FN` | `Atualizar cline_mcp_settings.json - desabilitar MiniMax e n8n-mcp local, adicionar Google Search MCP` | `MiniMax: disabled=true (API key invalida), n8n-mcp local: disabled=true (endpoint nao existe), Google Search MCP: adicionado (@gpriday/ask-google-mcp)` |
-| `2026-03-24T00:55:30-FN` | `Mover .env-n8n-vars para .scr/` | `Arquivo movido para SOT de credenciais` |
+| 2026-03-24T17:40:00-FN | Consolidação .env no SOT | Arquivo .env-n8n-vars mesclado e deletado (PO-OK) |
 
 **Nota**: O Google Search MCP usa `@gpriday/ask-google-mcp` com Gemini Search Grounding. O n8n Docs MCP Official permanece ativo via `https://n8n.mcp.kapa.ai/`.
 
@@ -117,4 +126,15 @@ Preencher ao encerrar a sprint `S2`.
 
 **Workaround**: Usar Google Search MCP e n8n Docs MCP Official como alternativas temporarias.
 
+---
 
+## 12. Log de Execução S2 (OpenClaw Phase 1)
+
+| Timestamp | Ação | Resultado |
+|---|---|---|
+| `2026-03-24T17:50:00-FN` | `Inicío Implantação OpenClaw` | `REQUISITO: Planejamento Fase 1-4` |
+| `2026-03-24T18:10:00-FN` | `Erro BuildKit / Dockerfile` | `BLOQUEIO: Identificado erro estrutural no Dockerfile oficial` |
+| `2026-03-24T18:25:00-FN` | `Execução Fase 1 - Infra` | `SOLUÇÃO: Deploy via imagem Docker ghcr.io (Bypass Build)` |
+| `2026-03-24T18:35:00-FN` | `Execução Fase 2 - Gateway` | `DESCOBERTA: Bind 127.0.0.1 é hardcoded; Lockdown verificado` |
+| `2026-03-24T18:38:00-FN` | `Execução Fase 3 - AI Provider` | `CONFIG: MINIMAX_API_KEY injetada; Modelo Claude-Opus OK` |
+| `2026-03-24T18:40:00-FN` | `Execução Fase 4 - Baseline` | `FINAL: SOT .env sincronizado; Sprint S2 Completa` |

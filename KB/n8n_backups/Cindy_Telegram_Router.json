@@ -1,0 +1,89 @@
+{
+  "name": "Cindy Telegram Router",
+  "active": true,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cindy-telegram",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-node",
+      "name": "Telegram Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "webhookId": "cindy-telegram-webhook"
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $json.body ?? $json;\nconst text = incoming.text ?? '';\nconst trimmed = String(text).trim();\nreturn [{ json: { text: `n8n recebeu: ${trimmed || 'mensagem vazia'}` } }];"
+      },
+      "id": "code-node",
+      "name": "Build Reply",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{$json}}",
+        "options": {}
+      },
+      "id": "respond-node",
+      "name": "Return Reply",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        780,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Telegram Webhook": {
+      "main": [
+        [
+          {
+            "node": "Build Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Reply": {
+      "main": [
+        [
+          {
+            "node": "Return Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-03-24T00:17:28.833Z",
+  "updatedAt": "2026-03-24T00:22:53.680Z",
+  "settings": {},
+  "staticData": null,
+  "pinData": null,
+  "versionId": "b3ac96d7-a16e-475c-98c4-5c1658aa65b3",
+  "triggerCount": 1,
+  "id": "ZeJnme4CHDfjRE4A",
+  "meta": null,
+  "parentFolderId": null,
+  "isArchived": false,
+  "versionCounter": 14,
+  "description": null,
+  "activeVersionId": "b3ac96d7-a16e-475c-98c4-5c1658aa65b3"
+}
