@@ -23,7 +23,11 @@ cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
         "baseUrl": "https://api.minimax.io/anthropic",
         "api": "anthropic-messages",
         "apiKey": "${MINIMAX_API_KEY}",
-        "models": ["MiniMax-M2.5"]
+        "models": [
+          {
+            "id": "MiniMax-M2.5"
+          }
+        ]
       }
     }
   },
