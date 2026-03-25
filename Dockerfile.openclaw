@@ -1,0 +1,9 @@
+# OpenClaw Custom Dockerfile for Railway
+FROM ghcr.io/openclaw/agent:latest
+
+# Copy custom entrypoint script
+COPY openclaw-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+# Override CMD to run our custom entrypoint
+CMD ["/entrypoint.sh"]

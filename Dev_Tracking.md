@@ -15,6 +15,7 @@
 
 | Sprint | Periodo | Estado | Link |
 |---|---|---|---|
+| `S3` | `2026-03-24` | `Active` | `Dev_Tracking_S3.md` |
 | `S2` | `2026-03-24` | `Doing` | `Dev_Tracking_S2.md` |
 | `S1` | `2026-03-23` | `Accepted` | `Sprint/Dev_Tracking_S1.md` |
 | `S0` | `2026-03-20` | `Accepted` | `Sprint/Dev_Tracking_S0.md` |
