@@ -21,15 +21,65 @@
     },
     {
       "parameters": {
-        "jsCode": "const incoming = $json.body ?? $json;\nconst text = incoming.text ?? '';\nconst trimmed = String(text).trim();\nreturn [{ json: { text: `n8n recebeu: ${trimmed || 'mensagem vazia'}` } }];"
+        "jsCode": "const incoming = $json.body ?? $json;\nconst text = incoming.text ?? '';\nconst trimmed = String(text).trim();\nconst isOC = trimmed.toLowerCase().startsWith('openclaw:');\n\nreturn [{\n  json: {\n    text: trimmed,\n    isOpenClaw: isOC,\n    originalText: trimmed,\n    cleanText: isOC ? trimmed.substring(9).trim() : trimmed\n  }\n}];"
+      },
+      "id": "67b9d62d-986c-4b6e-bd3c-8a0b0b8b8b8b",
+      "name": "Router Logic",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://stv-iaopsopenclaw-production.up.railway.app/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer IjJCVvTeREbzwuCQzBXbgdsMdPcsJsRP"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "model",
+              "value": "anthropic/claude-3-5-sonnet-20240620"
+            },
+            {
+              "name": "messages",
+              "value": "=[{\"role\": \"user\", \"content\": \"{{$json.cleanText}}\"}]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "openclaw-api-node",
+      "name": "OpenClaw API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        700,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: { text: `Cindy (n8n): ${$json.text}` } }];"
       },
       "id": "code-node",
       "name": "Build Reply",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        520,
-        300
+        700,
+        400
       ]
     },
     {
@@ -43,8 +93,28 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        780,
+        1000,
         300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.isOpenClaw}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "switch-node",
+      "name": "Branch",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        580,
+        140
       ]
     }
   ],
@@ -53,7 +123,47 @@
       "main": [
         [
           {
+            "node": "Router Logic",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router Logic": {
+      "main": [
+        [
+          {
+            "node": "Branch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Branch": {
+      "main": [
+        [
+          {
+            "node": "OpenClaw API",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
             "node": "Build Reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenClaw API": {
+      "main": [
+        [
+          {
+            "node": "Return Reply",
             "type": "main",
             "index": 0
           }
@@ -72,18 +182,10 @@
       ]
     }
   },
-  "createdAt": "2026-03-24T00:17:28.833Z",
-  "updatedAt": "2026-03-24T00:22:53.680Z",
   "settings": {},
   "staticData": null,
   "pinData": null,
   "versionId": "b3ac96d7-a16e-475c-98c4-5c1658aa65b3",
   "triggerCount": 1,
-  "id": "ZeJnme4CHDfjRE4A",
-  "meta": null,
-  "parentFolderId": null,
-  "isArchived": false,
-  "versionCounter": 14,
-  "description": null,
-  "activeVersionId": "b3ac96d7-a16e-475c-98c4-5c1658aa65b3"
+  "id": "ZeJnme4CHDfjRE4A"
 }
