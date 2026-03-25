@@ -25,7 +25,8 @@ cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
         "apiKey": "${MINIMAX_API_KEY}",
         "models": [
           {
-            "id": "MiniMax-M2.5"
+            "id": "MiniMax-M2.5",
+            "name": "MiniMax-M2.5"
           }
         ]
       }
