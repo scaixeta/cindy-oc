@@ -41,12 +41,7 @@ cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
   },
   "channels": {
     "telegram": {
-      "botToken": "${TELEGRAM_BOT_TOKEN}",
-      "plugins": {
-        "telegram": {
-          "enabled": true
-        }
-      }
+      "botToken": "${TELEGRAM_BOT_TOKEN}"
     }
   }
 }
