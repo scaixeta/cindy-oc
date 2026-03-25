@@ -39,8 +39,10 @@ cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
       }
     }
   },
-  "telegram": {
-    "authorizedUsers": ["8687754084"]
+  "channels": {
+    "telegram": {
+      "authorizedUsers": ["8687754084"]
+    }
   }
 }
 CONFIGEOF
