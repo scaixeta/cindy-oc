@@ -38,6 +38,16 @@ cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
         "primary": "minimax/MiniMax-M2.5"
       }
     }
+  },
+  "channels": {
+    "telegram": {
+      "botToken": "${TELEGRAM_BOT_TOKEN}",
+      "plugins": {
+        "telegram": {
+          "enabled": true
+        }
+      }
+    }
   }
 }
 CONFIGEOF
@@ -46,5 +56,21 @@ CONFIGEOF
 export PATH="$(npm root -g)/.bin:$PATH"
 export OPENCLAW_CONFIG_PATH=/home/node/.openclaw/openclaw.json
 
-# Run gateway
-exec openclaw gateway --allow-unconfigured --bind lan --port 18789 --token "$OPENCLAW_GATEWAY_TOKEN"
+# If PAIRING_CODE is set, approve it after gateway starts
+if [ -n "$PAIRING_CODE" ]; then
+  # Start gateway in background
+  openclaw gateway --allow-unconfigured --bind lan --port 18789 --token "$OPENCLAW_GATEWAY_TOKEN" &
+  GATEWAY_PID=$!
+  
+  # Wait for gateway to be ready
+  sleep 10
+  
+  # Approve the pairing
+  openclaw pairing approve telegram "$PAIRING_CODE"
+  
+  # Wait for gateway process
+  wait $GATEWAY_PID
+else
+  # Run gateway directly
+  exec openclaw gateway --allow-unconfigured --bind lan --port 18789 --token "$OPENCLAW_GATEWAY_TOKEN"
+fi
