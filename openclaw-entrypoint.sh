@@ -51,7 +51,7 @@ CONFIGEOF
 export PATH="$(npm root -g)/.bin:$PATH"
 export OPENCLAW_CONFIG_PATH=/home/node/.openclaw/openclaw.json
 
-# If PAIRING_CODE is set, approve it after gateway starts
+# If PAIRING_CODE is set, try to approve it after gateway starts
 if [ -n "$PAIRING_CODE" ]; then
   # Start gateway in background
   openclaw gateway --allow-unconfigured --bind lan --port 18789 --token "$OPENCLAW_GATEWAY_TOKEN" &
@@ -60,8 +60,14 @@ if [ -n "$PAIRING_CODE" ]; then
   # Wait for gateway to be ready
   sleep 10
   
-  # Approve the pairing
-  openclaw pairing approve telegram "$PAIRING_CODE"
+  # Try to approve the pairing (may fail if code expired)
+  echo "Attempting to approve pairing code: $PAIRING_CODE"
+  if openclaw pairing approve telegram "$PAIRING_CODE" 2>&1; then
+    echo "Pairing code approved successfully!"
+  else
+    echo "Pairing code may have expired or is invalid. Gateway is still running."
+    echo "To pair Telegram, send /pair to the bot and approve the new code."
+  fi
   
   # Wait for gateway process
   wait $GATEWAY_PID

@@ -97,6 +97,25 @@ Centralizar o registro de bugs e testes por sprint com rastreabilidade suficient
 
 (Nenhum teste registrado para S2 ate o momento)
 
+## 6. Sprint S3
+
+### Bugs Registrados
+
+- `BUG-S3-01` - `Pareamento automatico Telegram nao funciona via PAIRING_CODE`
+  - Evidencia: `openclaw pairing approve telegram XEVPZQ6K retorna "No pending pairing request found for code: XEVPZQ6K"`
+  - Impacto: `Alto - Usuario precisa fazer pairing manual apos cada deploy/redeploy`
+  - Status: `Open - Root cause em investigacao`
+  - Tentativas de correcao:
+    - 1. PAIRING_CODE no entrypoint com sleep 10: `FALHOU - codigo expirou antes do approve`
+    - 2. PAIRamento via variavel de ambiente: `FALHOU - mesmo erro`
+    - 3. Entrypoint com tratamento de erro: `GATEWAY FUNCIONAL, mas pairing manual ainda necessario`
+  - Root cause teorizada: `O codigo de pairing expira rapidamente ou o approve executa antes do gateway processar o pending request`
+  - Proximos passos: `Investigar timing do approve ou usar authorizedUsers na config`
+
+### Testes Registrados
+
+(Nenhum teste registrado para S3 ate o momento)
+
 ## 6. Timestamp UTC
 
 Usar formato DOC2.5 (ISO 8601, 24h): `YYYY-MM-DDTHH:MM:SS-ST` para inicio e `YYYY-MM-DDTHH:MM:SS-FN` para fim.
@@ -114,6 +133,8 @@ TEST-S0-06 | 2026-03-20T22:05:20-ST | 2026-03-20T22:05:50-FN | Passed
 TEST-S0-07 | 2026-03-23T20:43:30-ST | 2026-03-23T20:44:00-FN | Passed
 TEST-S1-01 | 2026-03-23T23:54:00-ST | 2026-03-23T23:54:30-FN | Passed
 TEST-S1-02 | 2026-03-23T23:55:00-ST | 2026-03-23T23:55:30-FN | Passed
+TEST-S1-03 | 2026-03-23T23:56:00-ST | 2026-03-23T23:57:00-FN | Passed
+BUG-S3-01 | 2026-03-25T04:00:00-ST | 2026-03-25T04:06:00-FN | Open
 
 ## 7. Regras de Qualidade do Log
 
