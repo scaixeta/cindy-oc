@@ -4,7 +4,7 @@ set -e
 # Create config directory
 mkdir -p /home/node/.openclaw
 
-# Create openclaw.json config file
+# Create openclaw.json config file with pre-authorized user
 cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
 {
   "gateway": {
@@ -38,6 +38,9 @@ cat > /home/node/.openclaw/openclaw.json << 'CONFIGEOF'
         "primary": "minimax/MiniMax-M2.5"
       }
     }
+  },
+  "telegram": {
+    "authorizedUsers": ["8687754084"]
   }
 }
 CONFIGEOF
