@@ -1,0 +1,12 @@
+{
+  "name": "cindy-ai-orchestrator",
+  "version": "1.0.0",
+  "description": "Cindy AI Orchestrator - Baseline Docker",
+  "main": "telegram-bot.js",
+  "scripts": {
+    "start": "node telegram-bot.js",
+    "test": "node test-automation.js"
+  },
+  "keywords": ["telegram", "bot", "n8n", "openclaw"],
+  "author": "Cindy OC"
+}

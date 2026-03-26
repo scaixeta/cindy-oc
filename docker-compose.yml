@@ -1,0 +1,22 @@
+# Cindy AI Orchestrator - Docker Baseline
+# Working name: "Cindy AI - Orchestrator"
+# Final naming: Pending PO validation
+
+services:
+  cindy-ai-orchestrator:
+    container_name: cindy-ai-orchestrator
+    image: node:18-alpine
+    restart: unless-stopped
+    working_dir: /app
+    volumes:
+      - ./package.json:/app/package.json:ro
+      - ./telegram-bot.js:/app/telegram-bot.js:ro
+      - ./node_modules:/app/node_modules:ro
+    env_file:
+      - .scr/.env
+    # Orchestrator entry point
+    command: ["node", "telegram-bot.js"]
+
+# Startup behavior:
+#   docker compose up              -> starts cindy-ai-orchestrator only
+#   docker compose --profile all up -> future expansion (add services here)
