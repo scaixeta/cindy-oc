@@ -1,0 +1,229 @@
+# Cindy AI Orchestrator - Production Docker Stack
+# Full-featured orchestrator with DOC2.5 governance
+# Version: 1.0.0-docker
+
+version: '3.8'
+
+services:
+  # ============================================
+  # Cindy AI Orchestrator (Production)
+  # ============================================
+  cindy-orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.cindy-orchestrator
+      target: production
+      args:
+        NODE_ENV: production
+        BUILD_DATE: ${BUILD_DATE:-2026-03-26}
+        VERSION: ${VERSION:-1.0.0}
+    
+    container_name: cindy-orchestrator
+    restart: unless-stopped
+    
+    # Use Docker's built-in init for proper signal handling and zombie reaping
+    init: true
+    
+    environment:
+      # Core
+      - NODE_ENV=production
+      - TZ=America/Sao_Paulo
+      
+      # Orchestrator config
+      - ORCHESTRATOR_MODE=docker
+      - DOC25_GOVERNANCE=enabled
+      - SKILLS_DISCOVERY=auto
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      
+      # Telegram
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_WEBHOOK_MODE=${TELEGRAM_WEBHOOK_MODE:-polling}
+      
+      # n8n integration
+      - N8N_URL=${N8N_URL:-http://n8n-local:5678}
+      - N8N_WEBHOOK_PATH=${N8N_WEBHOOK_PATH:-cindy-telegram}
+      - N8N_API_KEY=${N8N_API_KEY:-}
+      
+      # OpenClaw (future)
+      - OPENCLAW_ENABLED=${OPENCLAW_ENABLED:-false}
+      - OPENCLAW_URL=${OPENCLAW_URL:-}
+      
+      # Observability
+      - METRICS_ENABLED=${METRICS_ENABLED:-true}
+      - METRICS_PORT=9090
+      - HEALTH_CHECK_INTERVAL=30
+      
+      # Storage
+      - STATE_PERSISTENCE=${STATE_PERSISTENCE:-true}
+      - CACHE_ENABLED=${CACHE_ENABLED:-true}
+      - CACHE_TTL=${CACHE_TTL:-3600}
+    
+    volumes:
+      # Persistent state
+      - cindy-state:/app/state
+      - cindy-logs:/app/logs
+      - cindy-cache:/app/cache
+    
+    ports:
+      - "${METRICS_PORT:-9090}:9090"
+    
+    depends_on:
+      n8n-local:
+        condition: service_healthy
+    
+    networks:
+      - cindy-network
+    
+    healthcheck:
+      test: ["CMD", "/usr/local/bin/healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      start_period: 40s
+      retries: 3
+    
+    # Security: Drop capabilities, no new privileges
+    security_opt:
+      - no-new-privileges:true
+    
+    # Read-only root filesystem (optional hardening)
+    read_only: false
+    
+    labels:
+      - "com.cindy.service=orchestrator"
+      - "com.cindy.version=1.0.0-docker"
+      - "com.cindy.governance=doc25"
+
+  # ============================================
+  # n8n Workflow Engine (Local)
+  # ============================================
+  n8n-local:
+    image: n8nio/n8n:2.13.4
+    container_name: n8n-local
+    restart: unless-stopped
+    
+    environment:
+      - N8N_PROTOCOL=http
+      - N8N_PORT=5678
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - N8N_DB_TYPE=sqlite
+      - N8N_DB_SQLITE_UPPER_DB_NAME=false
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - N8N_LOG_LEVEL=${N8N_LOG_LEVEL:-info}
+      - N8N_METRICS=true
+      - N8N_BASIC_AUTH_ACTIVE=false
+      - N8N_JWT_AUTH_ACTIVE=false
+    
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    
+    volumes:
+      - n8n-data:/home/node/.n8n
+      - n8n-workflows:/home/node/.n8n/workflows
+    
+    networks:
+      - cindy-network
+    
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5678/healthz || exit 1"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 3
+    
+    labels:
+      - "com.cindy.service=workflow-engine"
+      - "com.cindy.engine=n8n"
+
+  # ============================================
+  # Redis Cache (Optional - Future)
+  # ============================================
+  redis-cache:
+    image: redis:7-alpine
+    container_name: cindy-redis
+    restart: unless-stopped
+    
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    
+    volumes:
+      - redis-data:/data
+    
+    networks:
+      - cindy-network
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    
+    profiles:
+      - cache
+      - full
+    
+    labels:
+      - "com.cindy.service=cache"
+
+# ============================================
+# Volumes
+# ============================================
+volumes:
+  # Cindy Orchestrator
+  cindy-state:
+    driver: local
+    labels:
+      - "com.cindy.volume=state"
+  
+  cindy-logs:
+    driver: local
+    labels:
+      - "com.cindy.volume=logs"
+  
+  cindy-cache:
+    driver: local
+    labels:
+      - "com.cindy.volume=cache"
+  
+  # n8n
+  n8n-data:
+    driver: local
+    labels:
+      - "com.cindy.volume=n8n-data"
+  
+  n8n-workflows:
+    driver: local
+    labels:
+      - "com.cindy.volume=n8n-workflows"
+  
+  # Redis
+  redis-data:
+    driver: local
+    labels:
+      - "com.cindy.volume=redis"
+
+# ============================================
+# Networks
+# ============================================
+networks:
+  cindy-network:
+    driver: bridge
+    name: cindy-network
+    labels:
+      - "com.cindy.network=main"
+
+# ============================================
+# Usage Examples
+# ============================================
+# Basic stack (orchestrator + n8n):
+#   docker compose -f docker-compose.production.yml up -d
+#
+# Full stack (with Redis cache):
+#   docker compose -f docker-compose.production.yml --profile full up -d
+#
+# View logs:
+#   docker compose -f docker-compose.production.yml logs -f cindy-orchestrator
+#
+# Rebuild after changes:
+#   docker compose -f docker-compose.production.yml up -d --build
+#
+# Stop and remove:
+#   docker compose -f docker-compose.production.yml down

@@ -122,3 +122,18 @@ Nao devem existir como parte do modelo canonico:
 - `docs/INDEX.md`
 - estruturas paralelas que dupliquem tracking, docs ou regras
 - documentacao que afirme integracoes nao implantadas como se fossem reais
+
+### Regra 12: Protecao de Credenciais em `.env`
+
+- Arquivo `.env` nunca deve ser versionado (confirmar `.gitignore`)
+- Edicoes em `.env` so podem modificar variaveis de configuracao
+- Modificacoes em credenciais exigem:
+  1. Backup SHA256 verificado
+  2. Aprovacao explicita do PO
+  3. Rastreabilidade em Dev_Tracking_SX
+  4. Documentacao em CHANGELOG ou tests/bugs_log.md
+- Variaveis classificadas como credenciais:
+  - Prefixo `*_TOKEN`, `*_KEY`, `*_SECRET`
+  - Campos explicitos: `PASSWORD`, `ENCRYPTION_KEY`, `API_TOKEN`
+- Em caso de perda/adulteracao de credencial: invocar procedimento de recovery
+- Referencias: `Wauzap/CR-S3-ENV-01`

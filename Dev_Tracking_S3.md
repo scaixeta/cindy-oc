@@ -65,6 +65,55 @@ Criar workflow decisório que siga a ordem de precedência DOC2.5:
 - [ ] Validar rastreabilidade
 - [ ] Ajustar conforme necessário
 
+### S3-06: Implementar Doutrina de Protecao `.env`
+- [x] Criar CR-S3-ENV-01 em Wauzap/CR-S3-env-doutrina.md
+- [x] Atualizar rules/WORKSPACE_RULES.md (Regra 12)
+- [x] Organizar src/.env com comentarios e estrutura
+- [x] Adicionar src/.env ao .gitignore
+- [x] Criar .env.example como template
+- [ ] Atualizar docs/SETUP.md com procedimento (opcional - revertido pelo PO)
+- [ ] Criar KB/env-security.md (opcional S4)
+
+### S3-07: Workflow n8n Telegram Auto-Reply (EM ANDAMENTO)
+- [x] Criar workflow JSON: Webhook → Code → HTTP(MiniMax) → Format → Telegram
+- [x] **Correções aplicadas em 2026-03-26T16:49:00-ST**:
+  - Node "Extract Data": `$input.item.json` → `$input.json`
+  - Node "MiniMax AI": Headers e body refatorados para sintaxe correta n8n v3
+  - Node "Format Response": `$('Extract Data').first().json` → `$node["Extract Data"].json`
+  - Node "Telegram": Expressões corrigidas com espaços `{{ $json.xxx }}`
+- [x] **Correções críticas em 2026-03-26T17:00-17:20-ST** (Sessão final):
+  - **Erro 415 (Unsupported Media Type)**: Header `Content-Type: application/json` ausente nas chamadas POST
+  - **Erro 500 (Internal Server Error)**: Nó Telegram falhava com credenciais inválidas (chat_id fictício `123456789`)
+  - **Solução**: Removido nó Telegram problemático, substituído por Code node + Respond to Webhook
+  - **Teste**: Webhook respondendo 200 OK com dados JSON corretos
+- [ ] Deploy via API n8n (workflow corrigido)
+- [ ] Teste end-to-end com Telegram (com chat_id real)
+- [ ] Documentar padrão em KB
+
+**Nota**: Workflow simples (Webhook → Process → Respond) funcionando. Padrão de credenciais seguras implementado via `.scr/.env`.
+
+---
+
+### S3-08: Padrão Seguro de Credenciais para Scripts (CONCLUÍDO)
+- [x] Implementar leitura de credenciais de `.scr/.env` em vez de hardcoded
+- [x] **Script padrão** (`test-with-env.ps1`):
+  ```powershell
+  # Carregar variáveis do .scr/.env
+  $envContent = Get-Content 'c:/Cindy-OC/.scr/.env'
+  foreach ($line in $envContent) {
+      if ($line -match '^([^=]+)=(.*)$') {
+          $key = $matches[1]
+          $value = $matches[2]
+          [Environment]::SetEnvironmentVariable($key, $value, "Process")
+      }
+  }
+  # Usar: [Environment]::GetEnvironmentVariable('N8N_API_KEY')
+  ```
+- [x] **Validação**: Conectividade n8n confirmada via API
+- [x] **Regra**: Nunca hardcoded credenciais em scripts PowerShell ou arquivos versionados
+
+**Padrão a ser seguido**: Todos os scripts em `/scripts/` devem seguir este padrão.
+
 ---
 
 ## Timestamps
@@ -72,6 +121,9 @@ Criar workflow decisório que siga a ordem de precedência DOC2.5:
 | Evento | Timestamp | Status |
 |--------|-----------|--------|
 | S3 Início | 2026-03-26T13:45:00-ST | Planejado |
+| S3-07 Correção Erro 415+500 | 2026-03-26T17:00:00-ST | ✅ Corrigido |
+| S3-08 Padrão Credenciais | 2026-03-26T17:15:00-ST | ✅ Implementado |
+| S3-08 Limpeza de Scripts | 2026-03-26T17:19:00-ST | ✅ Concluído |
 
 ---
 
@@ -92,6 +144,6 @@ Criar workflow decisório que siga a ordem de precedência DOC2.5:
 
 ---
 
-**Última Atualização**: 2026-03-26T13:45:00-ST
+**Última Atualização**: 2026-03-26T17:22:00-ST
 **Responsável**: Cline (AI Assistant)
 **Validação PO**: Pendente

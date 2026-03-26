@@ -1,0 +1,118 @@
+# Dockerfile.cindy-orchestrator
+# Multi-stage build para Cindy AI Orchestrator com DOC2.5 awareness
+# Arquitetura: Node.js 18 Alpine + Skills Discovery + Context Manager
+# Seguindo boas práticas Docker Specialist
+
+# ============================================
+# Stage 1: Dependencies Builder
+# ============================================
+FROM node:18.20.0-alpine3.19 AS builder
+
+WORKDIR /build
+
+# Copy package files first (cached unless package.json changes)
+COPY package.json package-lock.json ./
+
+# Install production dependencies
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# ============================================
+# Stage 2: Skills & KB Compiler
+# ============================================
+FROM node:18.20.0-alpine3.19 AS knowledge
+
+WORKDIR /knowledge
+
+# Copy knowledge base and skills (these rarely change)
+COPY KB/ ./KB/
+COPY .cline/skills/ ./.cline/skills/
+COPY docs/ ./docs/
+COPY Templates/ ./Templates/
+COPY rules/ ./rules/
+COPY Cindy_Contract.md ./
+
+# Create discovery index (runtime will use this)
+RUN apk add --no-cache jq && \
+    echo '{"skills": [], "kb": [], "docs": []}' > discovery-index.json && \
+    find .cline/skills -type d -maxdepth 1 -mindepth 1 -exec basename {} \; | jq -R -s 'split("\n")[:-1] | {skills: .}' > skills-index.json && \
+    find KB -type f -name "*.json" -o -name "*.md" | jq -R -s 'split("\n")[:-1] | {kb: .}' > kb-index.json && \
+    find docs -type f -name "*.md" | jq -R -s 'split("\n")[:-1] | {docs: .}' > docs-index.json && \
+    rm -rf /var/cache/apk/*
+
+# ============================================
+# Stage 3: Runtime Image (Production)
+# ============================================
+FROM node:18.20.0-alpine3.19 AS production
+
+# Metadata
+LABEL maintainer="Cindy OC <cindy@sentivis.ai>"
+LABEL version="1.0.0-docker"
+LABEL description="Cindy AI Orchestrator with DOC2.5 governance"
+LABEL org.opencontainers.image.source="https://github.com/scaixeta/cindy-oc"
+
+# Install runtime utilities and init system (tini)
+RUN apk add --no-cache \
+    curl \
+    jq \
+    bash \
+    tzdata \
+    tini \
+    && rm -rf /var/cache/apk/*
+
+# Set timezone
+ENV TZ=America/Sao_Paulo
+
+# Create non-root user and group (security best practice)
+RUN addgroup -g 1001 -S cindy && \
+    adduser -u 1001 -S cindy -G cindy
+
+# Create app directory with correct ownership
+WORKDIR /app
+
+# Copy dependencies from builder with ownership
+COPY --from=builder --chown=cindy:cindy /build/node_modules ./node_modules
+
+# Copy knowledge base from compiler with ownership
+COPY --from=knowledge --chown=cindy:cindy /knowledge/KB ./KB
+COPY --from=knowledge --chown=cindy:cindy /knowledge/.cline/skills ./.cline/skills
+COPY --from=knowledge --chown=cindy:cindy /knowledge/docs ./docs
+COPY --from=knowledge --chown=cindy:cindy /knowledge/Templates ./Templates
+COPY --from=knowledge --chown=cindy:cindy /knowledge/rules ./rules
+COPY --from=knowledge --chown=cindy:cindy /knowledge/Cindy_Contract.md ./
+COPY --from=knowledge --chown=cindy:cindy /knowledge/*.json ./
+
+# Copy application code
+COPY --chown=cindy:cindy package.json ./
+COPY --chown=cindy:cindy telegram-bot.js ./
+COPY --chown=cindy:cindy src/ ./src/
+
+# Copy entrypoint and healthcheck
+COPY --chown=cindy:cindy docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY --chown=cindy:cindy docker/healthcheck.sh /usr/local/bin/healthcheck.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/healthcheck.sh
+
+# Create runtime directories with correct ownership
+RUN mkdir -p /app/logs /app/state /app/cache && \
+    chown -R cindy:cindy /app
+
+# Expose metrics port (future)
+EXPOSE 9090
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD /usr/local/bin/healthcheck.sh
+
+# Environment defaults
+ENV NODE_ENV=production \
+    LOG_LEVEL=info \
+    ORCHESTRATOR_MODE=docker \
+    DOC25_GOVERNANCE=enabled \
+    SKILLS_DISCOVERY=auto
+
+# Switch to non-root user (CRITICAL security practice)
+USER cindy
+
+# Use tini as init process to handle signals and zombie reaping
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+CMD ["node", "telegram-bot.js"]

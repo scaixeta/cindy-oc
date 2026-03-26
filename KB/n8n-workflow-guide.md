@@ -369,6 +369,55 @@ environment:
 | `PATCH method not allowed` | URL incorreta ou versão N8N antigo | Verificar URL: `/api/v1/workflows/{id}` |
 | `Unauthorized` | API key inválida | Verificar `N8N_API_KEY` em `.env` |
 | `Invalid JSON` | Formatação incorreta | Validar com `python -m json.tool` |
+| **`415 Unsupported Media Type`** | Header `Content-Type` ausente | Adicionar header `'Content-Type': 'application/json'` em todas as chamadas POST |
+| **`500 Internal Server Error`** | Nó falhando (ex: Telegram com credenciais inválidas) | Verificar credenciais, testar nós individualmente, usar Respond to Webhook para debug |
+| **`curl 000`** | Timeout ou conexão recusada | Verificar se n8n está rodando, verificar URL do webhook |
+
+### 7.2 Erro 415: Unsupported Media Type
+
+**Sintoma**: Ao chamar API n8n via REST, retorna erro 415.
+
+**Causa**: Header `Content-Type: application/json` não está sendo enviado.
+
+**Solução**:
+```powershell
+$headers = @{
+    'X-N8N-API-KEY' = $API_KEY
+    'Content-Type'  = 'application/json'  # ← Obrigatório!
+}
+
+# POST com body
+Invoke-RestMethod -Uri "$N8N_URL/api/v1/workflows" -Method POST -Headers $headers -Body $jsonBody
+
+# POST sem body (ativar workflow)
+Invoke-RestMethod -Uri "$N8N_URL/api/v1/workflows/$WF_ID/activate" -Method POST -Headers $headers -Body '{}'
+```
+
+### 7.3 Erro 500: Workflow Falha na Execução
+
+**Sintoma**: Webhook responde 500 Internal Server Error.
+
+**Causa Comum**: Nó Telegram com `chat_id` inválido ou credenciais não configuradas.
+
+**Diagnóstico**:
+1. Verificar execuções: `GET /api/v1/executions?workflowId={id}`
+2. Ver logs do container: `docker logs n8n-local --tail 50`
+3. Testar workflow sem o nó problemático
+
+**Solução** (se Telegram falhar):
+1. Remover nó Telegram temporariamente
+2. Usar nó **Respond to Webhook** para retornar dados JSON
+3. Testar fluxo completo
+4. Depois adicionar Telegram com `chat_id` real
+
+### 7.4 Padrão: Testar Workflow Sem Nós Externos
+
+Quando um workflow falha, isolar o problema:
+1. Criar versão mínima: **Webhook → Code → Respond**
+2. Testar se chega dados
+3. Adicionar nós um por um
+4. Identificar qual nó causa o erro
+5. Corrigir ou substituir o nó problemático
 
 ### 7.2 Validar Webhook Está Funcionando
 

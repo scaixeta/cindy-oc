@@ -1,0 +1,86 @@
+# .dockerignore - Cindy AI Orchestrator
+# Reduce build context but allow necessary files for build
+
+# ============================================
+# Version Control
+# ============================================
+.git
+.gitignore
+.github/
+
+# ============================================
+# Dependencies (installed in container)
+# ============================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# Environment & Secrets
+# ============================================
+.scr/
+.env
+.env.*
+!.env.docker.example
+*.pem
+*.key
+*.crt
+
+# ============================================
+# Development Files
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================================
+# Docker Files
+# ============================================
+Dockerfile*
+docker-compose*.yml
+docker-compose*.yaml
+.dockerignore
+
+# ============================================
+# Logs & Cache
+# ============================================
+logs/
+*.log
+*.log.*
+.cache/
+tmp/
+temp/
+
+# ============================================
+# State & Persistence (volumes)
+# ============================================
+state/
+*.db
+*.sqlite
+
+# ============================================
+# Tests & CI
+# ============================================
+tests/
+coverage/
+.nyc_output/
+*.test.js
+*.spec.js
+.circleci/
+
+# ============================================
+# OS Files
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================
+# Sprint & Tracking (not needed in container)
+# ============================================
+Sprint/
+Wauzap/
+.dev/

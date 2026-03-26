@@ -3,6 +3,9 @@
 .env
 .env.local
 .env.*.local
+src/.env
+src/.env.local
+src/.env.*.local
 
 # OS
 .DS_Store
@@ -16,7 +19,21 @@ Thumbs.db
 
 # Logs
 *.log
+logs/
 
 # Temporary
 *.tmp
 *.temp
+
+# Docker volumes (local development)
+state/
+cache/
+
+# Build artifacts
+dist/
+build/
+
+# Credentials and keys
+*.pem
+*.key
+*.crt
