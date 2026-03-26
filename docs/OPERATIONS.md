@@ -196,7 +196,29 @@ Sempre que uma funcionalidade nao estiver explicitamente validada para a Fase 1:
 - Integracoes externas
 - Fase 2
 
-## 15. Referencias minimas
+## 16. Guia de Integracao MiniMax M2.5 no AI Agent do n8n
+
+### Passo 1 — Configurar credencial no n8n
+
+No n8n, ir em **Credentials → New → OpenAI API**.
+
+| Campo | Valor |
+|---|---|
+| **API Key** | sua chave MiniMax |
+| **Base URL** | `https://api.minimax.io/v1` |
+
+### Passo 2 — Adicionar o no de modelo no AI Agent
+
+No no **AI Agent**, adicionar um sub-no do tipo **OpenAI Chat Model**.
+Selecionar a credencial criada e no campo **Model**, digitar manualmente: `MiniMax-M2.5`.
+
+### Passo 3 — Conectar e testar
+
+- Conectar o **Chat Model** ao ponto `model` do AI Agent.
+- Adicionar um **Chat Trigger** como input.
+- Validar se o `Base URL` termina em `/v1` e o modelo e exatamente `MiniMax-M2.5`.
+
+## 17. Referencias minimas
 
 - `README.md`
 - `docs/SETUP.md`

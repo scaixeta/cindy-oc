@@ -5,7 +5,9 @@ description: Proven workflow architectural patterns from real n8n workflows. Use
 
 # n8n Workflow Patterns
 
-Proven architectural patterns for building n8n workflows.
+Proven architectural patterns for building n8n workflows based on real Sprint S2 implementation with Cindy-Telegram workflow.
+
+**Updated**: March 2026 - Validated with production workflow (ID: f0Nbq7BA3mPoxZvZ)
 
 ---
 

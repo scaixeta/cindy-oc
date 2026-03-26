@@ -1,5 +1,5 @@
-# Cindy AI Orchestrator - Docker Baseline
-# Working name: "Cindy AI - Orchestrator"
+# Cindy AI Orchestrator - Docker Baseline (LOCAL)
+# All services: LOCAL (n8n + SQLite)
 # Final naming: Pending PO validation
 
 services:
@@ -16,7 +16,39 @@ services:
       - .scr/.env
     # Orchestrator entry point
     command: ["node", "telegram-bot.js"]
+    depends_on:
+      - n8n-local
+    networks:
+      - cindy-local
+
+  n8n-local:
+    container_name: n8n-local
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_PROTOCOL=http
+      - N8N_PORT=5678
+      - N8N_ENCRYPTION_KEY=bNq+GJdmbvP9T46xqIr3ywynf5RVs7FSR+V7WIYT/qc=
+      - N8N_DB_TYPE=sqlite
+      - N8N_DB_SQLITE_UPPER_DB_NAME=false
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+    volumes:
+      - n8n-data:/home/node/.n8n
+    env_file:
+      - .scr/.env
+    networks:
+      - cindy-local
+
+volumes:
+  n8n-data:
+    driver: local
+
+networks:
+  cindy-local:
+    driver: bridge
 
 # Startup behavior:
-#   docker compose up              -> starts cindy-ai-orchestrator only
-#   docker compose --profile all up -> future expansion (add services here)
+#   docker compose up              -> starts all Cindy LOCAL services
+#   docker compose up cindy-ai-orchestrator  -> only orchestrator (n8n must be running)

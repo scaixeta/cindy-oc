@@ -1,6 +1,8 @@
 // telegram-bot.js - Cindy OC Telegram Bot MVP (Hardened)
 // Long polling loop with resilience and observability
 
+require('dotenv').config({ path: '.scr/.env' });
+
 // ============================================
 // Startup Confirmation (ST-S1-06)
 // ============================================
@@ -85,7 +87,7 @@ async function handleFallback(chatId, errorType) {
 
 async function getUpdates() {
   try {
-    const url = `${API_URL}/getUpdates?timeout=1&limit=1`;
+    const url = `${API_URL}/getUpdates?offset=${lastUpdateId + 1}&timeout=1&limit=1`;
     const response = await fetch(url, { method: 'POST' });
     const data = await response.json();
     return data.ok ? data.result : [];

@@ -108,7 +108,14 @@ O projeto porta o minimo util destes blocos:
 - `Timestamp UTC` nas tabelas de tracking
 - quando nao houver automacao, registrar a validacao manual realmente executada
 
-## 10. Referencias minimas
+## 11. Integracao MiniMax M2.5 (n8n)
+
+- Utilizar a API compatível com OpenAI da MiniMax.
+- Base URL recomendada: `https://api.minimax.io/v1`.
+- Modelo recomendado: `MiniMax-M2.5`.
+- Credencial no n8n: Tipo `OpenAI API`.
+
+## 12. Referencias minimas
 
 - `README.md`
 - `docs/SETUP.md`

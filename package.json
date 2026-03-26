@@ -7,6 +7,15 @@
     "start": "node telegram-bot.js",
     "test": "node test-automation.js"
   },
-  "keywords": ["telegram", "bot", "n8n", "openclaw"],
-  "author": "Cindy OC"
+  "keywords": [
+    "telegram",
+    "bot",
+    "n8n",
+    "openclaw"
+  ],
+  "author": "Cindy OC",
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "node-fetch": "^3.3.2"
+  }
 }

@@ -1,0 +1,61 @@
+{
+  "name": "Cindy-telegram",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "Cindy-telegram",
+        "options": {}
+      },
+      "id": "wh1",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        256,
+        304
+      ],
+      "webhookId": "b8e8bf4e-9cbf-4c2f-b144-feee894c7fcb"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "resp1",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        512,
+        304
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "6d55b420-3050-42fe-b556-0d97d2679bb9",
+  "meta": {
+    "instanceId": "ab11197193d4557c2a03e19781cb8e03ffec63bfa5aa8dd1cae66c1a73f605bd"
+  },
+  "id": "KNbuaVgu7vKweBSk",
+  "tags": []
+}
