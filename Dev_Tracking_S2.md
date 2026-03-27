@@ -32,6 +32,9 @@
 | To-Do | `ST-S2-06 - Definir e validar baseline de release controlado para futuras habilitacoes` |
 | To-Do | `ST-S2-07 - Registrar checklist operacional para OpenClaw fase 1` |
 | To-Do | `ST-S2-08 - Definir criterios de aceite para considerar OpenClaw fase 1 completo` |
+| Doing | `ST-S2-09 - Projetar Dockerfile customizado para NemoClaw em ambiente PaaS (Railway)` |
+| To-Do | `ST-S2-10 - Configurar entrypoint.sh para automação de startup no container` |
+| To-Do | `ST-S2-11 - Criar guia canônico de deploy Railway na KB` |
 
 Estados possiveis:
 - `To-Do`, `Doing`, `Done`, `Accepted`, `Pending-SX`
