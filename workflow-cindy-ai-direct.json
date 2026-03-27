@@ -1,0 +1,85 @@
+{
+  "name": "Cindy AI Direct Test",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cindy-ai-direct",
+        "responseMode": "responseNode"
+      },
+      "id": "webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "position": [250, 300],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body || $input.first().json;\nconst text = body.text || '';\nreturn { json: { text: text } };"
+      },
+      "id": "extract",
+      "name": "Extract Input",
+      "type": "n8n-nodes-base.code",
+      "position": [450, 300],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Content-Type", "value": "application/json" },
+            { "name": "Authorization", "value": "Bearer {{ $env.OPENROUTER_API_KEY }}" },
+            { "name": "HTTP-Referer", "value": "https://cindy-oc.local" },
+            { "name": "X-Title", "value": "Cindy-OC" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "model", "value": "openrouter/auto" },
+            { "name": "messages", "value": [{ "role": "user", "content": "{{ $json.text }}" }] }
+          ]
+        }
+      },
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [650, 300],
+      "typeVersion": 4
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst text = input.text || '';\nconst choices = input.choices;\nlet output = 'Sem resposta do provedor.';\n\nif (choices && choices[0] && choices[0].message && choices[0].message.content) {\n  output = choices[0].message.content;\n}\n\nreturn { json: {\n  ok: true,\n  provider: 'openrouter',\n  input: text,\n  output: output,\n  mode: 'remote'\n} };"
+      },
+      "id": "normalize",
+      "name": "Normalize Response",
+      "type": "n8n-nodes-base.code",
+      "position": [850, 300],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "respondWith": "firstEntryJson"
+      },
+      "id": "respond",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "position": [1050, 300],
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Extract Input", "type": "main", "index": 0 }]] },
+    "Extract Input": { "main": [[{ "node": "OpenRouter", "type": "main", "index": 0 }]] },
+    "OpenRouter": { "main": [[{ "node": "Normalize Response", "type": "main", "index": 0 }]] },
+    "Normalize Response": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "callerPolicy": "workflowsFromSameOwner"
+  }
+}
