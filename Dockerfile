@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     python3 \
     python3-pip \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar Node.js 20
@@ -29,9 +30,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 WORKDIR /openclaw
 RUN mkdir -p /openclaw/data /openclaw/skills /openclaw/logs
 
-# Instalar NemoClaw CLI como dependência local (mais resiliente em PaaS)
-RUN npm config set registry https://registry.npmjs.org/
-RUN npm install nemoclaw
+# Instalar NemoClaw CLI via script oficial da NVIDIA (Método Determinístico)
+RUN curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
 
 # Copiar arquivos do projeto para o container
 # Nota: No Railway, o build context é a raiz do repo
