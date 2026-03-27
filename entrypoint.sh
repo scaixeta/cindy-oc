@@ -5,6 +5,14 @@
 
 set -e
 
+# Assegurar o PATH global para os binários instalados via NPM
+export PATH=$PATH:/usr/local/bin:/usr/bin:/node_modules/.bin
+
+echo "--- [DEBUG] Inspecionando Binários ---"
+echo "Path: $PATH"
+which nemoclaw || echo "nemoclaw ainda não está no PATH"
+which openclaw || echo "openclaw ainda não está no PATH"
+
 echo "--- [1/3] Verificando Variáveis de Ambiente ---"
 if [ -z "$NVIDIA_API_KEY" ]; then
     echo "ERRO: NVIDIA_API_KEY não configurada no Railway!"

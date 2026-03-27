@@ -29,8 +29,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 WORKDIR /openclaw
 RUN mkdir -p /openclaw/data /openclaw/skills /openclaw/logs
 
-# Instalar NemoClaw CLI globalmente
-RUN npm install -g @nvidia/nemoclaw || echo "Instalação via NPM falhou, usando script secundário no entrypoint."
+# Instalar NemoClaw CLI de forma robusta e persistente
+RUN npm config set registry https://registry.npmjs.org/
+RUN npm install -g nemoclaw --unsafe-perm
+RUN ln -sf /usr/local/bin/nemoclaw /usr/bin/nemoclaw || echo "Link already exists"
 
 # Copiar arquivos do projeto para o container
 # Nota: No Railway, o build context é a raiz do repo
