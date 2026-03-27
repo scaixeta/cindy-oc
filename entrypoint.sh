@@ -5,13 +5,12 @@
 
 set -e
 
-# Assegurar o PATH global para os binários instalados via NPM
-export PATH=$PATH:/usr/local/bin:/usr/bin:/node_modules/.bin
+# Assegurar o PATH para binários locais e globais
+export PATH=$PATH:/openclaw/node_modules/.bin:/usr/local/bin:/usr/bin
 
-echo "--- [DEBUG] Inspecionando Binários ---"
+echo "--- [DEBUG] Localizando Binário NemoClaw ---"
+find /openclaw -name "nemoclaw" -type f -executable || echo "Não foi possível localizar o binário"
 echo "Path: $PATH"
-which nemoclaw || echo "nemoclaw ainda não está no PATH"
-which openclaw || echo "openclaw ainda não está no PATH"
 
 echo "--- [1/3] Verificando Variáveis de Ambiente ---"
 if [ -z "$NVIDIA_API_KEY" ]; then
