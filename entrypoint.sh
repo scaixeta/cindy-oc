@@ -23,8 +23,8 @@ echo "--- [2/3] Inicializando Configurações de Sandbox ---"
 # Criamos a configuração inicial se não existir
 if [ ! -f "/openclaw/data/config.yml" ]; then
     echo "Configuração inicial sendo gerada..."
-    # Configurar NemoClaw (placeholder do wizard)
-    # nemoclaw onboarding --non-interactive --sandbox $OPENCLAW_SANDBOX_NAME --key $NVIDIA_API_KEY
+    # Usamos o nome 'nemoclaw' para evitar o bug #445 do Telegram Bridge
+    # nemoclaw onboarding --non-interactive --sandbox nemoclaw --key $NVIDIA_API_KEY
 fi
 
 echo "--- [3/3] Iniciando Gateway e Worker NemoClaw ---"

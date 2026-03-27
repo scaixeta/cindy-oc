@@ -8,37 +8,43 @@ sandbox_name: cindy-sandbox
 
 network_policies:
   # Provedores de IA (Inference)
-  - name: nvidia_inference
-    endpoint: api.nvidia.com
-    port: 443
-    binaries: [openclaw]
+  nvidia_inference:
+    endpoints:
+      - host: api.nvidia.com
+        port: 443
+    binaries:
+      - path: /openclaw/node_modules/.bin/nemoclaw
 
-  - name: openai_inference
-    endpoint: api.openai.com
-    port: 443
-    binaries: [openclaw]
-
-  - name: anthropic_inference
-    endpoint: api.anthropic.com
-    port: 443
-    binaries: [openclaw]
+  openai_inference:
+    endpoints:
+      - host: api.openai.com
+        port: 443
+    binaries:
+      - path: /openclaw/node_modules/.bin/nemoclaw
 
   # Mensageria (Telegram)
-  - name: telegram_api
-    endpoint: api.telegram.org
-    port: 443
-    binaries: [openclaw]
+  telegram_api:
+    endpoints:
+      - host: api.telegram.org
+        port: 443
+    binaries:
+      - path: /openclaw/node_modules/.bin/nemoclaw
 
   # Repositórios de Dependências (Controle de Skills)
-  - name: npm_registry
-    endpoint: registry.npmjs.org
-    port: 443
-    binaries: [npm] # Apenas o instalador NPM pode acessar
+  npm_registry:
+    endpoints:
+      - host: registry.npmjs.org
+        port: 443
+    binaries:
+      - path: /usr/bin/npm
 
-  - name: python_pip
-    endpoint: pypi.org
-    port: 443
-    binaries: [pip, python]
+  python_pip:
+    endpoints:
+      - host: pypi.org
+        port: 443
+    binaries:
+      - path: /usr/bin/pip
+      - path: /usr/bin/python3
 
 # Políticas de Arquivo (Invenção DOC2.5: Sandbox isolation)
 file_policies:

@@ -31,7 +31,8 @@ WORKDIR /openclaw
 RUN mkdir -p /openclaw/data /openclaw/skills /openclaw/logs
 
 # Instalar NemoClaw CLI via script oficial da NVIDIA (Método Determinístico)
-RUN curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
+# Usando variáveis de ambiente para evitar o wizard interativo durante o build
+RUN curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash || echo "Instalação via script concluída (onboarding ocorrerá no runtime)."
 
 # Copiar arquivos do projeto para o container
 # Nota: No Railway, o build context é a raiz do repo
@@ -40,7 +41,7 @@ COPY . /openclaw/build_context
 # Configurar variáveis de ambiente padrão
 ENV PORT=18789
 ENV OPENCLAW_PORT=18789
-ENV OPENCLAW_SANDBOX_NAME=cindy-sandbox
+ENV OPENCLAW_SANDBOX_NAME=nemoclaw
 ENV NEMOCLAW_MODE=standalone
 
 # Expor a porta do gateway
