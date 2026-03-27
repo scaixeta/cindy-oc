@@ -1,0 +1,50 @@
+# ==============================================================================
+# NEMOCLAW NETWORK POLICY (Cindy OC - S2 - Lockdown Default)
+# ==============================================================================
+# Esta política define o que o agente PODE acessar. Tudo o que não está aqui
+# é BLOQUEADO por padrão (Deny-by-Default).
+
+sandbox_name: cindy-sandbox
+
+network_policies:
+  # Provedores de IA (Inference)
+  - name: nvidia_inference
+    endpoint: api.nvidia.com
+    port: 443
+    binaries: [openclaw]
+
+  - name: openai_inference
+    endpoint: api.openai.com
+    port: 443
+    binaries: [openclaw]
+
+  - name: anthropic_inference
+    endpoint: api.anthropic.com
+    port: 443
+    binaries: [openclaw]
+
+  # Mensageria (Telegram)
+  - name: telegram_api
+    endpoint: api.telegram.org
+    port: 443
+    binaries: [openclaw]
+
+  # Repositórios de Dependências (Controle de Skills)
+  - name: npm_registry
+    endpoint: registry.npmjs.org
+    port: 443
+    binaries: [npm] # Apenas o instalador NPM pode acessar
+
+  - name: python_pip
+    endpoint: pypi.org
+    port: 443
+    binaries: [pip, python]
+
+# Políticas de Arquivo (Invenção DOC2.5: Sandbox isolation)
+file_policies:
+  - path: /openclaw/skills
+    permissions: [read, write]
+  - path: /openclaw/logs
+    permissions: [read, write]
+  - path: /root
+    permissions: [deny] # Proteção do Host

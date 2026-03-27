@@ -2,7 +2,7 @@
 .scr/
 .env
 .env.local
-.env.*.local
+.env.*
 
 # OS
 .DS_Store

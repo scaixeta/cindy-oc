@@ -1,0 +1,20 @@
+# ============================================================
+# CINDY-OC - OpenClaw Lockdown Policy (S2)
+# ============================================================
+# Doctrine: Deny-by-Default (Zero Trust)
+# ============================================================
+
+network_policies:
+  - name: nvidia_api
+    endpoint: build.nvidia.com
+    port: 443
+    binaries: [openclaw]
+    protocol: tcp
+
+  - name: telegram_api
+    endpoint: api.telegram.org
+    port: 443
+    binaries: [openclaw]
+    protocol: tcp
+
+# Qualquer outra conexao sera bloqueada e logada (openshell term)

@@ -24,9 +24,9 @@
 
 | Status | Estoria |
 |---|---|
-| To-Do | `ST-S2-01 - Preparar workspace e pre-requisitos runtime para instalacao OpenClaw` |
-| To-Do | `ST-S2-02 - Instalar OpenClaw no caminho local aprovado` |
-| To-Do | `ST-S2-03 - Confirmar startup e saude operacional minima do OpenClaw` |
+| Doing | `ST-S2-01 - Preparar workspace e pre-requisitos runtime para instalacao OpenClaw` |
+| Doing | `ST-S2-02 - Instalar OpenClaw no caminho local aprovado` |
+| Doing | `ST-S2-03 - Confirmar startup e saude operacional minima do OpenClaw` |
 | To-Do | `ST-S2-04 - Aplicar configuracao minima necessaria para operacao controlada` |
 | To-Do | `ST-S2-05 - Bloquear capacidades nao-essenciais por padrao e liberar apenas o estritamente necessario` |
 | To-Do | `ST-S2-06 - Definir e validar baseline de release controlado para futuras habilitacoes` |
@@ -80,7 +80,15 @@ Preencher ao encerrar a sprint `S2`.
 - Itens pendentes e realocados: `Pendente de validacao`
 - Observacoes finais: `Sprint ativa`
 
-## 8. Referencia de Fechamento da Sprint
+## 8. Timestamp UTC [Regra 7]
+
+| Event | Start | Finish | Status |
+|---|---|---|---|
+| S2-INIT | 2026-03-27T18:10:00-ST | | In-Progress |
+| NEMOCLAW-PLAN | 2026-03-27T18:10:05-ST | 2026-03-27T18:11:00-FN | Done |
+| NEMOCLAW-EXEC | 2026-03-27T18:12:00-ST | 2026-03-27T18:15:00-FN | Done |
+
+## 9. Referencia de Fechamento da Sprint
 
 - `S2-END: Pendente de validacao`
 
