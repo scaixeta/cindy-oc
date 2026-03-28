@@ -44,12 +44,9 @@ echo "--- [4/4] Iniciando Gateway e Worker NemoClaw ---"
 # Executar o agent bridge se configurado (Telegram)
 if [ ! -z "$TELEGRAM_BOT_TOKEN" ]; then
     echo "--- [A] Iniciando Telegram Bridge (Lockdown Mode) ---"
-    # Configurar o token via CLI do NemoClaw antes de iniciar
-    nemoclaw config set channels.telegram.botToken "$TELEGRAM_BOT_TOKEN"
-    nemoclaw config set channels.telegram.allowedUserIds "$ALLOWED_CHAT_IDS"
-    
-    # Iniciar a bridge em background
-    nemoclaw start telegram & 
+    # O script de setup (nemoclaw.sh) auto-configura o Telegram se a env TELEGRAM_BOT_TOKEN existir.
+    # Iniciamos a bridge em background pelo seu nome de processo:
+    nemoclaw start telegram-bridge & 
     echo "Bridge do Telegram iniciada com sucesso."
 fi
 
