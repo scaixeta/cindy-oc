@@ -8,33 +8,39 @@ set -e
 # Assegurar o PATH para binários locais e globais
 export PATH=$PATH:/openclaw/node_modules/.bin:/usr/local/bin:/usr/bin
 
-echo "--- [DEBUG] Localizando Binário NemoClaw ---"
-find /openclaw -name "nemoclaw" -type f -executable || echo "Não foi possível localizar o binário"
-echo "Path: $PATH"
+echo "--- [1/3] Verificando Instalador NemoClaw ---"
+if ! command -v nemoclaw &> /dev/null; then
+    echo "Executando setup oficial da NVIDIA (modo automático)..."
+    /usr/local/bin/install_nemoclaw.exp
+    
+    # Reload profile/paths para carregar binarios globais do nvm/nemoclaw
+    source ~/.bashrc || true
+    export PATH=$PATH:/usr/local/bin:/usr/bin:~/.nvm/versions/node/v20.x/bin
+else
+    echo "NemoClaw já está instalado em $(which nemoclaw)."
+fi
 
-echo "--- [1/3] Verificando Variáveis de Ambiente ---"
+echo "--- [2/3] Verificando Variáveis de Ambiente ---"
 if [ -z "$NVIDIA_API_KEY" ]; then
     echo "ERRO: NVIDIA_API_KEY não configurada no Railway!"
     # exit 1 (Removido para permitir o build de validação no Railway, mas avisamos)
 fi
 
-echo "--- [2/3] Inicializando Configurações de Sandbox ---"
+echo "--- [3/3] Inicializando Configurações de Sandbox ---"
 # Se no Railway, usamos o modo standalone/isolado do container
-# Criamos a configuração inicial se não existir
-if [ ! -f "/openclaw/data/config.yml" ]; then
-    echo "Configuração inicial sendo gerada..."
-    # Usamos o nome 'nemoclaw' para evitar o bug #445 do Telegram Bridge
-    # nemoclaw onboarding --non-interactive --sandbox nemoclaw --key $NVIDIA_API_KEY
+if [ ! -f "/openclaw/data/config.yml" ] && command -v nemoclaw &> /dev/null; then
+    echo "Verificando integridade da Sandbox..."
+    nemoclaw status || echo "Sandbox ainda não inicializou corretamente."
 fi
 
-echo "--- [3/3] Iniciando Gateway e Worker NemoClaw ---"
+echo "--- [4/4] Iniciando Gateway e Worker NemoClaw ---"
 # O comando de startup depende da versão do NemoClaw instalada
 # Por padrão, iniciamos o gateway do OpenClaw
 # (Nota: Adaptado para rodar em foreground no Docker)
 
 # Executar o agent bridge se configurado (Telegram)
 if [ ! -z "$TELEGRAM_BOT_TOKEN" ]; then
-    echo "--- [3/3] Iniciando Telegram Bridge (Lockdown Mode) ---"
+    echo "--- [A] Iniciando Telegram Bridge (Lockdown Mode) ---"
     # Configurar o token via CLI do NemoClaw antes de iniciar
     nemoclaw config set channels.telegram.botToken "$TELEGRAM_BOT_TOKEN"
     nemoclaw config set channels.telegram.allowedUserIds "$ALLOWED_CHAT_IDS"

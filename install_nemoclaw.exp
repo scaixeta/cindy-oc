@@ -1,0 +1,37 @@
+#!/usr/bin/expect -f
+set timeout 300
+puts "--- Iniciando instalador NVIDIA NemoClaw (Modo Automato) ---"
+
+spawn bash -c "curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash"
+
+expect {
+    -re {sandbox name|Type .* and press Enter} {
+        send "nemoclaw\r"
+        exp_continue
+    }
+    -re {Recreate\? \[y/N\]} {
+        send "N\r"
+        exp_continue
+    }
+    -re {nvapi|API key} {
+        # The key is expected to be in the environment variable. Expect accesses it via $env()
+        # but what if it's missing?
+        if {[info exists env(NVIDIA_API_KEY)]} {
+            send "$env(NVIDIA_API_KEY)\r"
+        } else {
+            send "\r"
+        }
+        exp_continue
+    }
+    -re {Type list and press Enter} {
+        send "list\r"
+        exp_continue
+    }
+    -re {providers} {
+        send "slack,telegram\r"
+        exp_continue
+    }
+    eof
+}
+
+puts "--- Instalador Automato Finalizado ---"

@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     sudo \
+    expect \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar Node.js 20
@@ -30,9 +31,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 WORKDIR /openclaw
 RUN mkdir -p /openclaw/data /openclaw/skills /openclaw/logs
 
-# Instalar NemoClaw CLI via script oficial da NVIDIA (Método Determinístico)
-# Usando variáveis de ambiente para evitar o wizard interativo durante o build
-RUN curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash || echo "Instalação via script concluída (onboarding ocorrerá no runtime)."
+# O instalador oficial do NemoClaw agora rodará apenas no runtime (entrypoint.sh) via `expect` script.
+# Preparo para injeção de Automatos.
 
 # Copiar arquivos do projeto para o container
 # Nota: No Railway, o build context é a raiz do repo
@@ -47,9 +47,10 @@ ENV NEMOCLAW_MODE=standalone
 # Expor a porta do gateway
 EXPOSE ${PORT}
 
-# Copiar e dar permissão ao entrypoint
+# Copiar e dar permissão ao entrypoint e automatizador
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+COPY install_nemoclaw.exp /usr/local/bin/install_nemoclaw.exp
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/install_nemoclaw.exp
 
 # Protocolo de Segurança: Não rodar como root se possível (opcional dependendo do sandbox)
 # USER node
