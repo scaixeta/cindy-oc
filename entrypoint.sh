@@ -56,11 +56,17 @@ socat TCP-LISTEN:${PORT},fork,bind=0.0.0.0 TCP:127.0.0.1:18790 &
 echo "Iniciando NemoClaw Gateway local subjacente (18790)..."
 if command -v openclaw &> /dev/null; then
     openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
+    openclaw config set channels.telegram.dmPolicy '"allowlist"' --strict-json || true
+    openclaw config set channels.telegram.allowFrom '["8687754084"]' --strict-json || true
+    openclaw config set channels.telegram.botToken \"$TELEGRAM_BOT_TOKEN\" --strict-json || true
     ( while [ ! -f ~/.openclaw/openclaw.json ]; do sleep 5; done; sleep 5; echo "+++++ HACKED TOKEN +++++"; jq -r '.gateway.auth.token' ~/.openclaw/openclaw.json; echo "++++++++++++++++++++++++" ) &
     exec openclaw gateway run --port 18790 --allow-unconfigured
 else
     # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
     npx openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
+    npx openclaw config set channels.telegram.dmPolicy '"allowlist"' --strict-json || true
+    npx openclaw config set channels.telegram.allowFrom '["8687754084"]' --strict-json || true
+    npx openclaw config set channels.telegram.botToken \"$TELEGRAM_BOT_TOKEN\" --strict-json || true
     ( while [ ! -f ~/.openclaw/openclaw.json ]; do sleep 5; done; sleep 5; echo "+++++ HACKED TOKEN +++++"; jq -r '.gateway.auth.token' ~/.openclaw/openclaw.json; echo "++++++++++++++++++++++++" ) &
     exec npx openclaw gateway run --port 18790 --allow-unconfigured
 fi
