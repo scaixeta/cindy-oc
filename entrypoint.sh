@@ -54,7 +54,12 @@ echo "Iniciando roteamento interno socat: 0.0.0.0:${PORT} -> 127.0.0.1:18790..."
 socat TCP-LISTEN:${PORT},fork,bind=0.0.0.0 TCP:127.0.0.1:18790 &
 
 echo "Iniciando NemoClaw Gateway local subjacente (18790)..."
+
+mkdir -p ~/.openclaw/agents/main/agent
+echo "{\"nvidia\": {\"apiKey\": \"${NVIDIA_API_KEY}\"}, \"openrouter\": {\"apiKey\": \"${OPENROUTER_API_KEY}\"}}" > ~/.openclaw/agents/main/agent/auth-profiles.json
+
 if command -v openclaw &> /dev/null; then
+    openclaw config set gateway.agent.model '"nvidia/nemotron-4-340b-instruct"' --strict-json || true
     openclaw config set gateway.auth.token '"9906eb350766424c64c33b0725cd8cb5d8827e3ebf8e4eee"' --strict-json || true
     openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
     openclaw config set gateway.trustedProxies '["127.0.0.1", "::1"]' --strict-json || true
@@ -64,6 +69,7 @@ if command -v openclaw &> /dev/null; then
     exec openclaw gateway run --port 18790 --allow-unconfigured
 else
     # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
+    npx openclaw config set gateway.agent.model '"nvidia/nemotron-4-340b-instruct"' --strict-json || true
     npx openclaw config set gateway.auth.token '"9906eb350766424c64c33b0725cd8cb5d8827e3ebf8e4eee"' --strict-json || true
     npx openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
     npx openclaw config set gateway.trustedProxies '["127.0.0.1", "::1"]' --strict-json || true
