@@ -9,8 +9,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Instalar dependências base
 RUN apt-get update && apt-get install -y \
     curl \
-    wget \
     git \
+    expect \
+    socat \
+    wget \
     jq \
     ca-certificates \
     gnupg \
