@@ -56,15 +56,11 @@ socat TCP-LISTEN:${PORT},fork,bind=0.0.0.0 TCP:127.0.0.1:18790 &
 echo "Iniciando NemoClaw Gateway local subjacente (18790)..."
 if command -v openclaw &> /dev/null; then
     openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
-    echo "----- GATEWAY TOKEN -----"
-    openclaw config get gateway.auth.token || true
-    echo "-------------------------"
+    ( sleep 35; echo "----- GATEWAY TOKEN -----"; openclaw config get gateway.auth.token; echo "-------------------------" ) &
     exec openclaw gateway run --port 18790 --allow-unconfigured
 else
     # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
     npx openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
-    echo "----- GATEWAY TOKEN -----"
-    npx openclaw config get gateway.auth.token || true
-    echo "-------------------------"
+    ( sleep 45; echo "----- GATEWAY TOKEN -----"; npx openclaw config get gateway.auth.token; echo "-------------------------" ) &
     exec npx openclaw gateway run --port 18790 --allow-unconfigured
 fi
