@@ -50,13 +50,13 @@ if [ ! -z "$TELEGRAM_BOT_TOKEN" ]; then
     echo "Bridge do Telegram iniciada com sucesso."
 fi
 
-echo "Iniciando roteamento interno socat: 0.0.0.0:${PORT} -> 127.0.0.1:18789..."
-socat TCP-LISTEN:${PORT},fork,bind=0.0.0.0 TCP:127.0.0.1:18789 &
+echo "Iniciando roteamento interno socat: 0.0.0.0:${PORT} -> 127.0.0.1:18790..."
+socat TCP-LISTEN:${PORT},fork,bind=0.0.0.0 TCP:127.0.0.1:18790 &
 
-echo "Iniciando NemoClaw Gateway local subjacente..."
+echo "Iniciando NemoClaw Gateway local subjacente (18790)..."
 if command -v openclaw &> /dev/null; then
-    exec openclaw gateway run --allow-unconfigured
+    exec openclaw gateway run --port 18790 --allow-unconfigured
 else
     # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
-    exec npx openclaw gateway run --allow-unconfigured
+    exec npx openclaw gateway run --port 18790 --allow-unconfigured
 fi
