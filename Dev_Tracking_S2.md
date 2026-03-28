@@ -24,17 +24,17 @@
 
 | Status | Estoria |
 |---|---|
-| Doing | `ST-S2-01 - Preparar workspace e pre-requisitos runtime para instalacao OpenClaw` |
-| Doing | `ST-S2-02 - Instalar OpenClaw no caminho local aprovado` |
-| Doing | `ST-S2-03 - Confirmar startup e saude operacional minima do OpenClaw` |
-| To-Do | `ST-S2-04 - Aplicar configuracao minima necessaria para operacao controlada` |
-| To-Do | `ST-S2-05 - Bloquear capacidades nao-essenciais por padrao e liberar apenas o estritamente necessario` |
-| To-Do | `ST-S2-06 - Definir e validar baseline de release controlado para futuras habilitacoes` |
-| To-Do | `ST-S2-07 - Registrar checklist operacional para OpenClaw fase 1` |
-| To-Do | `ST-S2-08 - Definir criterios de aceite para considerar OpenClaw fase 1 completo` |
-| Doing | `ST-S2-09 - Projetar Dockerfile customizado para NemoClaw em ambiente PaaS (Railway)` |
-| To-Do | `ST-S2-10 - Configurar entrypoint.sh para automação de startup no container` |
-| To-Do | `ST-S2-11 - Criar guia canônico de deploy Railway na KB` |
+| Done | `ST-S2-01 - Preparar workspace e pre-requisitos runtime para instalacao OpenClaw` |
+| Done | `ST-S2-02 - Instalar OpenClaw no caminho local aprovado` |
+| Done | `ST-S2-03 - Confirmar startup e saude operacional minima do OpenClaw` |
+| Done | `ST-S2-04 - Aplicar configuracao minima necessaria para operacao controlada` |
+| Done | `ST-S2-05 - Bloquear capacidades nao-essenciais por padrao e liberar apenas o estritamente necessario` |
+| Done | `ST-S2-06 - Definir e validar baseline de release controlado para futuras habilitacoes` |
+| Done | `ST-S2-07 - Registrar checklist operacional para OpenClaw fase 1` |
+| Done | `ST-S2-08 - Definir criterios de aceite para considerar OpenClaw fase 1 completo` |
+| Done | `ST-S2-09 - Projetar Dockerfile customizado para NemoClaw em ambiente PaaS (Railway)` |
+| Done | `ST-S2-10 - Configurar entrypoint.sh para automação de startup no container` |
+| Done | `ST-S2-11 - Criar guia canônico de deploy Railway na KB` |
 
 Estados possiveis:
 - `To-Do`, `Doing`, `Done`, `Accepted`, `Pending-SX`
@@ -79,9 +79,9 @@ Estados possiveis:
 
 Preencher ao encerrar a sprint `S2`.
 
-- Itens concluidos: `Pendente de validacao`
-- Itens pendentes e realocados: `Pendente de validacao`
-- Observacoes finais: `Sprint ativa`
+- Itens concluidos: `ST-S2-01` a `ST-S2-11` concluidos com sucesso (Deploy Integrado no Railway).
+- Itens pendentes e realocados: `Nenhum`
+- Observacoes finais: `Sprint Encerrada com gateway ativo e seguro. Baseline "Lockdown by Default" estabelecido no PaaS.`
 
 ## 8. Timestamp UTC [Regra 7]
 
@@ -93,6 +93,6 @@ Preencher ao encerrar a sprint `S2`.
 
 ## 9. Referencia de Fechamento da Sprint
 
-- `S2-END: Pendente de validacao`
+- `S2-END: Concluido na revisao DOC2.5 de 2026-03-28`
 
 
