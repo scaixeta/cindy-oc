@@ -60,6 +60,7 @@ echo "{\"nvidia\": {\"apiKey\": \"${NVIDIA_API_KEY}\"}, \"openrouter\": {\"apiKe
 
 if command -v openclaw &> /dev/null; then
     openclaw config set gateway.agent.model '"nvidia/nemotron-4-340b-instruct"' --strict-json || true
+    openclaw agents add main --model "nvidia/nemotron-4-340b-instruct" --force || true
     openclaw config set gateway.auth.token '"9906eb350766424c64c33b0725cd8cb5d8827e3ebf8e4eee"' --strict-json || true
     openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
     openclaw config set gateway.trustedProxies '["127.0.0.1", "::1"]' --strict-json || true
@@ -70,6 +71,7 @@ if command -v openclaw &> /dev/null; then
 else
     # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
     npx openclaw config set gateway.agent.model '"nvidia/nemotron-4-340b-instruct"' --strict-json || true
+    npx openclaw agents add main --model "nvidia/nemotron-4-340b-instruct" --force || true
     npx openclaw config set gateway.auth.token '"9906eb350766424c64c33b0725cd8cb5d8827e3ebf8e4eee"' --strict-json || true
     npx openclaw config set gateway.controlUi.allowedOrigins '["*"]' --strict-json || true
     npx openclaw config set gateway.trustedProxies '["127.0.0.1", "::1"]' --strict-json || true
