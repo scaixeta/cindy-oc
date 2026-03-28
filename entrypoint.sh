@@ -51,12 +51,11 @@ if [ ! -z "$TELEGRAM_BOT_TOKEN" ]; then
 fi
 
 echo "Iniciando NemoClaw Gateway na porta ${PORT}..."
-# Comando final em foreground
-# exec openclaw gateway --port ${PORT}
-# Como placeholder de validação de ambiente:
-echo "Gateway NemoClaw Inicializado (Modo PaaS Simulation)"
-echo "Aguardando conexões no subdomínio Railway..."
-
-# Placeholder para o loop de execução principal
-# Em um ambiente real, este seria o binário do OpenClaw
-tail -f /dev/null
+# Comando final em foreground interceptando os webhooks e UI.
+# Usamos npx como fallback caso o binario não esteja global.
+if command -v openclaw &> /dev/null; then
+    exec openclaw gateway --port ${PORT}
+else
+    # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
+    exec npx openclaw gateway --port ${PORT}
+fi
