@@ -122,3 +122,11 @@ Nao devem existir como parte do modelo canonico:
 - `docs/INDEX.md`
 - estruturas paralelas que dupliquem tracking, docs ou regras
 - documentacao que afirme integracoes nao implantadas como se fossem reais
+
+### Regra 12: Integracao GSD (Get Shit Done)
+
+- O framework GSD e o sistema operacional oficial de execucao tecnica
+- A Cindy deve invocar workflows GSD (`.agent/get-shit-done/workflows/`) para planejar, pesquisar e executar fases
+- A pasta `.planning/` e o orgao de memoria da IA e deve ser mantida integra
+- Sincronizacao: O GSD planeja e executa; a Cindy valida e documenta no `Dev_Tracking_SX.md`
+- Comandos `/gsd:*` sao cidadaos de primeira classe no fluxo documental
