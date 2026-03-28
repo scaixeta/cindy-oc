@@ -22,8 +22,8 @@ RUN apt-get update && apt-get install -y \
     expect \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalar Node.js 20
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+# Instalar Node.js 22 (Requisito NemoClaw Alpha >= 22.16.0)
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g npm@latest
 
