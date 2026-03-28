@@ -54,8 +54,8 @@ echo "Iniciando NemoClaw Gateway na porta ${PORT}..."
 # Comando final em foreground interceptando os webhooks e UI.
 # Usamos npx como fallback caso o binario não esteja global.
 if command -v openclaw &> /dev/null; then
-    exec openclaw gateway --port ${PORT}
+    exec openclaw gateway --port ${PORT} --allow-unconfigured
 else
     # Busca o openclaw dentro da instalação fonte localizada pelo nemoclaw.sh
-    exec npx openclaw gateway --port ${PORT}
+    exec npx openclaw gateway --port ${PORT} --allow-unconfigured
 fi
