@@ -9,13 +9,16 @@ set -e
 export PATH=$PATH:/openclaw/node_modules/.bin:/usr/local/bin:/usr/bin
 
 echo "--- [1/3] Verificando Instalador NemoClaw ---"
+export NEMOCLAW_NON_INTERACTIVE=1
+export NEMOCLAW_RECREATE_SANDBOX=1
+export PATH=$PATH:/usr/local/bin:/usr/bin:$HOME/.local/bin
+
 if ! command -v nemoclaw &> /dev/null; then
-    echo "Executando setup oficial da NVIDIA (modo automático)..."
-    /usr/local/bin/install_nemoclaw.exp
+    echo "Executando setup oficial da NVIDIA (Modo Nativo Não-Interativo)..."
+    curl -fsSL https://www.nvidia.com/nemoclaw.sh | bash
     
-    # Reload profile/paths para carregar binarios globais do nvm/nemoclaw
-    source ~/.bashrc || true
-    export PATH=$PATH:/usr/local/bin:/usr/bin:~/.nvm/versions/node/v20.x/bin
+    # Reload profile para garantir persistência pós-bash script
+    export PATH=$PATH:$HOME/.local/bin
 else
     echo "NemoClaw já está instalado em $(which nemoclaw)."
 fi
