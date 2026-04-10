@@ -39,6 +39,14 @@
 - **Resultado:** `.scr/.env` removido do histórico enviado ao remote e mantido apenas localmente
 - **Status:** Passou
 
+### TEST-S1-05 — API de testes FastAPI com POST/GET/DELETE
+
+- **Data:** 2026-04-10
+- **Escopo:** criar API de testes em FastAPI com endpoints POST /registrar, GET /registros, DELETE /encerrar; executar testes automatizados com httpx.AsyncClient; guardar evidência em resultado_teste.json
+- **Resultado:** todos os testes passaram — 3 itens registados, GET retornou 3 registos, DELETE devolveu relatorio com contagem correcta. Evidencia guardada em tests/test_api/resultado_teste.json
+- **Commit:** a8002d3
+- **Status:** Passou
+
 ---
 
 ## Issues abertos
