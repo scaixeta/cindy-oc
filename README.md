@@ -1,33 +1,33 @@
 # Cindy Agent
 
-Repositório-base local da Cindy no workspace `C:\CindyAgent`, usado para manter a governança DOC2.5, a documentação canônica, a persona operacional da Cindy no Hermes e os artefatos de referência que serão replicados para outros projetos do ecossistema.
+Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter a governanca DOC2.5, a documentacao canonica, a persona operacional da Cindy no Hermes e os artefatos de referencia que serao replicados para outros projetos do ecossistema.
 
 ## Estado atual
 
 - **Sprint ativa:** `S1` — permanece aberta
 - **Runtime principal:** Hermes em WSL (`Ubuntu`), com runtime vivo em `/root/.hermes`
 - **Canal operacional principal:** Telegram, via Hermes Gateway
-- **Tool de raciocínio:** OpenCode CLI com MiniMax M2.7 (Coding Plan)
-- **KB canônica da Cindy para Hermes:** `KB/hermes/`
-- **Sincronização viva do runtime:** `/root/.hermes/SOUL.md`, `/root/.hermes/memories/USER.md`, `/root/.hermes/memories/MEMORY.md`
-- **Branch principal deste repositório:** `main`
+- **Tool de raciocinio:** OpenCode CLI com MiniMax M2.7 (Coding Plan)
+- **KB canonica da Cindy para Hermes:** `KB/hermes/`
+- **Sincronizacao viva do runtime:** `/root/.hermes/SOUL.md`, `/root/.hermes/memories/USER.md`, `/root/.hermes/memories/MEMORY.md`
+- **Branch principal deste repositorio:** `main`
 - **Segredo local protegido:** `.scr/.env` permanece fora de versionamento
 
 ## Sprint S1 — Estado
 
-| Estórias | Total | Done | Pending |
+| Estorias | Total | Done | Pending |
 |---|---|---|---|
-| Backlog | 16 | 15 | 1 |
+| Backlog | 17 | 17 | 0 |
 
-**Pending:** ST-S1-16 — Planejar replicação controlada para os projetos listados em `Replicar.md`
+**ST-S1-16 executada** em 2026-04-11 — reconciliação documental e correção do backlog S1 (17 itens, todos done). Sprint permanece aberta aguardando ordem de encerramento do PO.
 
 ## Escopo atual da S1
 
 - estabilizar o runtime Hermes + Telegram
-- consolidar a persona Cindy em KB canônica e runtime vivo
-- integrar OpenCode CLI como tool de raciocínio profundo
-- manter a documentação DOC2.5 aderente ao estado real do projeto
-- registrar o portfólio principal da Cindy para replicação futura
+- consolidar a persona Cindy em KB canonica e runtime vivo
+- integrar OpenCode CLI como tool de raciocinio profundo
+- manter a documentacao DOC2.5 aderente ao estado real do projeto
+- registrar o portfolio principal da Cindy para replicacao futura
 
 ## Projetos principais da Cindy
 
@@ -44,11 +44,11 @@ Alvos registrados:
 7. `C:\Project Health`
 8. `C:\Cindy`
 
-**Repositório principal de trabalho no momento:** `C:\01 - Sentivis\Sentivis SIM`
+**Repositorio principal de trabalho no momento:** `C:\01 - Sentivis\Sentivis SIM`
 
-> A replicação entre esses projetos continua como atividade planejada. Não deve ser executada sem validação por repositório, confirmação de branch/remote e tracking individual.
+> A replicacao entre esses projetos continua como atividade planejada. Nao deve ser executada sem validacao por repositorio, confirmacao de branch/remote e tracking individual.
 
-## Operação rápida
+## Operacao rapida
 
 ### Subir Hermes + Cindy no Telegram
 
@@ -62,19 +62,19 @@ Alvos registrados:
 .\run_opencode.bat "prompt aqui"
 ```
 
-Modelo padrão: `minimax/MiniMax-M2.7`
+Modelo padrao: `minimax/MiniMax-M2.7`
 
-## Estrutura canônica
+## Estrutura canonica
 
 - `README.md` — entry point do projeto
-- `Dev_Tracking.md` — índice de sprints
+- `Dev_Tracking.md` — indice de sprints
 - `Dev_Tracking_S1.md` — sprint ativa
-- `docs/SETUP.md` — ambiente, instalação e preparo operacional
+- `docs/SETUP.md` — ambiente, instalacao e preparo operacional
 - `docs/ARCHITECTURE.md` — arquitetura atual
-- `docs/DEVELOPMENT.md` — fluxo de evolução e backlog
-- `docs/OPERATIONS.md` — operação corrente do runtime Hermes
-- `tests/bugs_log.md` — bugs, testes e evidências
-- `Replicar.md` — mapa dos projetos principais da Cindy e alvos de replicação
+- `docs/DEVELOPMENT.md` — fluxo de evolucao e backlog
+- `docs/OPERATIONS.md` — operacao corrente do runtime Hermes
+- `tests/bugs_log.md` — bugs, testes e evidencias
+- `Replicar.md` — mapa dos projetos principais da Cindy e alvos de replicacao
 
 ## Leitura recomendada
 
@@ -93,7 +93,7 @@ Modelo padrão: `minimax/MiniMax-M2.7`
 
 ## Cindy — Orquestradora
 
-A Cindy é o agente principal do projeto. Em cada run, ela identifica o orchestrator ativo (Cline/Codex/Antigravity), a superfície de execução (VSCode/CLI) e o workspace root; em seguida, descobre e seleciona as skills/workflows disponíveis no contexto atual, respeitando os gates DOC2.5 (plano aprovado antes de execução; commit/push apenas sob ordem explícita do PO).
+A Cindy e o agente principal do projeto. Em cada run, ela identifica o orchestrator ativo (Cline/Codex/Antigravity), a superficie de execucao (VSCode/CLI) e o workspace root; em seguida, descobre e seleciona as skills/workflows disponiveis no contexto atual, respeitando os gates DOC2.5 (plano aprovado antes de execucao; commit/push apenas sob ordem explicita do PO).
 
 <p align="center">
   <img src=".brand/Cindy.jpg" alt="Cindy — Orquestradora" width="220" />

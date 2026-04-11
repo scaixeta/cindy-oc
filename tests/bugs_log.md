@@ -39,19 +39,19 @@
 - **Resultado:** `.scr/.env` removido do histórico enviado ao remote e mantido apenas localmente
 - **Status:** Passou
 
-### TEST-S1-05 — API de testes FastAPI com POST/GET/DELETE
+### TEST-S1-05 — API de testes FastAPI com `POST`/`GET`/`DELETE`
 
 - **Data:** 2026-04-10
-- **Escopo:** criar API de testes em FastAPI com endpoints POST /registrar, GET /registros, DELETE /encerrar; executar testes automatizados com httpx.AsyncClient; guardar evidência em resultado_teste.json
-- **Resultado:** todos os testes passaram — 3 itens registados, GET retornou 3 registos, DELETE devolveu relatorio com contagem correcta. Evidencia guardada em tests/test_api/resultado_teste.json
+- **Escopo:** criar API de testes em FastAPI com endpoints `POST /registrar`, `GET /registros` e `DELETE /encerrar`; executar testes automatizados com `httpx.AsyncClient`; guardar evidência em `resultado_teste.json`
+- **Resultado:** todos os testes passaram; 3 itens registrados, `GET` retornou 3 registros, `DELETE` devolveu relatório com contagem correta. Evidência guardada em `tests/test_api/resultado_teste.json`
 - **Commit:** a8002d3
 - **Status:** Passou
 
-### TEST-S1-06 — Integração Codex CLI
+### TEST-S1-06 — Integração do Codex CLI
 
 - **Data:** 2026-04-10
-- **Escopo:** autenticar Codex via `codex-cli auth login`, testar resposta do modelo com cálculo simples, configurar gpt-5.2-codex como modelo padrão para planeamento e arquitectura
-- **Resultado:** autenticação via OAuth web (subscription ChatGPT) confirmada; teste com `2+2` devolveu `4` com sucesso; modelo gpt-5.2-codex (reasoning effort: high, context: 400K) configurado como padrão para tarefas de planeamento e arquitectura
+- **Escopo:** autenticar o Codex via `codex-cli auth login`, testar resposta do modelo com cálculo simples e configurar `gpt-5.2-codex` como modelo padrão para planejamento e arquitetura
+- **Resultado:** autenticação via OAuth web (assinatura ChatGPT) confirmada; teste com `2+2` devolveu `4` com sucesso; modelo `gpt-5.2-codex` (`reasoning effort: high`, contexto: 400K) configurado como padrão para tarefas de planejamento e arquitetura
 - **Status:** Passou
 
 ---
@@ -69,3 +69,4 @@
 - A sprint S1 permanece aberta
 - `Replicar.md` passa a ser tratado como mapa dos projetos principais da Cindy
 - A replicação entre projetos ainda está em fase de planejamento e não foi executada neste ciclo
+- `2026-04-11` — Sessão de reconciliação DOC2.5: ST-S1-16 executada. Backlog corrigido de 16 para 17 itens. Decisão D-S1-08 registrada. Validação cruzada executada entre `Dev_Tracking_S1.md`, `bugs_log.md`, `Dev_Tracking.md` e `README.md`. Bugs_log e Dev_Tracking reconciliados — não há divergências entre as evidências registradas e o tracking da sprint.
