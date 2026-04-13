@@ -68,12 +68,12 @@ sudo rm -f /etc/apt/sources.list.d/nodejs.list
 sudo rm -f /usr/share/keyrings/nodejs-archive-keyring.gpg
 
 # Adicionar repo NodeSource para Node 22
-curl -fsSL https://deb.nodesource.com/node_22.x/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nodesource.gpg
-echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_22.x nodistro main" | \
-    sudo tee /etc/apt/sources.list.d/nodesource.list
-
-sudo apt update -qq
-sudo apt install -y nodejs
+if curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -; then
+    sudo apt install -y nodejs
+else
+    echo "      Falha ao configurar NodeSource para Node 22.x"
+    exit 1
+fi
 
 NODE_VERSION=$(node --version)
 NPM_VERSION=$(npm --version)
