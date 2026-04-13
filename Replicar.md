@@ -1,4 +1,4 @@
-# Replicação Cindy DOC2.5 — Alvos
+# Replicacao Cindy DOC2.5 — Alvos
 
 Repos locais a sincronizar com ajustes atuais (skills, workflows, docs, GSD):
 
@@ -6,7 +6,7 @@ Repos locais a sincronizar com ajustes atuais (skills, workflows, docs, GSD):
 2) `C:\01 - Sentivis\Sentivis SIM`
 3) `C:\Cindy`
 
-Repos removidos (pessoais — fora do escopo de replicação):
+Repos removidos (pessoais — fora do escopo de replicacao):
 
 - `C:\01 - Sentivis\Sentivis IA Code` (pessoal)
 - `C:\Users\sacai\OneDrive\Documentos\FinTechN8N` (pessoal)
@@ -14,12 +14,12 @@ Repos removidos (pessoais — fora do escopo de replicação):
 - `C:\Project Health` (pessoal)
 - `C:\MCP-Projects` (pessoal)
 
-O principal repositório de trabalho atualmente é:
+O principal repositorio de trabalho atualmente e:
 
 2) `C:\01 - Sentivis\Sentivis SIM`
 
-Próximos passos (planejar antes de executar):
-- Validar se cada repo está limpo (git status).
+Proximos passos (planejar antes de executar):
+- Validar se cada repo esta limpo (git status).
 - Confirmar branch/remote de destino.
-- Definir escopo de cópia: skills, docs canônicos, Prompt, Cindy_Contract, rules.
+- Definir escopo de copia: skills, docs canonicos, Prompt, Cindy_Contract, rules.
 - Registrar tracking individual em cada repo antes de alterar.

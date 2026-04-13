@@ -364,7 +364,76 @@ Templates canonicos devem orientar a estrutura final, mas nao devem induzir copi
 - Sincronizacao: O GSD planeja e executa; a Cindy valida e documenta no `Dev_Tracking_SX.md`
 - Comandos `/gsd:*` sao cidadaos de primeira classe no fluxo operacional
 
-## Relacao com Regras Globais
+### Regra 27: Orquestração de Equipe de 5 Agentes
+
+A Cindy orquestra uma equipe de 5 agentes autônomos que conversam, decidem e executam juntos. O PO approves planos e é consultado para decisões grandes.
+
+**Modelo de Operação:**
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        VOCÊ (PO)                             │
+│          Decisões grandes + Aprova planos                    │
+└──────────────────────────┬──────────────────────────────────┘
+                           │
+          ┌───────────────▼───────────────┐
+          │  Agentes (autonomia operacional) │
+          │  Conversam → Decidem → Plano    │
+          │  Executam → Se grande → Consultam│
+          └─────────────────────────────────┘
+```
+
+**Agentes:**
+
+| Agente | Papel | Escopo |
+|---|---|---|
+| Cindy | Coordenadora / PM | Routing, triagem, intermediação, aprovação |
+| Sentivis | IoT & Infra Specialist | ThingsBoard CE, n8n Railway, JWS, Cirrus Lab |
+| MiniMax | AI & Logic Specialist | CindyAgent, DOC2.5, Hermes, OpenCode, código |
+| Scribe | Docs & Integration Specialist | Swagger/OpenAPI, dashboards, docs técnicas |
+| GLM-5.1 | Senior Validator / QA | Code review, validação semântica, auditoria |
+
+**Fluxo Operacional:**
+
+1. PO dá direção geral
+2. Agentes discutem entre si → geram plano de ação
+3. Plano Reported ao PO → Aprovação
+4. Execução distribuída
+5. Se algo grande → consultam PO
+6. Retorno ao PO
+
+**RACI:**
+
+| Atividade | Cindy | Sentivis | MiniMax | Scribe | GLM | PO |
+|---|---|---|---|---|---|---|
+| Triagem e distribuição | R | I | I | I | I | A |
+| Discussão e planejamento | C | R | R | R | R | I |
+| Plano de ação | A | C | C | C | C | A |
+| Execução IoT/Infra | I | R | C | I | I | I |
+| Execução código/AI | I | C | R | C | I | I |
+| Execução docs | I | I | C | R | I | I |
+| Teste técnico | A | I | I | I | R | I |
+| Validação semântica | C | I | I | I | R | A |
+| Detectar loop / risco | R | I | I | I | R | I |
+| Correção | A | R | R | R | C | I |
+| Decisão grande | I | C | C | C | C | A |
+| Aprovação final | R | I | I | I | I | A |
+
+**Gate de iteração:** limite de 3-5 ciclos. Detecção por qualquer agente → escala para Cindy. Após limite, escala para PO.
+
+**Critérios de classificação (gate semântico):**
+
+| Tipo de tarefa | Destino | Suporte |
+|---|---|---|
+| ThingsBoard, n8n, IoT, Cirrus | Sentivis | MiniMax |
+| Código, debug, Python, AI | MiniMax | GLM |
+| Docs, Swagger, API | Scribe | GLM |
+| Code review, validação | GLM | — |
+| Não classificado | MiniMax | — |
+
+**Gate de classificação:** `.agents/skills/dual-model-orchestrator/scripts/dual_model_gate.py`
+
+## Relação com Regras Globais
 
 Este arquivo complementa as regras globais do workspace em `.clinerules/WORKSPACE_RULES_GLOBAL.md`. Em caso de conflito, estas regras locais prevalecem para o projeto Cindy.
 

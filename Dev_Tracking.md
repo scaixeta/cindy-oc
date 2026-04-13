@@ -4,13 +4,13 @@
 
 | ID | Status | Inicio | Escopo |
 |---|---|---|---|
-| S1 | Ativa | 2026-04-09 | Hermes + Telegram + KB/hermes + documentacao DOC2.5 + OpenCode + planejamento de replicacao |
+| S2 | Ativa | 2026-04-13 | Operacionalização da equipe de 5 agentes no Sentivis SIM — ThingsBoard CE, n8n Railway, dashboards, alarms, validações e integrações |
 
 ## Sprints Encerradas
 
 | ID | Status | Periodo | Entrega |
 |---|---|---|---|
-| — | — | — | — |
+| S1 | Encerrada | 2026-04-09 a 2026-04-13 | Cindy Agent v1.0 — Hermes + Telegram + DOC2.5 + OpenCode + equipe de 5 agentes com ACP via Redis |
 
 ---
 
@@ -23,7 +23,13 @@
 - `2026-04-09` — `Replicar.md` reconhecido como mapa dos projetos principais da Cindy
 - `2026-04-10` — OpenCode CLI integrado com MiniMax M2.7 via wrapper `run_opencode.bat`; TEST-S1-05 (API FastAPI) passou
 - `2026-04-10` — Análise aprofundada dos 8 repositórios; 5 repositórios pessoais removidos de `Replicar.md`; `KB/REPOSITORIES_STATUS.md` criado
-- `2026-04-11` — ST-S1-16: escopo Embrapa/café movido para Sentivis SIM (S5) — não pertence ao CindyAgent; backlog corrigido para 16 itens
+- `2026-04-12` — ST-S1-18: Codex CLI integrado como engine secundária de raciocínio
+- `2026-04-13` — ST-S1-19: Arquitetura dual-modelo (MiniMax + GLM-5.1) implementada com RACI e gate de iteração
+- `2026-04-13` — ST-S1-20: Comunicação ACP entre agentes via Redis (Pub/Sub + Streams) implementada e testada
+- `2026-04-13` — ST-S1-21: Equipe de 5 agentes (Cindy, Sentivis, MiniMax, Scribe, GLM-5.1) documentada e operacional
+- `2026-04-13` — D-S1-13: Equipe de 5 agentes com ACP via Redis — modelo aprovado
+- `2026-04-13` — D-S1-14: Agentes se comunicam via ACP/JSON — nunca em linguagem humana entre si
+- `2026-04-13` — D-S1-15: PO approves planos; agentes escalam decisões grandes via Cindy
 
 
 ## Estrutura de Tracking

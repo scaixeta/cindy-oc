@@ -1,15 +1,15 @@
 # DEVELOPMENT.md — Desenvolvimento
 
-## Visão Geral
+## Visao Geral
 
-O desenvolvimento atual do Cindy Agent permanece dentro da **Sprint S1**, ainda aberta, com foco em consolidar o runtime Hermes, a persona Cindy, a documentação DOC2.5, a integração do OpenCode CLI e o planejamento da replicação entre os projetos principais da Cindy.
+O desenvolvimento atual do Cindy Agent permanece dentro da **Sprint S1**, ainda aberta, com foco em consolidar o runtime Hermes, a persona Cindy, a documentacao DOC2.5, a integracao do OpenCode CLI e o planejamento da replicacao entre os projetos principais da Cindy.
 
 ## Estado atual da sprint
 
 - **Sprint ativa:** `S1`
 - **Status:** aberta
-- **Estórias:** 15 Done / 1 Pending (ST-S1-16: planejar replicação)
-- **Escopo corrente:** Hermes + Telegram + KB/hermes + docs canônicos + OpenCode + tracking
+- **Estorias:** 15 Done / 1 Pending (ST-S1-16: planejar replicacao)
+- **Escopo corrente:** Hermes + Telegram + KB/hermes + docs canonicos + OpenCode + tracking
 
 ## Fluxo DOC2.5 aplicado neste projeto
 
@@ -18,9 +18,28 @@ O desenvolvimento atual do Cindy Agent permanece dentro da **Sprint S1**, ainda 
 2. ler contexto mínimo necessário
 3. separar fato, inferência e pendência
 4. propor caminho proporcional ao impacto
-5. executar a menor mudança necessária
-6. registrar tracking e evidências
-7. validar coerência documental
+5. se tarefa envolve mais de 1 agente → usar fluxo de equipe
+6. executar a menor mudança necessária
+7. registrar tracking e evidências
+8. validar coerência documental
+```
+
+## Fluxo da equipe de 5 agentes
+
+```
+PO dá direção geral
+    ↓
+Cindy tria e distribui (quem faz o quê)
+    ↓
+Agentes discutem entre si via ACP (Redis) → geram plano de ação
+    ↓
+Plano Reported ao PO → Aprovação
+    ↓
+Execução distribuída
+    ↓
+Se algo grande → consultam PO
+    ↓
+Retorno ao PO
 ```
 
 ## Gates obrigatórios
@@ -31,59 +50,67 @@ O desenvolvimento atual do Cindy Agent permanece dentro da **Sprint S1**, ainda 
 | Escrita | somente após entendimento claro do impacto |
 | Commit/Push | apenas sob ordem explícita do PO |
 | Fechamento de sprint | não permitido sem comando explícito do PO |
+| Limite de iteração | 3-5 ciclos antes de escalar ao PO |
+
+## Protocolo ACP
+
+- Agentes se comunicam via Redis (Pub/Sub + Streams)
+- Nunca em linguagem humana entre si — JSON estruturado
+- Scripts: `.agents/scripts/acp_redis.py`, `.agents/scripts/test_acp_multi_agent.py`
+- Gate de classificação: `dual_model_gate.py` (5 destinos: Sentivis, MiniMax, Scribe, GLM, Cindy)
 
 ## Escopo aprovado agora
 
 ### Dentro do escopo atual
 
-- manter o repositório-base Cindy Agent coerente com o estado real do Hermes
-- OpenCode CLI como tool de delegação para raciocínio profundo
+- manter o repositorio-base Cindy Agent coerente com o estado real do Hermes
+- OpenCode CLI como tool de delegacao para raciocinio profundo
 - documentar KB/hermes e runtime vivo do Hermes
-- documentar operação via Telegram e gateway
+- documentar operacao via Telegram e gateway
 - registrar os projetos principais da Cindy via `Replicar.md`
-- planejar replicação futura sem executá-la automaticamente
+- planejar replicacao futura sem executa-la automaticamente
 
 ### Fora do escopo atual
 
-- alterar em lote os repositórios listados em `Replicar.md`
+- alterar em lote os repositorios listados em `Replicar.md`
 - fechar a sprint S1
-- automação completa de deploy/serviço do gateway
+- automacao completa de deploy/servico do gateway
 
-## Portfólio principal da Cindy
+## Portfolio principal da Cindy
 
 `Replicar.md` deve ser tratado como o mapa atual dos **projetos principais da Cindy**.
 
-Repositório principal de trabalho neste momento:
+Repositorio principal de trabalho neste momento:
 
 - `C:\01 - Sentivis\Sentivis SIM`
 
-Planejamento futuro de replicação por repositório deve seguir esta ordem mínima:
+Planejamento futuro de replicacao por repositorio deve seguir esta ordem minima:
 
 1. validar limpeza local (`git status`)
 2. confirmar branch e remote
-3. definir escopo exato da cópia
+3. definir escopo exato da copia
 4. registrar tracking local antes de alterar
 
-## Escopo de replicação planejado
+## Escopo de replicacao planejado
 
-Itens candidatos a replicação controlada:
+Itens candidatos a replicacao controlada:
 
 - skills relevantes
-- docs canônicos
+- docs canonicos
 - Prompt / persona Cindy
 - `Cindy_Contract.md`
 - `rules/`
 - workflows DOC2.5
 
-## Política Git
+## Politica Git
 
 - `git status`, `git log`, `git show` → leitura permitida
-- `git commit` e `git push` → somente com ordem explícita do PO
-- não assumir autorização por silêncio
+- `git commit` e `git push` → somente com ordem explicita do PO
+- nao assumir autorizacao por silencio
 
-## Rastreabilidade mínima
+## Rastreabilidade minima
 
-Toda mudança relevante deve refletir:
+Toda mudanca relevante deve refletir:
 
 - `README.md`
 - `docs/`
@@ -93,10 +120,10 @@ Toda mudança relevante deve refletir:
 
 ## Qualidade
 
-- alvo mínimo de qualidade interna: **80/100**
-- preferir mudança mínima, verificável e reversível
+- alvo minimo de qualidade interna: **80/100**
+- preferir mudanca minima, verificavel e reversivel
 - documentar o estado real em vez de descrever arquitetura aspiracional
 
-## Referência
+## Referencia
 
-Consulte `Dev_Tracking_S1.md` para backlog, decisões e pendências da sprint ativa.
+Consulte `Dev_Tracking_S1.md` para backlog, decisoes e pendencias da sprint ativa.

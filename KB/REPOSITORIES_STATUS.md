@@ -1,8 +1,8 @@
-# REPOSITORIES_STATUS.md — Estado dos Repositórios
+# REPOSITORIES_STATUS.md — Estado dos Repositorios
 
 **Gerado:** 2026-04-10
-**Atualizado:** 2026-04-10 (revisão — 5 repos pessoais removidos)
-**Contexto:** Repositórios ativos do portfólio Cindy via Replicar.md
+**Atualizado:** 2026-04-10 (revisao — 5 repos pessoais removidos)
+**Contexto:** Repositorios ativos do portfolio Cindy via Replicar.md
 **Workspace:** `C:\cindyagent` / `github.com/scaixeta/cindy-oc`
 
 ---
@@ -13,7 +13,7 @@ Escopo reduzido para 3 repos: Cindy-OC, Sentivis SIM (principal), Cindy. Repos p
 
 ---
 
-## Inventário por Repositório
+## Inventario por Repositorio
 
 ### 1. Cindy-OC
 | Campo | Valor |
@@ -37,7 +37,7 @@ Escopo reduzido para 3 repos: Cindy-OC, Sentivis SIM (principal), Cindy. Repos p
 | Campo | Valor |
 |---|---|
 | **Caminho** | `C:\01 - Sentivis\Sentivis SIM` |
-| **Branch** | `sprint/S3` |
+| **Branch** | `main` |
 | **Remote** | `github.com/scaixeta/sentivis-iaops` |
 | **Changes** | 161 arquivos |
 | **Cindy_Contract** | Presente |
@@ -85,7 +85,7 @@ Escopo reduzido para 3 repos: Cindy-OC, Sentivis SIM (principal), Cindy. Repos p
 
 ## Scores de Maturidade (0-5)
 
-| Repo | Código | Docs | Governance | KB | Operations |
+| Repo | Codigo | Docs | Governance | KB | Operations |
 |---|---|---|---|---|---|
 | Cindy-OC | 4 | 3 | 4 | 4 | 3 |
 | Sentivis SIM | 4 | 4 | 5 | 4 | 4 |
@@ -93,41 +93,40 @@ Escopo reduzido para 3 repos: Cindy-OC, Sentivis SIM (principal), Cindy. Repos p
 
 ---
 
-## Correções Aplicadas 2026-04-10
+## Correcoes Aplicadas 2026-04-10
 
 - `Prompt.md` copiado para Cindy-OC (via Sentivis SIM)
 - `SKILLS_INDEX.md` copiado para Cindy-OC
 - `KB/USER.md` copiado para Cindy-OC (espelhamento KB/hermes)
 - MCP-Projects, Sentivis IA Code, FinTechN8N, Astro AI Br, Project Health removidos do Replicar.md
-- **Sentivis SIM:** ST-S3-19 executada — `docs/PROCESSOS_OPERACIONAIS_CATEGORY_A.md` criado
-- **Sentivis SIM:** ST-S3-20 executada — `docs/SENTIVIS_MCP_BASELINE.md` criado
+
 
 ---
 
 ## Metas
 
-### Curto Prazo (próxima sprint S2)
-- Fechar a S1 formalmente (ST-S1-16: planejar replicação)
+### Curto Prazo (proxima sprint S2)
+- Fechar a S1 formalmente (ST-S1-16: planejar replicacao)
 - Atualizar README.md do Cindy-OC com estado atual
-- Verificar mudanças pendentes (1.084 no Cindy-OC, 161 no Sentivis SIM, 262 no Cindy)
+- Verificar mudancas pendentes (1.084 no Cindy-OC, 161 no Sentivis SIM, 262 no Cindy)
 
-### Médio Prazo (30 dias)
+### Medio Prazo (30 dias)
 - Consolidar branches dos 3 repos ativos
 - Garantir que todos estejam com git status limpo antes de trabalho pesado
 - Replicar KB/hermes atualizada para Cindy-OC KB
 
 ### Longo Prazo (90 dias)
-- 3/3 repos com estrutura DOC2.5 idêntica e sincronizada
-- Replicação como processo recorrente entre os 3
+- 3/3 repos com estrutura DOC2.5 identica e sincronizada
+- Replicacao como processo recorrente entre os 3
 
 ---
 
-## Próximos Passos
+## Proximos Passos
 
 1. **[PO]** Fechar S1 e abrir S2
 2. **[PO]** Decidir sobre changes pendentes nos 3 repos (git stash? commit?)
-3. **[AUTO]** Atualizar KB/REPOSITORIES_STATUS.md após decisões de git
+3. **[AUTO]** Atualizar KB/REPOSITORIES_STATUS.md apos decisoes de git
 
 ---
 
-*Documento gerado via análise direta dos repositórios ativos do portfólio Cindy.*
+*Documento gerado via analise direta dos repositorios ativos do portfolio Cindy.*

@@ -1,0 +1,22 @@
+{
+  "pid": 2550,
+  "kind": "hermes-gateway",
+  "argv": [
+    "/root/.hermes/hermes-agent/venv/bin/hermes",
+    "gateway"
+  ],
+  "start_time": 14590,
+  "gateway_state": "running",
+  "exit_reason": null,
+  "platforms": {
+    "telegram": {
+      "state": "connected",
+      "updated_at": "2026-04-11T13:49:52.248500+00:00"
+    },
+    "api_server": {
+      "state": "connected",
+      "updated_at": "2026-04-11T13:49:52.477804+00:00"
+    }
+  },
+  "updated_at": "2026-04-11T13:49:52.478823+00:00"
+}

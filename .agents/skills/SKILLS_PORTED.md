@@ -82,3 +82,23 @@
 |---|---|---|
 | thingsboard-api-reference | Referência operacional da REST API e Device API do ThingsBoard, baseada em Swagger local, com comandos `curl`, autenticação JWT/device token e cobertura por categoria de endpoint | curadoria local (`KB/SwaggerTB.md`) portada para `.cline`, `.codex` e `.agents` |
 
+### Equipe Cindy Agent (autônoma)
+
+| skill | description | origin |
+|---|---|---|
+| dual-model-orchestrator | Orquestrador de equipe de 5 agentes (Cindy, Sentivis, MiniMax, Scribe, GLM-5.1) com RACI, gates e fluxo operacional. Usa ACP via Redis para comunicação entre agentes. | curadoria local (`.agents/skills/dual-model-orchestrator`) |
+| acp-redis | Biblioteca Python para comunicação ACP via Redis (Pub/Sub + Streams). Scripts: `acp_redis.py`, `test_acp_multi_agent.py`. | curadoria local (`.agents/scripts/`) |
+| sentivis-ops | Operacionalização do Sentivis SIM — ThingsBoard CE, n8n Railway, Cirrus Lab, JWS | curadoria local |
+| cirrus-lab-jwt-management | Gestão de tokens JWT para Cirrus Lab / ThingsBoard Cloud | curadoria local |
+| sentivis-jira-ops | Operações Jira para o projeto Sentivis SIM | curadoria local |
+
+### Agentes (autonomia operacional)
+
+| Agente | Modelo | Escopo | Status |
+|---|---|---|---|
+| Cindy | MiniMax-M2.7 | Coordenadora/PM — triagem, intermediação, aprovação | Ativo |
+| Sentivis | GLM-5.1:cloud | IoT & Infra — ThingsBoard, n8n, Cirrus Lab | Ativo |
+| MiniMax | MiniMax-M2.7 | AI & Logic — CindyAgent, DOC2.5, Hermes, OpenCode | Ativo |
+| Scribe | GLM-5.1:cloud | Docs & Integration — Swagger, dashboards, API contracts | Ativo |
+| GLM-5.1 | GLM-5.1:cloud | Senior Validator/QA — code review, validação semântica | Ativo |
+

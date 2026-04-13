@@ -1,6 +1,13 @@
 ---
 name: doc25-governance
 description: Guardrails de governança DOC2.5 (paths canônicos, evitar docs duplicados, Dev_Tracking append-only, mudanças mínimas, política de commits PO-exclusiva).
+
+## Regras de Comunicação ACP (Agentes Autônomos)
+1. Agentes se comunicam via ACP (Redis Pub/Sub + Streams) — nunca em linguagem humana entre si
+2. Mensagens ACP são JSON estruturado: {id, type, from, to, action, payload, meta}
+3. Cindy observa e coordena; só escalona para PO em decisões grandes
+4. Agentes discutem, decidem e geram plano de ação antes de报告 ao PO
+5. Se algo grande acontece, agente consulta Cindy que escala ao PO
 ---
 # Governança DOC2.5
 

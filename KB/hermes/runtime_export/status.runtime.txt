@@ -1,0 +1,76 @@
+
+┌─────────────────────────────────────────────────────────┐
+│                 ⚕ Hermes Agent Status                  │
+└─────────────────────────────────────────────────────────┘
+
+◆ Environment
+  Project:      /root/.hermes/hermes-agent
+  Python:       3.11.15
+  .env file:    ✓ exists
+  Model:        MiniMax-M2.7
+  Provider:     MiniMax
+
+◆ API Keys
+  OpenRouter    ✗ (not set)
+  OpenAI        ✗ (not set)
+  Z.AI/GLM      ✗ (not set)
+  Kimi          ✗ (not set)
+  MiniMax       ✓ sk-c...8otc
+  MiniMax-CN    ✗ (not set)
+  Firecrawl     ✗ (not set)
+  Tavily        ✗ (not set)
+  Browser Use   ✗ (not set)
+  Browserbase   ✗ (not set)
+  FAL           ✗ (not set)
+  Tinker        ✗ (not set)
+  WandB         ✗ (not set)
+  ElevenLabs    ✗ (not set)
+  GitHub        ✓ ghp_...bS0m
+  Anthropic     ✗ (not set)
+
+◆ Auth Providers
+  Nous Portal   ✗ not logged in (run: hermes model)
+  OpenAI Codex  ✓ logged in
+    Auth file:  /root/.hermes/auth.json
+    Refreshed:  2026-04-09 20:48:49 -03
+  Qwen OAuth    ✗ not logged in (run: qwen auth qwen-oauth)
+    Auth file:  /root/.qwen/oauth_creds.json
+    Error:      Qwen CLI credentials not found. Run 'qwen auth qwen-oauth' first.
+
+◆ API-Key Providers
+  Z.AI / GLM       ✗ not configured (run: hermes model)
+  Kimi / Moonshot  ✗ not configured (run: hermes model)
+  MiniMax          ✓ configured
+  MiniMax (China)  ✗ not configured (run: hermes model)
+
+◆ Terminal Backend
+  Backend:      local
+  Sudo:         ✗ disabled
+
+◆ Messaging Platforms
+  Telegram      ✓ configured (home: 8687754084)
+  Discord       ✗ not configured
+  WhatsApp      ✗ not configured
+  Signal        ✗ not configured
+  Slack         ✗ not configured
+  Email         ✗ not configured
+  SMS           ✗ not configured
+  DingTalk      ✗ not configured
+  Feishu        ✗ not configured
+  WeCom         ✗ not configured
+  BlueBubbles   ✗ not configured
+
+◆ Gateway Service
+  Status:       ✗ stopped
+  Manager:      systemd (user)
+
+◆ Scheduled Jobs
+  Jobs:         0
+
+◆ Sessions
+  Active:       1 session(s)
+
+────────────────────────────────────────────────────────────
+  Run 'hermes doctor' for detailed diagnostics
+  Run 'hermes setup' to configure
+

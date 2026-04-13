@@ -1,8 +1,8 @@
-# SETUP.md — Configuração do Ambiente
+# SETUP.md — Configuracao do Ambiente
 
-## Visão Geral
+## Visao Geral
 
-O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como canal operacional principal e OpenCode CLI como tool de raciocínio profundo.
+O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como canal operacional principal e OpenCode CLI como tool de raciocinio profundo.
 
 ## Ambiente atual confirmado
 
@@ -25,6 +25,19 @@ O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como ca
 - credenciais do Telegram já configuradas no runtime Hermes
 - MINIMAX_API_KEY do Coding Plan em `.scr/.env` (nunca versionar)
 - OpenCode CLI acessível via `run_opencode.bat`
+- Redis 7.0+ rodando em `localhost:6379` (já instalado no ambiente)
+
+## Equipe de 5 Agentes
+
+| Agente | Modelo | Escopo |
+|---|---|---|
+| Cindy | MiniMax-M2.7 | Coordenadora/PM |
+| Sentivis | GLM-5.1:cloud | IoT & Infra (ThingsBoard, n8n, Cirrus Lab) |
+| MiniMax | MiniMax-M2.7 | AI & Logic (código) |
+| Scribe | GLM-5.1:cloud | Docs & Integration |
+| GLM-5.1 | GLM-5.1:cloud | Senior Validator/QA |
+
+Comunicação via ACP/Redis — `.agents/scripts/acp_redis.py`.
 
 ## Estrutura relevante do runtime Hermes
 
@@ -40,7 +53,7 @@ O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como ca
     └── venv/bin/hermes
 ```
 
-## KB canônica da Cindy neste repositório
+## KB canonica da Cindy neste repositorio
 
 ```
 KB/hermes/
@@ -50,9 +63,9 @@ KB/hermes/
 └── MEMORY.md
 ```
 
-Essa KB é a origem canônica para a persona da Cindy no Hermes. O runtime vivo em `/root/.hermes` deve permanecer coerente com esse conteúdo.
+Essa KB e a origem canonica para a persona da Cindy no Hermes. O runtime vivo em `/root/.hermes` deve permanecer coerente com esse conteudo.
 
-## Inicialização prática
+## Inicializacao pratica
 
 ### Subir Hermes + Cindy no Telegram
 
@@ -66,15 +79,15 @@ Esse launcher:
 3. reativa a persona Cindy no runtime
 4. mostra o status do gateway
 
-### Usar OpenCode para raciocínio profundo
+### Usar OpenCode para raciocinio profundo
 
 ```batch
 .\run_opencode.bat "prompt aqui"
 ```
 
-O wrapper lê `MINIMAX_API_KEY` do `.scr/.env` e passa ao OpenCode via PowerShell (resolve problema de scoping do `set` no cmd.exe).
+O wrapper le `MINIMAX_API_KEY` do `.scr/.env` e passa ao OpenCode via PowerShell (resolve problema de scoping do `set` no cmd.exe).
 
-## Validação mínima do ambiente
+## Validacao minima do ambiente
 
 ```powershell
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes status
@@ -83,20 +96,24 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway 
 
 ## Regras importantes de setup
 
-- `.scr/.env` é segredo local e não deve ser versionado
-- o runtime atual do Hermes está vinculado ao usuário `root` no WSL
-- Telegram é canal principal **somente** quando o gateway está ativo
-- `acorde` deve ser interpretado como retomada lógica, não wake da máquina
-- OpenCode é tool de delegação — não substitui o Hermes
+- `.scr/.env` e segredo local e nao deve ser versionado
+- o runtime atual do Hermes esta vinculado ao usuario `root` no WSL
+- Telegram e canal principal **somente** quando o gateway esta ativo
+- `acorde` deve ser interpretado como retomada logica, nao wake da maquina
+- OpenCode e tool de delegacao — nao substitui o Hermes
 
-## Pendências conhecidas
+## Pendencias conhecidas
 
 | Item | Status |
 |---|---|
-| Gateway como serviço persistente | Opcional / ainda não implantado |
-| Replicação para outros projetos da Cindy | Planejada (ST-S1-16) |
-| GSD (Get Shit Done) | Não faz parte deste projeto |
+| Gateway como servico persistente | Opcional / ainda nao implantado |
+| Replicacao para outros projetos da Cindy | Planejada (ST-S1-16) |
+| GSD (Get Shit Done) | Nao faz parte deste projeto |
 
-## Referência
+## Referências da equipe
 
-Consulte `docs/OPERATIONS.md` para os comandos operacionais correntes.
+- `docs/AGENT_TEAM_MODEL.md` — modelo operacional da equipe de 5 agentes
+- `docs/ACP_PROTO.md` — especificação do protocolo ACP
+- `docs/ARCHITECTURE.md` — arquitetura completa do sistema
+- `rules/WORKSPACE_RULES.md` — Regra 27 (orquestração)
+- `.agents/skills/dual-model-orchestrator/SKILL.md` — skill de orquestração

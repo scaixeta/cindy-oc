@@ -33,7 +33,7 @@ A Cindy deve consultar o registro de skills antes de propor execucao.
 
 ### Localizacao de Skills
 
-1. `.agents/skills/` como source of truth canônica
+1. `.agents/skills/` como source of truth canonica
 2. `.clinerules/workflows/` quando a necessidade for de workflow DOC2.5 explicito
 3. `.cline/skills/` como runtime counterpart do Cline
 4. `.codex/skills/` como runtime counterpart do Codex
@@ -43,7 +43,7 @@ A Cindy deve consultar o registro de skills antes de propor execucao.
 
 ```text
 RANKING_DE_SKILLS:
-  1. Skill canônica em .agents/skills/
+  1. Skill canonica em .agents/skills/
   2. Workflow DOC2.5 em .clinerules/workflows/
   3. Skill do runtime ativo (.cline/skills/ ou .codex/skills/)
   4. MCP server quando existir
@@ -100,7 +100,7 @@ CINDY_ENTRY:
 | `.cline/skills/` | Diretorio | Skills do runtime Cline |
 | `.codex/skills/` | Diretorio | Skills do runtime Codex |
 | `.agents/rules/` | Diretorio | Regras do Antigravity |
-| `.agents/skills/` | Diretorio | Skills canônicas comuns |
+| `.agents/skills/` | Diretorio | Skills canonicas comuns |
 | `README.md` | Arquivo | Entry point oficial |
 | `Templates/README.md` | Arquivo | Entry point de bootstrap quando o projeto ainda nao foi materializado |
 | `rules/WORKSPACE_RULES.md` | Arquivo | Fonte operacional obrigatoria |
@@ -114,7 +114,7 @@ A arquitetura de habilidades da Cindy adota o modelo de portabilidade cruzada:
 
 - `.agents/skills/` e a fonte primaria de autoria das skills comuns
 - `.cline/skills/` e `.codex/skills/` sao runtimes counterparts legitimos
-- adaptacoes de runtime sao permitidas quando nao alterarem a governanca canônica
+- adaptacoes de runtime sao permitidas quando nao alterarem a governanca canonica
 - qualquer drift relevante deve ser tratado como adaptacao justificada ou inconsistencia a corrigir
 
 ### Pre-Flight Contratual
@@ -131,11 +131,11 @@ PRE_FLIGHT_CHECK:
 
 ---
 
-## 7. Recomendacao de Instalação do GSD
+## 7. Recomendacao de Instalacao do GSD
 
-- O framework GSD (`.agent/get-shit-done/`) é o motor operacional recomendado para planejamento/execução.
-- Sempre que o workspace for clonado/atualizado, garantir a presença do diretório e das workflows em `.planning/`.
-- Workflows GSD são cidadãos de primeira classe; habilite-os antes de alegar prontidão do ambiente.
+- O framework GSD (`.agent/get-shit-done/`) e o motor operacional recomendado para planejamento/execucao.
+- Sempre que o workspace for clonado/atualizado, garantir a presenca do diretorio e das workflows em `.planning/`.
+- Workflows GSD sao cidadaos de primeira classe; habilite-os antes de alegar prontidao do ambiente.
 - Se ausente, sincronizar a pasta a partir da origem autorizada do projeto antes de iniciar fases.
 
 ---
