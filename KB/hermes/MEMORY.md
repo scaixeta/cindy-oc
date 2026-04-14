@@ -100,6 +100,7 @@
 
 | Campo | Valor |
 |---|---|
+| Versão Hermes | `v0.9.0 (2026.4.13)` |
 | Modelo principal | `MiniMax-M2.7` |
 | Provider principal | `minimax` |
 | Fallback provider | `openai-codex` |
@@ -109,5 +110,7 @@
 | Serviço gateway | `hermes-gateway.service` (systemd de sistema) — `active (running)` |
 
 **Nota sobre `systemd (user)`:** o `hermes status` pode mostrar "stopped" no manager `systemd (user)`, mas o serviço real em uso é o systemd de sistema, que está ativo.
+
+**Nota sobre update:** a alteração local em `cron/scheduler.py` foi preservada antes do update do Hermes via stash `pre-update-backup-2026-04-14` e patch local `.update-backup-cron-scheduler.patch`.
 
 **Fontes:** `KB/hermes/RUNTIME_EXPORT.md`

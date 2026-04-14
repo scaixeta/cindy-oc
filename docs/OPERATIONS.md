@@ -11,6 +11,7 @@ Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Teleg
 | Runtime Hermes | instalado e funcional |
 | Local do runtime | `/root/.hermes` |
 | Executavel | `/root/.hermes/hermes-agent/venv/bin/hermes` |
+| Versao do Hermes Agent | `v0.9.0 (2026.4.13)` |
 | Modelo primario do runtime | `MiniMax-M2.7` via `minimax` |
 | Fallback do runtime | `gpt-5.3-codex` via `openai-codex` |
 | Telegram | configurado e pareado |
@@ -34,6 +35,7 @@ Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Teleg
 
 ```powershell
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes status
+wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes --version
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway status
 wsl -d Ubuntu --user root -- systemctl status hermes-gateway.service --no-pager
 wsl -d Ubuntu --user root -- systemctl restart hermes-gateway.service
@@ -63,6 +65,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 | Verificação | Comando |
 |---|---|
 | Status geral do Hermes | `hermes status` |
+| Versao do Hermes | `hermes --version` |
 | Status do gateway | `hermes gateway status` |
 | Status do servico real | `systemctl status hermes-gateway.service --no-pager` |
 | Reinicio do servico real | `systemctl restart hermes-gateway.service` |
@@ -78,6 +81,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 |---|---|---|
 | Telegram nao responde | gateway parado ou config desatualizada no reboot | validar `/root/.hermes/config.yaml`, reiniciar `hermes-gateway.service` e testar `/health` |
 | `hermes status` mostra `Gateway Service: stopped` | status do `systemd (user)` e nao do servico real | conferir `systemctl status hermes-gateway.service --no-pager` |
+| Update do Hermes encontra mudanca local no repo | risco de sobrescrever ajuste operacional | gerar patch de backup, aplicar `git stash` e so depois atualizar |
 | OpenCode retorna "invalid api key" | MINIMAX_API_KEY expirada ou invalida | verificar chave em `.scr/.env` |
 | Warnings de `.env` no WSL | arquivo com `CRLF` | normalizar para `LF` |
 | Caracteres quebrados no terminal Windows | encoding do console | usar terminal UTF-8 / PowerShell com code page adequada |

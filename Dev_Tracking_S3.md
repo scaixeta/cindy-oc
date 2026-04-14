@@ -154,6 +154,8 @@ Governança e HITL:
 | D-S3-12 | Drift de reboot identificado no Hermes: o runtime subiu com configuração antiga de Codex como primário e causou HTTP 400; estado tratado como transitório e superado pela D-S3-13 | 2026-04-14 |
 | D-S3-13 | Hermes Linux alinhado ao canônico: `MiniMax-M2.7` como primário via `minimax`, `gpt-5.3-codex` como fallback via `openai-codex`, `hermes-gateway.service` reiniciado com healthcheck e `hermes chat -Q` validados | 2026-04-14 |
 | D-S3-14 | Passagem de bastão analítica registrada em `KB/HANDOFF_S3_2026-04-14.md` para consolidar o que foi feito, o estado atual e o horizonte plausível da S3 | 2026-04-14 |
+| D-S3-15 | Hermes atualizado de `v0.8.0` para `v0.9.0 (2026.4.13)` com proteção prévia da alteração local em `cron/scheduler.py` por stash e patch de backup; serviço e chamadas locais permaneceram válidos após o update | 2026-04-14 |
+| D-S3-16 | Bytecode envenenado (`.pyc` do Hermes v0.8.0) bloqueava sessões Telegram mesmo após correção do `config.yaml`; a limpeza de `__pycache__` e `.pyc` foi necessária para resolver `ImportError: cannot import name '_write_codex_cli_tokens'` no contexto de sessão | 2026-04-14 |
 
 ---
 
@@ -188,6 +190,7 @@ Governança e HITL:
 | ST-S3-13 (SonarCloud Config) | — | — | Pending |
 | ST-S3-14 (PO Gate Definition) | — | — | Pending |
 | ST-S3-15 (Observabilidade) | — | — | Pending |
+| Hermes update v0.9.0 | 2026-04-14T21:18:22-ST | 2026-04-14T21:21:51-FN | Done |
 | Sprint close | — | — | Pending |
 
 ---
@@ -197,6 +200,7 @@ Governança e HITL:
 - **Workspace Windows:** `C:\CindyAgent`
 - **Workspace WSL:** `/mnt/c/CindyAgent`
 - **Runtime Hermes:** `/root/.hermes`
+- **Hermes Agent:** `v0.9.0 (2026.4.13)`
 - **Git remote:** `https://github.com/scaixeta/CindyAgent.git`
 - **Branch atual:** `v1.1`
 - **Canal operacional:** Telegram

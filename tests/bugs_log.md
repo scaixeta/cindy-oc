@@ -42,6 +42,32 @@
 - **Evidência:** validação operacional executada no runtime Linux durante esta sessão
 - **Status:** Passou
 
+### BUG-S3-03 — Bytecode envenenado (.pyc) do Hermes v0.8.0 bloqueava sessão Telegram
+
+- **Data:** 2026-04-14
+- **Severidade:** Alta
+- **Evidência:** journal do `hermes-gateway.service` mostrava `ImportError: cannot import name '_write_codex_cli_tokens' from 'hermes_cli.auth'` em cada tentativa de sessão Telegram (`agent:main:telegram:dm:*`); o healthcheck `/health` respondia OK, mas o agente falhava ao processar mensagens
+- **Impacto:** mesmo após correção do `config.yaml`, sessões Telegram continuavam a falhar com erro de import interno
+- **Causa raiz:** o diretório `__pycache__` e arquivos `.pyc` do Hermes v0.8.0 permaneceram no venv após update para v0.9.0; o bytecode compilado referenciava estruturas internas do `hermes_cli.auth` que não existiam na nova versão
+- **Correção:** limpeza do bytecode obsoleto com `find /root/.hermes/hermes-agent -name '*.pyc' -delete && find /root/.hermes/hermes-agent -name '__pycache__' -type d -exec rm -rf {} +` seguida de `systemctl restart hermes-gateway.service`; após restart, journal limpo sem `ImportError` e sessão Telegram operante
+- **Status:** Corrigido
+
+### TEST-S3-04 — Sessão Telegram validada após limpeza de bytecode
+
+- **Data:** 2026-04-14
+- **Escopo:** confirmar que após limpeza de `__pycache__` e restart, o gateway processa sessões Telegram sem `ImportError`
+- **Resultado:** `systemctl restart hermes-gateway.service` resulted in clean startup (journal sem `ImportError`); `curl http://127.0.0.1:8642/health` respondeu `{"status":"ok","platform":"hermes-agent"}`; `hermes gateway status` confirmou `active (running)` e service unit atual
+- **Evidência:** journalctl confirmando startup limpo após restart
+- **Status:** Passou
+
+### TEST-S3-03 — Hermes atualizado para v0.9.0 com runtime preservado
+
+- **Data:** 2026-04-14
+- **Escopo:** atualizar o Hermes Agent de `v0.8.0` para `v0.9.0 (2026.4.13)` sem perder a alteração local existente em `cron/scheduler.py`
+- **Resultado:** atualização concluída com sucesso; mudança local protegida por stash `pre-update-backup-2026-04-14` e patch `/root/.hermes/hermes-agent/.update-backup-cron-scheduler.patch`; `hermes --version` passou a mostrar `v0.9.0`; `hermes-gateway.service`, `/health` e `hermes chat -Q` permaneceram funcionais
+- **Evidência:** validação operacional no runtime Linux após o update do Hermes
+- **Status:** Passou
+
 ---
 
 ## Sprint S1

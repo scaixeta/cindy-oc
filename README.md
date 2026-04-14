@@ -6,6 +6,7 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 
 - **Sprint ativa:** `S3` — time AIOps multiagente com Microsoft Agent Framework como plataforma de gestao approved
 - **Runtime principal:** Hermes em WSL (`Ubuntu`), com runtime vivo em `/root/.hermes`
+- **Versao atual do Hermes:** `v0.9.0 (2026.4.13)`
 - **Modelo primario do runtime Hermes:** `MiniMax-M2.7` via `minimax`
 - **Fallback do runtime Hermes:** `gpt-5.3-codex` via `openai-codex`
 - **Canal operacional principal:** Telegram, via `hermes-gateway.service`
@@ -25,7 +26,7 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 | Foco | Materializar o time AIOps multiagente com mesh governado |
 | Base operacional validada | Hermes + Telegram + KB canônica + tracking DOC2.5 |
 
-O runtime Hermes foi revalidado em `2026-04-14` com `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e teste local `hermes chat -Q` respondendo `OK`.
+O runtime Hermes foi revalidado em `2026-04-14` e atualizado para `v0.9.0`, mantendo `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e teste local `hermes chat -Q` respondendo `OK`.
 
 ## Escopo atual da S3
 

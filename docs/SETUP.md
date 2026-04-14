@@ -14,6 +14,7 @@ O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como ca
 | Workspace Windows | `C:\CindyAgent` |
 | Workspace em WSL | `/mnt/c/CindyAgent` |
 | Runtime Hermes vivo | `/root/.hermes` |
+| Versao do Hermes Agent | `v0.9.0 (2026.4.13)` |
 | Servico do gateway | `hermes-gateway.service` (systemd de sistema) |
 | Estado do gateway | `active (running)` |
 | Modelo Hermes primario | `MiniMax-M2.7` via `minimax` |
@@ -96,6 +97,7 @@ O wrapper le `MINIMAX_API_KEY` do `.scr/.env` e passa ao OpenCode via PowerShell
 
 ```powershell
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes status
+wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes --version
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway status
 wsl -d Ubuntu --user root -- systemctl status hermes-gateway.service --no-pager
 wsl -d Ubuntu --user root -- curl -s http://127.0.0.1:8642/health
@@ -116,6 +118,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 |---|---|
 | Bootstrap Windows ainda nao alinhado ao servico systemd persistente | Pendente |
 | Aviso de `Gateway Service: stopped` no `hermes status` (`systemd user`) | Conhecido / benigno |
+| Revisao da alteracao local em `cron/scheduler.py` preservada antes do update do Hermes | Pendente |
 | Replicacao para outros projetos da Cindy | Planejada (ST-S1-16) |
 | GSD (Get Shit Done) | Nao faz parte deste projeto |
 
