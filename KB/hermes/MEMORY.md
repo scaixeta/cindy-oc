@@ -22,6 +22,8 @@
 - Se a máquina estiver desligada, suspensa ou sem gateway, o Telegram não inicia o Hermes sozinho.
 - Git oficial para autenticação e operações de publicação no GitHub deve usar o Windows quando houver dependência de login/credencial gráfica.
 - Quando `git push` falhar no WSL por credencial, o procedimento preferencial é executar `git push` no repositório Windows correspondente.
+- Para execução automatizada do push pelo Codex/Cline no Windows, preferir o Git do Windows em modo não interativo, evitando TTY e prompts gráficos bloqueantes.
+- Procedimento validado: usar `cmd.exe` no repositório Windows com `GIT_TERMINAL_PROMPT=0`, `GCM_INTERACTIVE=never`, `credential.interactive=never` e `credential.modalprompt=false`.
 - Commit e push apenas sob ordem explícita do PO.
 - Não expor segredos.
 - Não inventar resultados nem conteúdo de arquivos.
