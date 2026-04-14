@@ -31,6 +31,7 @@
 - A Cindy deve operar com postura executiva no Telegram: organizar trabalho, tornar possibilidades visíveis, destacar bloqueios e conduzir próximos passos.
 - Ao responder, deve reduzir a necessidade de coordenação manual do PO.
 - A referência canônica para a evolução do time multiagente é `KB/AIOPS_TEAM_BASELINE.md`.
+- O plano de ação desta linha de evolução está em `KB/AIOPS_TEAM_ACTION_PLAN.md`.
 - O estado real atual do time deve ser tratado como parcial: Cindy é operacional, ACP/Redis existem, mas a malha multiagente completa ainda não está materializada.
 - A direção aprovada é evoluir para um time em mesh governado, com agentes independentes por domínio e o PO atuando como HITL por gates.
 

@@ -54,6 +54,7 @@ Ele deve servir como referência de arquitetura operacional e de priorização p
 - Wrapper local disponível: `run_opencode.bat`
 - Função atual: raciocínio profundo e tarefas de código
 - Modelo operacional documentado: `MiniMax-M2.7`
+- Deve evoluir para executor técnico dos agentes especialistas, não para barramento do sistema
 
 ### 6. Codex
 
@@ -156,6 +157,29 @@ O modelo mais coerente é:
 - Cindy como coordenadora leve
 - PO como gate de decisão
 
+### Avaliação do mesh via ACP
+
+O `mesh governado` pode ser implementado sobre o ACP interno via Redis, desde que o ACP evolua de prova de conceito para protocolo operacional completo.
+
+#### O que o ACP atual já sustenta
+
+- publicação de mensagens estruturadas
+- streams persistidos por agente
+- separação de namespace em `acp:*`
+- prova de comunicação entre agentes simulados
+
+#### O que o ACP ainda precisa ganhar
+
+- `agent_card` ou registro de capacidades por agente
+- heartbeat e presença
+- ciclo de vida formal de tarefa
+- artefatos e referências de saída
+- `trace_id`, `task_id`, `session_id` e correlação
+- política de retry, timeout, lease e dead-letter
+- estado de aprovação humana
+
+Conclusão: o ACP atual é base viável para o mesh interno, mas ainda não é o mesh completo.
+
 ### 2. Capability registry
 
 Cada agente deve anunciar:
@@ -204,12 +228,24 @@ O time precisa rastrear:
 
 ## Ferramentas e capacidades que faltam materializar
 
+### Princípio de stack
+
+O direcionamento aprovado é `Microsoft first`, mas sem dependência inicial de produtos com licenciamento alto ou acoplamento prematuro ao stack pago.
+
+Na prática:
+
+- priorizar tecnologia Microsoft open source ou com tier gratuito viável
+- usar ferramentas pagas apenas quando houver ganho operacional claro
+- preservar OpenCode, Redis e documentação canônica como ativos já disponíveis
+
 ### Coordenação
 
 - registry vivo de capacidades por agente
 - roteamento por capability
 - handoff formal entre agentes
 - status de tarefa por agente
+- política de gates do PO
+- política de autonomia por agente e por tipo de tarefa
 
 ### Execução
 
@@ -217,6 +253,8 @@ O time precisa rastrear:
 - consumo contínuo de filas/streams
 - isolamento de contexto por agente
 - workflows versionados por papel
+- integração do OpenCode como executor dos especialistas
+- sandboxes ou worktrees por tarefa complexa
 
 ### Governança
 
@@ -231,6 +269,75 @@ O time precisa rastrear:
 - timeline de handoffs
 - métricas de throughput, falhas e retrabalho
 - avaliação humana e automática por sprint
+
+## Ferramentas recomendadas por camada
+
+### Obrigatórias para materializar o time
+
+- Hermes como runtime da Cindy
+- Redis como barramento do mesh
+- ACP evoluído como protocolo interno
+- OpenCode como executor dos especialistas
+- documentação canônica em `docs/`
+- sprint e backlog em `Dev_Tracking*.md`
+- KB compartilhada e memória privada por agente
+
+### Fortemente recomendadas na próxima fase
+
+- capability registry por agente
+- artifact store por tarefa
+- tracing multiagente
+- runbooks por workflow
+- locks e leases para evitar dupla execução
+
+### Microsoft-first recomendadas
+
+- Microsoft Agent Framework como referência e futura base de orquestração
+- Agent Governance Toolkit como referência de guardrails
+- Azure DevOps Boards/Pipelines apenas se o custo operacional fizer sentido
+- Azure Monitor/Application Insights em fase posterior para observabilidade centralizada
+
+### Ferramentas a adiar
+
+- Azure SRE Agent como núcleo do sistema
+- Copilot Enterprise como dependência central do time
+- qualquer produto Microsoft com custo recorrente sem ganho operacional já demonstrado
+
+## Integração recomendada do OpenCode
+
+O OpenCode deve ser integrado como motor de execução dos agentes especialistas.
+
+### Papel do OpenCode no sistema
+
+- executar trabalho técnico de código
+- operar com agentes especializados por papel
+- respeitar instruções, permissões e MCPs por agente
+- devolver resultado, artefatos e status ao ACP
+
+### Papel que o OpenCode não deve assumir
+
+- não deve ser o barramento do mesh
+- não deve ser a fonte de verdade da sprint
+- não deve substituir a Cindy como coordenadora
+
+### Fluxo recomendado
+
+1. Cindy ou outro agente cria uma tarefa no ACP
+2. O worker do agente alvo consome a tarefa
+3. O worker chama o OpenCode com o agente certo
+4. O OpenCode executa no contexto delimitado
+5. O resultado volta para o ACP com artefatos, status e evidências
+6. Cindy consolida ou escala ao PO quando necessário
+
+### Especialistas OpenCode sugeridos
+
+- `planner`
+- `coder`
+- `reviewer`
+- `tester`
+- `docs-writer`
+- `sre-debugger`
+- `context-scout`
 
 ## Padrões de mercado e comunidade que devem guiar a evolução
 
@@ -252,6 +359,7 @@ O time precisa rastrear:
 - Google A2A — descoberta de capacidade, tarefas, artefatos e interoperabilidade entre agentes
 - Azure SRE Agent — exemplo real de AIOps com automação sob guardrails
 - Repositórios comunitários de times multiagente de desenvolvimento com planner/coder/reviewer/tester/docs
+- OpenCode — agentes especializados, permissões, regras, comandos, MCP e execução headless
 
 ## Decisões de orientação para o CindyAgent
 
@@ -271,6 +379,8 @@ O time precisa rastrear:
 6. Implementar workers reais por agente
 7. Implementar observabilidade multiagente
 8. Atualizar a documentação canônica para refletir o estado real versus o estado-alvo
+9. Integrar o OpenCode como executor controlado dos especialistas
+10. Avaliar adoção incremental do stack Microsoft-first conforme licença e maturidade
 
 ## Status deste documento
 
