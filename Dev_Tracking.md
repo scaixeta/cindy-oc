@@ -4,13 +4,14 @@
 
 | ID | Status | Inicio | Escopo |
 |---|---|---|---|
-| S2 | Planejada | 2026-04-13 | Operacionalização da equipe de 5 agentes no Sentivis SIM — ThingsBoard CE, n8n Railway, dashboards, alarms, validações e integrações |
+| S3 | Ativa | 2026-04-14 | Time AIOps multiagente com Microsoft Agent Framework — agent cards, ACP mesh governado, OpenCode executor, Playwright + SonarCloud, PO gates — Modelo de pensamento: Codex |
 
 ## Sprints Encerradas
 
 | ID | Status | Periodo | Entrega |
 |---|---|---|---|
 | S1 | Encerrada | 2026-04-09 a 2026-04-13 | Cindy Agent v1.0 — Hermes + Telegram + DOC2.5 + OpenCode + equipe de 5 agentes com ACP via Redis |
+| S2 | Encerrada (substituída) | 2026-04-13 a 2026-04-14 | Ferramentas internas da Cindy — substituída por S3 com novo objetivo time AIOps |
 
 ---
 
@@ -31,14 +32,19 @@
 - `2026-04-13` — D-S1-14: Agentes se comunicam via ACP/JSON — nunca em linguagem humana entre si
 - `2026-04-13` — D-S1-15: PO approves planos; agentes escalam decisões grandes via Cindy
 - `2026-04-13` — ST-S2-03: Playwright instalado e funcional (Chromium, Firefox, WebKit) — venv Hermes como ambiente Python preferencial
+- `2026-04-14` — S3 aberta: time AIOps multiagente com Microsoft Agent Framework — S2 substituída
+- `2026-04-14` — D-S3-11: Codex é o modelo de pensamento e validação do time
+- `2026-04-14` — Runtime Linux do Hermes corrigido após reboot: `MiniMax-M2.7` mantido como primário e `gpt-5.3-codex` como fallback
+- `2026-04-14` — `hermes-gateway.service` reiniciado com sucesso; healthcheck `/health` e `hermes chat -Q` validados no Linux
+- `2026-04-14` — Remote oficial reconciliado como `https://github.com/scaixeta/CindyAgent`
 
 
 ## Estrutura de Tracking
 
 - `Dev_Tracking.md` — indice das sprints
-- `Dev_Tracking_S1.md` — sprint ativa
+- `Dev_Tracking_S3.md` — sprint ativa
 - `Sprint/` — historico de sprints encerradas
 
 ## Referencia
 
-Consulte `Dev_Tracking_S1.md` para backlog, decisões e pendências da sprint ativa.
+Consulte `Dev_Tracking_S3.md` para backlog, decisões e pendências da sprint ativa.

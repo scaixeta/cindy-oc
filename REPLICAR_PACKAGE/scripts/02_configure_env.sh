@@ -49,17 +49,37 @@ echo "✓ $ENV_FILE criado."
 
 # Criar config.yaml
 cat > "$CONFIG_FILE" << EOF
-model: MiniMax-M2.7
-provider: minimax
+model:
+  default: MiniMax-M2.7
+  provider: minimax
+  base_url: https://api.minimax.io/anthropic
+
+providers: {}
+fallback_model:
+  provider: openai-codex
+  model: gpt-5.3-codex
+  base_url: https://chatgpt.com/backend-api/codex
 
 toolsets:
-  - telegram
+  - hermes-cli
 
-telegram:
-  enabled: true
+display:
+  compact: false
+  personality: technical
+
+tts:
+  provider: edge
+  edge:
+    voice: pt-BR-FranciscaNeural
+
+approvals:
+  mode: manual
+  timeout: 60
 
 logging:
-  level: info
+  level: INFO
+  max_size_mb: 5
+  backup_count: 3
 EOF
 
 echo "✓ $CONFIG_FILE criado."

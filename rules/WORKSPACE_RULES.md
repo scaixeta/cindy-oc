@@ -397,7 +397,7 @@ A Cindy orquestra uma equipe de 5 agentes autônomos que conversam, decidem e ex
 
 1. PO dá direção geral
 2. Agentes discutem entre si → geram plano de ação
-3. Plano Reported ao PO → Aprovação
+3. Plano reportado ao PO → Aprovação
 4. Execução distribuída
 5. Se algo grande → consultam PO
 6. Retorno ao PO

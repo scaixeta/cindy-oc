@@ -10,7 +10,7 @@
 
 ### Git e repositório
 
-- Remote oficial: `https://github.com/scaixeta/cindy-oc`
+- Remote oficial: `https://github.com/scaixeta/CindyAgent`
 - Branch principal: `main`
 - `.scr/.env` é segredo local e não deve ser versionado
 
@@ -35,7 +35,11 @@
 - O estado real atual do time deve ser tratado como parcial: Cindy é operacional, ACP/Redis existem, mas a malha multiagente completa ainda não está materializada.
 - A direção aprovada é evoluir para um time em mesh governado, com agentes independentes por domínio e o PO atuando como HITL por gates.
 - A solução arquitetural aprovada segue princípio `Microsoft first`, mas com adoção incremental e compatível com restrições de licença.
-- Microsoft Agent Framework é a referência principal de arquitetura; ACP/Redis continua como barramento interno e OpenCode como executor técnico dos especialistas.
+- Microsoft Agent Framework é a plataforma de gestão approved — não é mais apenas referência de arquitetura.
+- ACP/Redis continua como mesh interno durante a transição para Microsoft Agent Framework.
+- OpenCode permanece como executor técnico dos especialistas.
+- Nomes dos agentes são baseados em papel: Cindy (coordenação), Builder (execução), Reviewer (validação), Documenter (documentação), PlatformOps (infra). Nenhum papel está atrelado a modelo ou provedor específico.
+- Codex é o modelo de pensamento e validação do time — usado para raciocínio profundo, planejamento e verificação de fatos contra o SoT.
 
 ### Guardas de idioma
 
@@ -89,3 +93,21 @@
 - [ ] Renovar o JWT do Cirrus Lab após expiração
 - [x] Definir o backlog de S4 para Sentivis SIM
 - [x] Corrigir o erro de strip NFKD para manter diacríticos em PT-BR
+- [x] Refatorar nomes de agentes de modelo-marcados para baseados em papel
+- [x] Promover Microsoft Agent Framework para plataforma de gestão approved
+
+### Hermes Runtime — Configuração validada em 2026-04-14
+
+| Campo | Valor |
+|---|---|
+| Modelo principal | `MiniMax-M2.7` |
+| Provider principal | `minimax` |
+| Fallback provider | `openai-codex` |
+| Fallback model | `gpt-5.3-codex` |
+| Fallback base_url | `https://chatgpt.com/backend-api/codex` |
+| Login Codex | Válido por subscription |
+| Serviço gateway | `hermes-gateway.service` (systemd de sistema) — `active (running)` |
+
+**Nota sobre `systemd (user)`:** o `hermes status` pode mostrar "stopped" no manager `systemd (user)`, mas o serviço real em uso é o systemd de sistema, que está ativo.
+
+**Fontes:** `KB/hermes/RUNTIME_EXPORT.md`

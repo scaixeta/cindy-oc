@@ -123,13 +123,29 @@ O PO não deve precisar entrar em:
 
 ## Modelo-alvo do time
 
-### Papéis-alvo
+### Nomes baseados em papel — rationale
+
+Nomes de agente atrelados a um modelo ou provedor específico criamfragilidade:
+
+- se o modelo muda, o nome perde o sentido
+- se o provedor muda, a identidade do agente precisa mudar junto
+- a equipe não deveria precisar renomear-se quando a estratégia de runtime muda
+
+Nomes baseados em papel são estáveis porque:
+
+- o papel existe independentemente do modelo que o executa
+- qualquer provedor pode atuar em qualquer papel conforme a tarefa
+- a identidade da equipe permanece consistente ao longo de múltiplas mudanças de stack
+
+### Papéis-alvo (role-based)
 
 - `Cindy`: orquestração, triagem, gestão de dependências, consolidação, escala ao PO
-- `Sentivis`: IoT, infraestrutura, telemetria, integrações de campo, n8n, ThingsBoard
-- `MiniMax`: código, lógica de aplicação, automações, refatorações, pipelines
-- `Scribe`: documentação técnica, contratos, dashboards, material operacional
-- `GLM`: validação semântica, QA, revisão, compliance, auditoria
+- `Builder`: código, lógica de aplicação, automações, refatorações, pipelines
+- `Reviewer`: validação semântica, QA, revisão, compliance, auditoria
+- `Documenter`: documentação técnica, contratos, dashboards, material operacional
+- `PlatformOps`: IoT, infraestrutura, telemetria, integrações de campo, n8n, ThingsBoard, runtime, observabilidade
+
+**Importante:** nenhum papel está vinculado a um modelo ou provedor específico. Qualquer papel pode usar OpenAI, Codex, GPT-5.x, MiniMax, GLM ou outro provedor dependendo da tarefa, do custo e da disponibilidade.
 
 ### Requisitos de independência por agente
 
@@ -290,25 +306,26 @@ Na prática:
 - runbooks por workflow
 - locks e leases para evitar dupla execução
 
-### Microsoft-first recomendadas
+### Microsoft-first recomendada
 
-- Microsoft Agent Framework como referência e futura base de orquestração
+- **Microsoft Agent Framework como plataforma de gestão aprovada** — é agora a referência oficial de arquitetura e gestão de agentes para o CindyAgent
 - Agent Governance Toolkit como referência de guardrails
 - Azure DevOps Boards/Pipelines apenas se o custo operacional fizer sentido
 - Azure Monitor/Application Insights em fase posterior para observabilidade centralizada
 
-## Solução Microsoft-first recomendada
+### Solução Microsoft-first recomendada
 
 ### Objetivo da solução
 
-Adotar um stack prioritariamente alinhado ao ecossistema Microsoft, mas sem depender desde o início de licenças corporativas caras ou de produtos ainda desnecessários para o estágio atual do CindyAgent.
+Adotar Microsoft Agent Framework como plataforma de gestão de agentes approved, com adoção incremental e sem bloqueio por licenças. O ACP/Redis permanece como mesh/bus interno durante a transição. OpenCode permanece como executor técnico dos especialistas.
 
 ### Princípios da solução
 
-- usar Microsoft como direção arquitetural principal
-- priorizar componentes open source, tiers gratuitos e integração incremental
+- Microsoft Agent Framework é agora a **plataforma de gestão approved** — não mais apenas referência futura
+- a adoção é **incremental**: produtos Microsoft pagos não são obrigatórios na primeira fase
+- a abordagem permanece **portátil e interoperável** — o framework é aberto e o runtime é desacoplado de escolhas de modelo
 - preservar a documentação canônica e o `Dev_Tracking` como fonte de verdade
-- preservar o ACP via Redis como barramento interno do time
+- preservar o ACP via Redis como barramento interno do time durante a transição
 - usar OpenCode como executor técnico dos especialistas
 - adiar produtos Microsoft pagos até existir maturidade operacional suficiente
 
@@ -317,7 +334,7 @@ Adotar um stack prioritariamente alinhado ao ecossistema Microsoft, mas sem depe
 #### 1. Coordination layer
 
 - Cindy como coordenadora
-- Microsoft Agent Framework como arquitetura-alvo de referência
+- **Microsoft Agent Framework como plataforma de gestão approved**
 - Agent Governance Toolkit como modelo de guardrails de runtime
 
 #### 2. Mesh layer

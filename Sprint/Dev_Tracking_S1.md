@@ -1,11 +1,11 @@
-# Dev_Tracking_S1.md — Sprint 1
+# Dev_Tracking_S1.md — Sprint 1 (Arquivada)
 
 ## Identificação
 
 | Campo | Valor |
 |---|---|
 | Sprint | S1 |
-| Status | **Encerrada** |
+| Status | **Arquivada** — ver `Sprint/Dev_Tracking_S1.md` |
 | Inicio | 2026-04-09T21:35:00-ST |
 | Fim | 2026-04-13T01:30:00-ST |
 | Versao | 1.0 |

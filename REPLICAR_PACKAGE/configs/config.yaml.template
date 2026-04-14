@@ -10,7 +10,10 @@ model:
   base_url: https://api.minimax.io/anthropic
 
 providers: {}
-fallback_providers: []
+fallback_model:
+  provider: openai-codex
+  model: gpt-5.3-codex
+  base_url: https://chatgpt.com/backend-api/codex
 
 toolsets:
   - hermes-cli
@@ -29,6 +32,11 @@ terminal:
 display:
   compact: false
   personality: technical
+
+tts:
+  provider: edge
+  edge:
+    voice: pt-BR-FranciscaNeural
 
 approvals:
   mode: manual

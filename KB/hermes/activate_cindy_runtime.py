@@ -47,6 +47,16 @@ RUNTIME_TEXT_PATCHES = {
     "  personality: kawaii": "  personality: technical",
     "    voice: en-US-AriaNeural": "    voice: pt-BR-FranciscaNeural",
 }
+DESIRED_RUNTIME_MODEL = {
+    "default": "MiniMax-M2.7",
+    "provider": "minimax",
+    "base_url": "https://api.minimax.io/anthropic",
+}
+DESIRED_FALLBACK_MODEL = {
+    "provider": "openai-codex",
+    "model": "gpt-5.3-codex",
+    "base_url": "https://chatgpt.com/backend-api/codex",
+}
 
 
 def resolve_wsl_command() -> str:
@@ -146,18 +156,40 @@ def sync_runtime_config() -> int:
         f"""
         from pathlib import Path
         import json
+        import yaml
 
         path = Path("/root/.hermes/config.yaml")
         content = path.read_text(encoding="utf-8")
         replacements = json.loads({json.dumps(json.dumps(RUNTIME_TEXT_PATCHES, ensure_ascii=False))})
+        desired_model = json.loads({json.dumps(json.dumps(DESIRED_RUNTIME_MODEL, ensure_ascii=False))})
+        desired_fallback = json.loads({json.dumps(json.dumps(DESIRED_FALLBACK_MODEL, ensure_ascii=False))})
 
         for old, new in replacements.items():
             if old in content:
                 content = content.replace(old, new)
 
-        path.write_text(content, encoding="utf-8")
+        cfg = yaml.safe_load(content) or {{}}
+        cfg["model"] = desired_model
+        cfg["fallback_model"] = desired_fallback
+        cfg.pop("fallback_providers", None)
+
+        path.write_text(
+            yaml.safe_dump(cfg, sort_keys=False, allow_unicode=True),
+            encoding="utf-8",
+        )
+
+        content = path.read_text(encoding="utf-8")
 
         missing = [new for new in replacements.values() if new not in content]
+        runtime_checks = [
+            "default: MiniMax-M2.7",
+            "provider: minimax",
+            "model: gpt-5.3-codex",
+            "provider: openai-codex",
+        ]
+        if "fallback_providers:" in content:
+            missing.append("fallback_providers removido")
+        missing.extend(item for item in runtime_checks if item not in content)
         if missing:
             print("missing::" + ",".join(missing))
             raise SystemExit(2)

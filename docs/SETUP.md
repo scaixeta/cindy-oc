@@ -2,7 +2,7 @@
 
 ## Visao Geral
 
-O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como canal operacional principal e OpenCode CLI como tool de raciocinio profundo.
+O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como canal operacional principal, `hermes-gateway.service` como servico ativo no Linux e OpenCode CLI como tool de raciocinio profundo.
 
 ## Ambiente atual confirmado
 
@@ -14,6 +14,10 @@ O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como ca
 | Workspace Windows | `C:\CindyAgent` |
 | Workspace em WSL | `/mnt/c/CindyAgent` |
 | Runtime Hermes vivo | `/root/.hermes` |
+| Servico do gateway | `hermes-gateway.service` (systemd de sistema) |
+| Estado do gateway | `active (running)` |
+| Modelo Hermes primario | `MiniMax-M2.7` via `minimax` |
+| Fallback Hermes | `gpt-5.3-codex` via `openai-codex` |
 | OpenCode CLI | `run_opencode.bat` (wrapper) |
 | Modelo OpenCode | `minimax/MiniMax-M2.7` |
 
@@ -74,10 +78,11 @@ Essa KB e a origem canonica para a persona da Cindy no Hermes. O runtime vivo em
 ```
 
 Esse launcher:
-1. reinicia o gateway do Hermes
-2. sobe o gateway em janela separada
-3. reativa a persona Cindy no runtime
-4. mostra o status do gateway
+1. tenta reiniciar o gateway do Hermes pelo bootstrap Windows atual
+2. reativa a persona Cindy no runtime
+3. mostra o status do gateway
+
+Observacao importante: o servico operacional validado em producao local e o `hermes-gateway.service` no systemd de sistema. O bootstrap Windows ainda precisa ser endurecido para ficar totalmente alinhado a esse modo persistente.
 
 ### Usar OpenCode para raciocinio profundo
 
@@ -92,6 +97,9 @@ O wrapper le `MINIMAX_API_KEY` do `.scr/.env` e passa ao OpenCode via PowerShell
 ```powershell
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes status
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway status
+wsl -d Ubuntu --user root -- systemctl status hermes-gateway.service --no-pager
+wsl -d Ubuntu --user root -- curl -s http://127.0.0.1:8642/health
+wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q --source tool -q "Responda apenas OK"
 ```
 
 ## Regras importantes de setup
@@ -106,7 +114,8 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway 
 
 | Item | Status |
 |---|---|
-| Gateway como servico persistente | Opcional / ainda nao implantado |
+| Bootstrap Windows ainda nao alinhado ao servico systemd persistente | Pendente |
+| Aviso de `Gateway Service: stopped` no `hermes status` (`systemd user`) | Conhecido / benigno |
 | Replicacao para outros projetos da Cindy | Planejada (ST-S1-16) |
 | GSD (Get Shit Done) | Nao faz parte deste projeto |
 

@@ -63,12 +63,12 @@ Ferramenta de delegacao para tarefas simples/rapidas que exigem raciocinio profu
 
 ### 3. Codex CLI
 
-Ferramenta de delegacao para tarefas complexas (planeamento, arquitectura, codigo de grande escopo, raciocinio profundo).
+Ferramenta de delegacao para tarefas complexas (planejamento, arquitetura, codigo de grande escopo, raciocinio profundo).
 
 - Comando: `codex exec "prompt" -s read-only`
 - Modelo: `gpt-5.2-codex` (OpenAI, reasoning effort: high, context: 400K)
 - Autenticacao: `codex auth login` via browser OAuth (subscription ChatGPT)
-- Seleccao: tarefas que exigem planeamento profundo — OpenCode para o resto
+- Selecao: tarefas que exigem planejamento profundo — OpenCode para o resto
 
 ### 4. KB canonica da Cindy para Hermes
 
@@ -87,7 +87,9 @@ Local: `/root/.hermes`
 Funcao:
 - hospedar o runtime efetivo da Cindy no Hermes
 - armazenar `SOUL.md`, `USER.md`, `MEMORY.md`, `config.yaml`, `.env`, `state.db`
-- executar o gateway Telegram
+- executar o gateway Telegram via `hermes-gateway.service`
+- manter `MiniMax-M2.7` como modelo primario do runtime
+- manter `gpt-5.3-codex` como fallback operacional via `openai-codex`
 
 ### 5. Telegram
 
@@ -144,14 +146,14 @@ O Cindy Agent opera com **5 agentes autônomos** em regime de orquestração col
 3. **Plano** — Trazem um plano de ação concreto para você
 4. **Aprovação** — Você aprova ou ajusta
 5. **Execução** — Agentes executam em paralelo
-6. **Big decision** — Algo fora do previsto → consultam você antes de mudar direction
-7. **Retorno** — Resultado finalReported a você
+6. **Decisao grande** — algo fora do previsto -> consultam voce antes de mudar o rumo
+7. **Retorno** — resultado final reportado a voce
 
 ### Atribuição de Papéis
 
 | Modelo | Papel | Escopo |
 |---|---|---|
-| Cindy | Coordenadora / PM | Routing,分解,triagem, comunicação, intermediação |
+| Cindy | Coordenadora / PM | Routing, triagem, comunicação, intermediação |
 | Sentivis 🆕 | IoT & Infra Specialist | ThingsBoard CE, n8n Railway, JWS, Cirrus Lab, telemetria |
 | MiniMax | AI & Logic Specialist | CindyAgent, DOC2.5, Hermes, OpenCode, código |
 | Scribe 🆕 | Docs & Integration Specialist | Swagger/OpenAPI, dashboards, docs técnicas, API contracts |
@@ -166,13 +168,13 @@ Cindy tria e distribui (quem faz o quê)
     ↓
 Agentes discutem entre si → geram plano de ação
     ↓
-Plano Reported ao PO → Você aprova
+Plano reportado ao PO -> voce aprova
     ↓
 Execução distribuída
     ↓
 Se algo grande acontece → consultam Você
     ↓
-Resultado finalReported ao PO
+Resultado final reportado ao PO
 ```
 
 ### RACI — Equipe Completa
@@ -225,15 +227,16 @@ Roteamento semântico por palavras-chave — zero LLM no caminho de classificaç
 
 - Cindy Agent como repositorio-base
 - Hermes + Telegram funcionando no ambiente local
+- `hermes-gateway.service` ativo no Linux com healthcheck local validado
 - OpenCode CLI como tool de delegacao (MiniMax M2.7)
-- documentacao canonica e tracking da sprint S1
+- documentacao canonica e tracking da sprint S3
 - mapa de replicacao em `Replicar.md`
 
 ### Fora do escopo atual
 
 - replicacao automatica para todos os projetos listados
-- fechamento da sprint S1
-- automacao completa de deploy/servico do gateway
+- fechamento da sprint S3
+- endurecimento completo do bootstrap Windows para o servico systemd do gateway
 
 ## Referências da equipe de agentes
 

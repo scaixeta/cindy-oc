@@ -2,7 +2,7 @@
 
 ## Visao Geral
 
-Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Telegram como canal principal e OpenCode CLI como tool de delegacao.
+Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Telegram como canal principal, `hermes-gateway.service` como servico operacional real no Linux e OpenCode CLI como tool de delegacao.
 
 ## Estado operacional atual
 
@@ -11,10 +11,12 @@ Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Teleg
 | Runtime Hermes | instalado e funcional |
 | Local do runtime | `/root/.hermes` |
 | Executavel | `/root/.hermes/hermes-agent/venv/bin/hermes` |
+| Modelo primario do runtime | `MiniMax-M2.7` via `minimax` |
+| Fallback do runtime | `gpt-5.3-codex` via `openai-codex` |
 | Telegram | configurado e pareado |
-| Gateway | funcional, actualmente executado manualmente |
+| Gateway | funcional via `hermes-gateway.service` |
 | OpenCode | integrado via wrapper |
-| Servico persistente | ainda nao instalado como service |
+| Servico persistente | instalado e ativo no systemd de sistema |
 
 ## Comandos principais
 
@@ -33,7 +35,10 @@ Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Teleg
 ```powershell
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes status
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway status
-wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway run
+wsl -d Ubuntu --user root -- systemctl status hermes-gateway.service --no-pager
+wsl -d Ubuntu --user root -- systemctl restart hermes-gateway.service
+wsl -d Ubuntu --user root -- curl -s http://127.0.0.1:8642/health
+wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q --source tool -q "Responda apenas OK"
 ```
 
 ## Semantica operacional da Cindy
@@ -42,15 +47,16 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway 
 - **`acorde`:** retomada logica da sessao/contexto
 - **Nao significa:** ligar maquina, acordar WSL ou iniciar Hermes do zero automaticamente
 - **Commit/push:** somente com autorizacao explicita do PO
-- **Seleccao de reasoning engine:** tarefas simples/rapidas usam OpenCode (MiniMax M2.7); tarefas complexas de planeamento/arquitectura usam Codex (OpenAI gpt-5.2-codex, Reasoning Effort: High, Context 400K)
+- **Selecao de reasoning engine:** tarefas simples e rapidas usam OpenCode (MiniMax M2.7); tarefas complexas de planejamento e arquitetura usam Codex
 - **OpenCode:** tool de delegacao — usado para raciocinio profundo em codigo, nao substitui o Hermes
 
 ## Procedimento padrao de subida
 
-1. iniciar o gateway Hermes
-2. ativar/reaplicar a persona Cindy no runtime vivo
-3. verificar o status do gateway
-4. operar pelo Telegram ou CLI conforme disponibilidade
+1. garantir que `/root/.hermes/config.yaml` mantenha `MiniMax-M2.7` como primario e `gpt-5.3-codex` como fallback
+2. reiniciar ou validar o `hermes-gateway.service`
+3. validar `/health` e um `hermes chat -Q` curto
+4. ativar ou reaplicar a persona Cindy no runtime vivo quando necessario
+5. operar pelo Telegram ou CLI conforme disponibilidade
 
 ## Monitoramento rápido
 
@@ -58,6 +64,9 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway 
 |---|---|
 | Status geral do Hermes | `hermes status` |
 | Status do gateway | `hermes gateway status` |
+| Status do servico real | `systemctl status hermes-gateway.service --no-pager` |
+| Reinicio do servico real | `systemctl restart hermes-gateway.service` |
+| Healthcheck local | `curl -s http://127.0.0.1:8642/health` |
 | Teste rápido do OpenCode | `cd /d C:\cindyagent && opencode run --model minimax/MiniMax-M2.7 "echo hello"` |
 | Teste ACP (multi-agente) | `python3 .agents/scripts/test_acp_multi_agent.py` |
 | Keys ACP no Redis | `redis-cli KEYS "acp:*"` |
@@ -67,18 +76,21 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway 
 
 | Problema | Causa provavel | Correcao minima |
 |---|---|---|
-| Telegram nao responde | gateway parado | subir/reiniciar o gateway |
+| Telegram nao responde | gateway parado ou config desatualizada no reboot | validar `/root/.hermes/config.yaml`, reiniciar `hermes-gateway.service` e testar `/health` |
+| `hermes status` mostra `Gateway Service: stopped` | status do `systemd (user)` e nao do servico real | conferir `systemctl status hermes-gateway.service --no-pager` |
 | OpenCode retorna "invalid api key" | MINIMAX_API_KEY expirada ou invalida | verificar chave em `.scr/.env` |
 | Warnings de `.env` no WSL | arquivo com `CRLF` | normalizar para `LF` |
 | Caracteres quebrados no terminal Windows | encoding do console | usar terminal UTF-8 / PowerShell com code page adequada |
 
 ## Operacao como servico
 
-Ainda opcional e nao consolidada como padrao deste projeto.
+O modo operacional real validado neste projeto e o servico de sistema `hermes-gateway.service`.
 
 Comandos disponiveis:
 
 ```powershell
+wsl -d Ubuntu --user root -- systemctl status hermes-gateway.service --no-pager
+wsl -d Ubuntu --user root -- systemctl restart hermes-gateway.service
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway install
 wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes gateway uninstall
 ```

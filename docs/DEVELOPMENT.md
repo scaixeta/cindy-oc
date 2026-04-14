@@ -2,14 +2,14 @@
 
 ## Visao Geral
 
-O desenvolvimento atual do Cindy Agent permanece dentro da **Sprint S1**, ainda aberta, com foco em consolidar o runtime Hermes, a persona Cindy, a documentacao DOC2.5, a integracao do OpenCode CLI e o planejamento da replicacao entre os projetos principais da Cindy.
+O desenvolvimento atual do Cindy Agent esta dentro da **Sprint S3**, com foco em materializar o time AIOps multiagente sem perder a base operacional do runtime Hermes, da KB canonica da Cindy e da documentacao DOC2.5.
 
 ## Estado atual da sprint
 
-- **Sprint ativa:** `S1`
-- **Status:** aberta
-- **Estorias:** 15 Done / 1 Pending (ST-S1-16: planejar replicacao)
-- **Escopo corrente:** Hermes + Telegram + KB/hermes + docs canonicos + OpenCode + tracking
+- **Sprint ativa:** `S3`
+- **Status:** ativa
+- **Escopo corrente:** time AIOps multiagente + Hermes/Telegram + KB/hermes + docs canonicos + tracking
+- **Estado operacional validado em 2026-04-14:** `MiniMax-M2.7` primario no Hermes, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e healthcheck OK
 
 ## Fluxo DOC2.5 aplicado neste projeto
 
@@ -27,17 +27,17 @@ O desenvolvimento atual do Cindy Agent permanece dentro da **Sprint S1**, ainda 
 ## Fluxo da equipe de 5 agentes
 
 ```
-PO dá direção geral
+PO da direcao geral
     ↓
-Cindy tria e distribui (quem faz o quê)
+Cindy tria e distribui (quem faz o que)
     ↓
-Agentes discutem entre si via ACP (Redis) → geram plano de ação
+Agentes discutem entre si via ACP (Redis) -> geram plano de acao
     ↓
-Plano Reported ao PO → Aprovação
+Plano reportado ao PO -> aprovacao
     ↓
-Execução distribuída
+Execucao distribuida
     ↓
-Se algo grande → consultam PO
+Se algo grande -> consultam o PO
     ↓
 Retorno ao PO
 ```
@@ -64,17 +64,18 @@ Retorno ao PO
 ### Dentro do escopo atual
 
 - manter o repositorio-base Cindy Agent coerente com o estado real do Hermes
+- manter `MiniMax-M2.7` como primario do runtime Linux do Hermes e `gpt-5.3-codex` como fallback
 - OpenCode CLI como tool de delegacao para raciocinio profundo
 - documentar KB/hermes e runtime vivo do Hermes
 - documentar operacao via Telegram e gateway
-- registrar os projetos principais da Cindy via `Replicar.md`
-- planejar replicacao futura sem executa-la automaticamente
+- registrar bugs, testes e decisoes da sprint ativa
+- planejar evolucao multiagente sem executar mudancas estruturais fora do gate
 
 ### Fora do escopo atual
 
 - alterar em lote os repositorios listados em `Replicar.md`
-- fechar a sprint S1
-- automacao completa de deploy/servico do gateway
+- fechar a sprint S3
+- endurecer o bootstrap Windows do gateway sem aprovacao especifica
 
 ## Portfolio principal da Cindy
 
@@ -115,7 +116,7 @@ Toda mudanca relevante deve refletir:
 - `README.md`
 - `docs/`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S1.md`
+- `Dev_Tracking_S3.md`
 - `tests/bugs_log.md` quando houver bug ou teste real
 
 ## Qualidade
@@ -126,4 +127,4 @@ Toda mudanca relevante deve refletir:
 
 ## Referencia
 
-Consulte `Dev_Tracking_S1.md` para backlog, decisoes e pendencias da sprint ativa.
+Consulte `Dev_Tracking_S3.md` para backlog, decisoes e pendencias da sprint ativa.

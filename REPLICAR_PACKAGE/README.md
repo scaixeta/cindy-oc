@@ -134,7 +134,7 @@ Este pacote foi gerado a partir do ambiente:
 - **Hermes Agent:** `v0.8.0` (git tag `RELEASE_v0.8.0.md`)
 - **Runtime path:** `/root/.hermes/`
 - **Config path:** `~/.hermes/config.yaml`
-- **Repo principal:** `https://github.com/scaixeta/cindy-oc`
+- **Repo principal:** `https://github.com/scaixeta/CindyAgent`
 
 ## Suporte
 

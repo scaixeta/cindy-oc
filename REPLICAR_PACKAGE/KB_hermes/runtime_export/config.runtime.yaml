@@ -3,7 +3,10 @@ model:
   provider: minimax
   base_url: https://api.minimax.io/anthropic
 providers: {}
-fallback_providers: []
+fallback_model:
+  provider: openai-codex
+  model: gpt-5.3-codex
+  base_url: https://chatgpt.com/backend-api/codex
 credential_pool_strategies:
   minimax: fill_first
 toolsets:
@@ -247,10 +250,6 @@ platform_toolsets:
 #   minimax-cn   (MINIMAX_CN_API_KEY)  — MiniMax (China)
 #
 # For custom OpenAI-compatible endpoints, add base_url and api_key_env.
-#
-# fallback_model:
-#   provider: openrouter
-#   model: anthropic/claude-sonnet-4
 #
 # ── Smart Model Routing ────────────────────────────────────────────────
 # Optional cheap-vs-strong routing for simple turns.

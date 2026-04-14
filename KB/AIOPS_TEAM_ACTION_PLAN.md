@@ -11,8 +11,10 @@ Transformar o CindyAgent de um runtime centralizado na Cindy com infraestrutura 
 - A sprint permanece aberta e não deve ser alterada por este plano
 - O runtime real atual ainda é parcial
 - O mesh interno será implementado sobre ACP via Redis
-- O stack seguirá princípio `Microsoft first`, mas com pragmatismo de licenças
+- O stack seguirá princípio `Microsoft first`, com pragmatismo de licenças
 - O OpenCode será integrado como executor dos especialistas
+- Nomes de agente são baseados em papel — não em modelo: Candid, Builder, Reviewer, Documenter, PlatformOps
+- Microsoft Agent Framework é a plataforma de gestão approved — não mais referência futura
 
 ## Resultado esperado
 
@@ -29,24 +31,27 @@ Ao final da implementação, o sistema deve permitir:
 
 ### Entregas
 
-- contrato operacional por agente
+- contrato operacional por agente (role-based)
 - matriz de capacidades por agente
 - política de autonomia por agente
 - regras de escala ao PO
 - definição de estados de tarefa
+- estratégia de modelo/provedor por papel
 
 ### Ações
 
-1. Definir `agent_card` para Cindy, Sentivis, MiniMax, Scribe e GLM
+1. Definir `agent_card` para Cindy, Builder, Reviewer, Documenter e PlatformOps
 2. Definir ferramentas permitidas e proibidas por agente
 3. Definir workflows padrão por agente
 4. Definir critérios de entrada, saída e handoff
 5. Definir gates do PO
+6. Definir para cada papel: modelos preferidos, fallback, provedor estratégia e política de custo/risco/autonomia
 
 ### Critério de pronto
 
 - qualquer tarefa consegue ser roteada por capacidade
 - cada agente tem missão e fronteira claras
+- cada papel tem estratégia de modelo/provedor definida e documentada
 
 ## Fase 2 — Evoluir o ACP para mesh governado
 
@@ -139,32 +144,34 @@ Ao final da implementação, o sistema deve permitir:
 
 - o time fica auditável e operável como sistema
 
-## Fase 6 — Adoção incremental Microsoft-first
+## Fase 6 — Adoção Microsoft Agent Framework
 
 ### Entregas
 
-- trilha de adoção Microsoft compatível com licenças
+- trilha de adoção Microsoft Agent Framework como plataforma de gestão approved
+- integração incremental de componentes Microsoft
 
 ### Ações
 
-1. Usar Microsoft Agent Framework como alvo de arquitetura
+1. Usar Microsoft Agent Framework como plataforma de gestão approved — não mais como alvo de arquitetura
 2. Avaliar Agent Governance Toolkit para guardrails
 3. Avaliar Azure DevOps para boards/pipeline quando houver ganho claro
 4. Avaliar Azure Monitor/Application Insights em fase posterior
 5. Adiar produtos com custo recorrente alto até a maturidade operacional justificar
+6. Manter interoperabilidade com ACP/Redis durante a transição
 
 ### Critério de pronto
 
-- a evolução do stack respeita a diretriz Microsoft-first sem forçar dependência cara antes da hora
+- a evolução do stack adota Microsoft Agent Framework como plataforma de gestão sem forçar dependência cara antes da hora
 
 ## Solução Microsoft-first a implementar
 
-### Núcleo recomendado
+### Núcleo aprovado
 
-- Cindy como coordenadora do time
-- ACP via Redis como mesh governado
+- Cindy como coordenação operacional do time
+- ACP via Redis como mesh governado durante transição
 - OpenCode como executor dos especialistas
-- Microsoft Agent Framework como arquitetura-alvo
+- Microsoft Agent Framework como plataforma de gestão approved
 - Agent Governance Toolkit como referência de governança
 
 ### Sequência de adoção

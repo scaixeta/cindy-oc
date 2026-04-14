@@ -1,5 +1,49 @@
 # bugs_log.md — Log de Bugs, Testes e Evidências
 
+## Sprint S3
+
+### BUG-S3-01 — Fallback MiniMax não ativava no contexto cron do Hermes
+
+- **Data:** 2026-04-14
+- **Severidade:** Alta
+- **Evidência:** Log `gateway.log` mostra `fallback_model received: None` e `_fallback_chain populated: []` em todas as execuções cron. Fallback nunca disparava ao falhar primary `gpt-5.2-codex`.
+- **Impacto:** Jobs cron falhavam com HTTP 400 quando primary indisponível, sem fallback automático para MiniMax-M2.7
+- **Causa raiz dupla:**
+  1. `fallback_providers: [minimax]` no config.yaml sobrescrevia `fallback_model` dict, populando chain com string inválida filtrada
+  2. Cron scheduler (`cron/scheduler.py`) não passava `fallback_model` para o AIAgent
+- **Correção:**
+  - Removido `fallback_providers` do config.yaml
+  - Adicionado `fallback_model=_cfg.get("fallback_model")` em `cron/scheduler.py` linha ~663
+- **Validação:** Cron 16:20 confirmou `Fallback activated: gpt-5.2-codex → MiniMax-M2.7 (minimax)` e output de sucesso
+- **Status:** Corrigido
+
+### TEST-S3-01 — Fallback MiniMax ativado com sucesso no cron
+
+- **Data:** 2026-04-14
+- **Escopo:** Validar que o fallback MiniMax funciona no contexto cron após correção
+- **Resultado:** `Fallback activated: gpt-5.2-codex → MiniMax-M2.7 (minimax)` confirmado no log. Cron output `2026-04-14_16-20-59.md` mostra Redis operante com sync executado
+- **Evidência:** `KB/hermes/fallback_diagnosis.md` seção 10.2
+- **Status:** Passou
+
+### BUG-S3-02 — Reboot carregou configuração antiga do Hermes no runtime root
+
+- **Data:** 2026-04-14
+- **Severidade:** Alta
+- **Evidência:** após reboot, o `hermes-gateway.service` subiu com `/root/.hermes/config.yaml` antigo, apontando para Codex como primário; o journal mostrava HTTP 400 e o Telegram ficou sem responder
+- **Impacto:** indisponibilidade operacional da Cindy no Telegram até reaplicação manual da configuração canônica no Linux
+- **Correção:** regravação do `/root/.hermes/config.yaml` com `MiniMax-M2.7` como primário e `gpt-5.3-codex` como fallback, sincronização da KB da Cindy e reinício do `hermes-gateway.service`
+- **Status:** Corrigido
+
+### TEST-S3-02 — Runtime Linux revalidado após correção do reboot
+
+- **Data:** 2026-04-14
+- **Escopo:** validar o runtime Hermes no Linux após correção da configuração primária e reinício do serviço
+- **Resultado:** `systemctl status hermes-gateway.service` permaneceu `active (running)`; `curl http://127.0.0.1:8642/health` respondeu `{"status": "ok", "platform": "hermes-agent"}`; `hermes chat -Q --source tool -q "Responda apenas OK"` retornou `OK`
+- **Evidência:** validação operacional executada no runtime Linux durante esta sessão
+- **Status:** Passou
+
+---
+
 ## Sprint S1
 
 ### BUG-S1-01 — Warnings no WSL ao ler `.scr/.env` com `CRLF`
@@ -66,7 +110,8 @@
 
 ## Notas
 
-- A sprint S1 permanece aberta
+- A sprint ativa atual é a `S3`
+- `Sprint/Dev_Tracking_S1.md` e `Sprint/Dev_Tracking_S2.md` preservam o histórico das sprints anteriores
 - `Replicar.md` passa a ser tratado como mapa dos projetos principais da Cindy
 - A replicação entre projetos ainda está em fase de planejamento e não foi executada neste ciclo
 - `2026-04-11` — ST-S1-16: escopo Embrapa/café movido para Sentivis SIM (S5) — não pertence ao CindyAgent. Backlog do CindyAgent corrigido para 16 itens (ST-S1-16 renarrada como desalocação de escopo).

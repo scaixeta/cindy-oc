@@ -10,7 +10,7 @@
 
 ### Git e repositório
 
-- Remote oficial: `https://github.com/scaixeta/cindy-oc`
+- Remote oficial: `https://github.com/scaixeta/CindyAgent`
 - Branch principal: `main`
 - `.scr/.env` é segredo local e não deve ser versionado
 

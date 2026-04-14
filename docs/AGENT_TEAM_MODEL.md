@@ -2,7 +2,7 @@
 
 **Data:** 2026-04-13
 **Versão:** 1.0
-**Classificação:** Norma operational
+**Classificação:** Norma operacional
 
 ---
 
@@ -56,13 +56,13 @@ O Cindy Agent opera com **5 agentes autônomos** que se comunicam via ACP (Agent
 
 1. **Briefing** — PO dá direção geral
 2. **Triagem** — Cindy distribui tarefa para agentes via ACP
-3. **Discussão** — Agentes议论 via Redis Pub/Sub / Streams
+3. **Discussão** — Agentes debatem via Redis Pub/Sub / Streams
 4. **Plano** — Agentes geram plano de ação (em JSON estruturado)
 5. **Consolidação** — Cindy reúne planos e apresenta ao PO
 6. **Aprovação** — PO aprova ou ajusta
 7. **Execução** — Agentes executam em paralelo
 8. **Escala** — Se algo grande → Cindy consulta PO
-9. **Retorno** — Resultado Reported ao PO via Cindy
+9. **Retorno** — Resultado reportado ao PO via Cindy
 
 ---
 

@@ -4,30 +4,36 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 
 ## Estado atual
 
-- **Sprint ativa:** `S1` — permanece aberta
+- **Sprint ativa:** `S3` — time AIOps multiagente com Microsoft Agent Framework como plataforma de gestao approved
 - **Runtime principal:** Hermes em WSL (`Ubuntu`), com runtime vivo em `/root/.hermes`
-- **Canal operacional principal:** Telegram, via Hermes Gateway
-- **Tool de raciocinio:** OpenCode CLI com MiniMax M2.7 (Coding Plan)
+- **Modelo primario do runtime Hermes:** `MiniMax-M2.7` via `minimax`
+- **Fallback do runtime Hermes:** `gpt-5.3-codex` via `openai-codex`
+- **Canal operacional principal:** Telegram, via `hermes-gateway.service`
+- **Healthcheck validado:** `http://127.0.0.1:8642/health`
 - **KB canonica da Cindy para Hermes:** `KB/hermes/`
 - **Sincronizacao viva do runtime:** `/root/.hermes/SOUL.md`, `/root/.hermes/memories/USER.md`, `/root/.hermes/memories/MEMORY.md`
-- **Branch principal deste repositorio:** `main`
+- **Remote oficial:** `https://github.com/scaixeta/CindyAgent`
+- **Branch atual de trabalho:** `v1.1`
 - **Segredo local protegido:** `.scr/.env` permanece fora de versionamento
 
-## Sprint S1 — Estado
+## Sprint S3 — Estado
 
-| Estorias | Total | Done | Pending |
-|---|---|---|---|
-| Backlog | 16 | 16 | 0 |
+| Item | Estado |
+|---|---|
+| Sprint | `S3` |
+| Status | Ativa |
+| Foco | Materializar o time AIOps multiagente com mesh governado |
+| Base operacional validada | Hermes + Telegram + KB canônica + tracking DOC2.5 |
 
-Sprint permanece aberta aguardando ordem de encerramento do PO.
+O runtime Hermes foi revalidado em `2026-04-14` com `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e teste local `hermes chat -Q` respondendo `OK`.
 
-## Escopo atual da S1
+## Escopo atual da S3
 
-- estabilizar o runtime Hermes + Telegram
-- consolidar a persona Cindy em KB canonica e runtime vivo
-- integrar OpenCode CLI como tool de raciocinio profundo
+- materializar o time AIOps multiagente com papeis operacionais claros
+- manter Hermes + Telegram como base operacional estavel da Cindy
+- preservar a KB canonica e a memoria operacional alinhadas ao runtime vivo
 - manter a documentacao DOC2.5 aderente ao estado real do projeto
-- registrar o portfolio principal da Cindy para replicacao futura
+- registrar bugs, testes e decisoes da sprint ativa com evidencia verificavel
 
 ## Projetos principais da Cindy
 
@@ -68,7 +74,7 @@ Modelo padrao: `minimax/MiniMax-M2.7`
 
 - `README.md` — entry point do projeto
 - `Dev_Tracking.md` — indice de sprints
-- `Dev_Tracking_S1.md` — sprint ativa
+- `Dev_Tracking_S3.md` — sprint ativa
 - `docs/SETUP.md` — ambiente, instalacao e preparo operacional
 - `docs/ARCHITECTURE.md` — arquitetura atual
 - `docs/DEVELOPMENT.md` — fluxo de evolucao e backlog
@@ -86,14 +92,14 @@ Modelo padrao: `minimax/MiniMax-M2.7`
 6. `docs/DEVELOPMENT.md`
 7. `docs/OPERATIONS.md`
 8. `Dev_Tracking.md`
-9. `Dev_Tracking_S1.md`
+9. `Dev_Tracking_S3.md`
 10. `Replicar.md`
 
 ---
 
-## Cindy — Orquestradora
+## Cindy — Orquestradora (Context Router)
 
-A Cindy e o agente principal do projeto. Em cada run, ela identifica o orchestrator ativo (Cline/Codex/Antigravity), a superficie de execucao (VSCode/CLI) e o workspace root; em seguida, descobre e seleciona as skills/workflows disponiveis no contexto atual, respeitando os gates DOC2.5 (plano aprovado antes de execucao; commit/push apenas sob ordem explicita do PO).
+A Cindy é o agente principal do projeto. Em cada run, ela identifica o orchestrator ativo (Cline/Codex/Antigravity), a superfície de execução (VSCode/CLI) e o workspace root; em seguida, descobre e seleciona as skills/workflows disponíveis no contexto atual, respeitando os gates DOC2.5 (plano aprovado antes de execução; commit/push apenas sob ordem explícita do PO).
 
 <p align="center">
   <img src=".brand/Cindy.jpg" alt="Cindy — Orquestradora" width="220" />

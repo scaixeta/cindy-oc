@@ -5,20 +5,17 @@
 | Campo | Valor |
 |---|---|
 | Sprint | S2 |
-| Status | **Planejada** — aguardando kickoff do PO |
+| Status | **Em Brainstorm** — aguardando definição de escopo com PO |
 | Início | 2026-04-13 |
 | Versão | 1.0 |
 | PO | Aprovado pelo PO em — |
 
 ## Escopo
 
-Operacionalizar a plataforma Sentivis SIM (ThingsBoard CE + n8n Railway) e consolidar o stack de ferramentas de desenvolvimento da CindyAgent (TTS, MCP, Playwright, SonarCloud, Whisper STT).
+Consolidar o stack de ferramentas internas da CindyAgent — TTS, MCP, Playwright, SonarCloud, Whisper STT — para uso em qualquer projeto do portfólio.
 
 **Track A — Ferramentas CindyAgent**
 Stack padrão de ferramentas disponíveis para qualquer projeto: TTS MiniMax hd, MCP MiniMax, Playwright, SonarCloud, Whisper STT (via Ollama).
-
-**Track B — Sentivis SIM**
-ThingsBoard CE local, n8n Railway, dashboards, alarms, integrações de dispositivos reais (Cirrus Lab).
 
 ---
 
@@ -31,20 +28,9 @@ ThingsBoard CE local, n8n Railway, dashboards, alarms, integrações de disposit
 | ST-S2-01 | TTS MiniMax: fazer upgrade de `speech-02-turbo` para `speech-2.8-hd` para PT-BR mais natural | 2 | — | Pending |
 | ST-S2-02 | MiniMax MCP: integrar `minimax-mcp-js` (npm) no Hermes via native-mcp em modo REST | 5 | API key configurada | Pending |
 | ST-S2-03 | Playwright: instalar como ferramenta padrão e validar browser automation no WSL | 3 | Node.js 22 | **Concluída** |
-| ST-S2-04 | SonarCloud: configurar SonarScanner apontando para `scaixeta/cindy-oc` via GitHub OAuth | 3 | GitHub OAuth | Pending |
+| ST-S2-04 | SonarCloud: configurar SonarScanner apontando para `scaixeta/CindyAgent` via GitHub OAuth | 3 | GitHub OAuth | Pending |
 | ST-S2-05 | Whisper STT: instalar e configurar via Ollama (pendente liberação de porta 11434 WSL2→Windows) | 5 | Liberação de porta 11434 | **Pendente (acesso WSL2)** |
 | ST-S2-06 | Testar pipeline completo: áudio Telegram → STT Whisper → resposta Cindy → TTS → Telegram | 8 | ST-S2-05 | Pending |
-
-### Track B — Sentivis SIM
-
-| ID | Estória | SP | Dependência | Status |
-|---|---|---|---|---|
-| ST-S2-10 | ThingsBoard CE: validar acesso e estado dos dispositivos Cirrus Lab (4 dispositivos reais) | 3 | — | Pending |
-| ST-S2-11 | ThingsBoard CE: configurar dashboards para os 4 dispositivos reais | 5 | ST-S2-10 | Pending |
-| ST-S2-12 | ThingsBoard CE: configurar alarms para thresholds críticos | 5 | ST-S2-10 | Pending |
-| ST-S2-13 | n8n Railway: operacionalizar workflows de automação Sentivis | 8 | ST-S2-10 | Pending |
-| ST-S2-14 | Integração dispositivo real: validar telemetria NIMBUS-AERO e ATMOS-WIND | 5 | ST-S2-10 | Pending |
-| ST-S2-15 | Documentar arquitetura Sentivis SIM em `docs/ARCHITECTURE_SIM.md` | 3 | ST-S2-13 | Pending |
 
 ---
 
@@ -80,12 +66,6 @@ ThingsBoard CE local, n8n Railway, dashboards, alarms, integrações de disposit
 | ST-S2-04 | — | — | Pending |
 | ST-S2-05 | — | — | Pending |
 | ST-S2-06 | — | — | Pending |
-| ST-S2-10 | — | — | Pending |
-| ST-S2-11 | — | — | Pending |
-| ST-S2-12 | — | — | Pending |
-| ST-S2-13 | — | — | Pending |
-| ST-S2-14 | — | — | Pending |
-| ST-S2-15 | — | — | Pending |
 | Sprint close | — | — | Pending |
 
 ---
@@ -93,7 +73,7 @@ ThingsBoard CE local, n8n Railway, dashboards, alarms, integrações de disposit
 ## Notas Técnicas
 
 - **WSL2 hostname:** `cindy-win`
-- **Git remote:** `https://github.com/scaixeta/cindy-oc.git`
+- **Git remote:** `https://github.com/scaixeta/CindyAgent.git`
 - **Ollama Windows:** `C:\Users\sacai\AppData\Local\Programs\Ollama\ollama.exe` — processo `ollama.exe` rodando no Windows
 - **Porta Ollama:** 11434 (localhost Windows) — inacessível do WSL2 por bloqueio de firewall/antivírus
 - **npm global path:** `/root/.hermes/node/lib/node_modules`

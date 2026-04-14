@@ -19,18 +19,18 @@ Este documento orienta como preparar o ambiente local para trabalhar com a Cindy
 
 ### 1. Clonar o repositorio
 
-```bash
-git clone https://github.com/scaixeta/Cindy
-cd Cindy
+```powershell
+git clone https://github.com/scaixeta/CindyAgent
+Set-Location CindyAgent
 ```
 
 ### 2. Validar a estrutura base
 
-```bash
-ls
-ls docs
-ls rules
-ls tests
+```powershell
+Get-ChildItem
+Get-ChildItem docs
+Get-ChildItem rules
+Get-ChildItem tests
 ```
 
 ### 3. Conferir a trilha canonica
@@ -43,7 +43,7 @@ Arquivos minimos esperados:
 - `tests/bugs_log.md`
 - `rules/WORKSPACE_RULES.md`
 
-Na Cindy atual, o arquivo ativo e `Dev_Tracking_S1.md`.
+Na Cindy atual, o arquivo ativo e `Dev_Tracking_S3.md`.
 
 ### 4. Executar validacoes locais, se necessario
 
@@ -72,8 +72,8 @@ A inicializacao de um novo projeto DOC2.5 derivado da Cindy deve ser feita a par
 
 ## Estrutura atual do projeto
 
-```
-Cindy/
+```text
+CindyAgent/
 ├── .agents/
 ├── .brand/
 ├── .cline/
@@ -82,7 +82,7 @@ Cindy/
 ├── README.md
 ├── Cindy_Contract.md
 ├── Dev_Tracking.md
-├── Dev_Tracking_S1.md
+├── Dev_Tracking_S3.md
 ├── docs/
 ├── rules/
 ├── Templates/
