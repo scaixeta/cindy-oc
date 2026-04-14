@@ -153,6 +153,7 @@ Governança e HITL:
 | D-S3-11 | Codex é o modelo de pensamento e validação do time — usado para raciocínio profundo, planejamento e verificação de fatos contra o SoT | 2026-04-14 |
 | D-S3-12 | Drift de reboot identificado no Hermes: o runtime subiu com configuração antiga de Codex como primário e causou HTTP 400; estado tratado como transitório e superado pela D-S3-13 | 2026-04-14 |
 | D-S3-13 | Hermes Linux alinhado ao canônico: `MiniMax-M2.7` como primário via `minimax`, `gpt-5.3-codex` como fallback via `openai-codex`, `hermes-gateway.service` reiniciado com healthcheck e `hermes chat -Q` validados | 2026-04-14 |
+| D-S3-14 | Passagem de bastão analítica registrada em `KB/HANDOFF_S3_2026-04-14.md` para consolidar o que foi feito, o estado atual e o horizonte plausível da S3 | 2026-04-14 |
 
 ---
 

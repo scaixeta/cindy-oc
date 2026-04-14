@@ -37,6 +37,7 @@
 - `2026-04-14` — Runtime Linux do Hermes corrigido após reboot: `MiniMax-M2.7` mantido como primário e `gpt-5.3-codex` como fallback
 - `2026-04-14` — `hermes-gateway.service` reiniciado com sucesso; healthcheck `/health` e `hermes chat -Q` validados no Linux
 - `2026-04-14` — Remote oficial reconciliado como `https://github.com/scaixeta/CindyAgent`
+- `2026-04-14` — Passagem de bastão registrada em `KB/HANDOFF_S3_2026-04-14.md`
 
 
 ## Estrutura de Tracking

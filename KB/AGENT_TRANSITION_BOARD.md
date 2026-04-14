@@ -4,6 +4,8 @@
 
 Acompanhar a transição do CindyAgent de um runtime centralizado para um time AIOps multiagente com Microsoft Agent Framework como plataforma de gestão.
 
+> Status consolidado mais recente: ver `KB/HANDOFF_S3_2026-04-14.md`.
+
 **Decisão central:** Nomes de agentes são baseados em papel — não em modelo. Microsoft Agent Framework é a plataforma de gestão approved — não mais referência futura.
 
 ---
@@ -41,7 +43,7 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 | `KB/AIOPS_TEAM_BASELINE.md` | Nomes papel + MAF approved + rationale | Feito |
 | `KB/AIOPS_TEAM_ACTION_PLAN.md` | Premissas, Fase 6, núcleo aprovado | Feito |
 | `KB/hermes/MEMORY.md` | Fatos canônicos atualizados | Feito |
-| `board/AGENT_TRANSITION_BOARD.md` | Este board | Feito |
+| `KB/AGENT_TRANSITION_BOARD.md` | Este board | Feito |
 
 ---
 
@@ -62,8 +64,8 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 |---|---|---|
 | ST-S2-05: porta 11434 do Ollama bloqueada para WSL2 | Builder não consegue usar Ollama local | Usuário libera firewall/Norton |
 | ST-S2-04: credenciais SonarCloud pendentes | Análise de código bloqueada | PO fornece credenciais |
-| Sprint S2 do CindyAgent em Brainstorm | Gate S2 não_avaliado | PO aprova kickoff |
-| Gateway: bug do --replace criando processos órfãos | Porta 8642 pode ser bloqueada | Usuário corrigiu; validação pendente |
+| Sprint S3 aberta, mas backlog ainda não priorizado para execução | Materialização multiagente ainda não iniciada | PO confirma ordem de ataque da S3 |
+| Bootstrap Windows ainda não endurecido para o serviço systemd do gateway | Risco de drift após reboot | Revisar launcher e rotina operacional do Hermes |
 
 ---
 
@@ -73,8 +75,8 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 |---|---|---|
 | P1 | Todos os nomes de papel estão refletidos na KB canônica | Cindy |
 | P2 | MAF aparece como plataforma approved (não "futuro") nos docs | Cindy |
-| P3 | board/AGENT_TRANSITION_BOARD.md criado e acessível | Cindy |
-| P4 | Gate S2 aprovado pelo PO antes de iniciar execução | PO |
+| P3 | `KB/AGENT_TRANSITION_BOARD.md` criado e acessível | Cindy |
+| P4 | Backlog da S3 priorizado pelo PO antes de iniciar execução | PO |
 
 ---
 
@@ -83,7 +85,7 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 - Baseline: `KB/AIOPS_TEAM_BASELINE.md`
 - Plano: `KB/AIOPS_TEAM_ACTION_PLAN.md`
 - Memória: `KB/hermes/MEMORY.md`
-- Tracking: `Dev_Tracking.md`, `Dev_Tracking_S2.md`
+- Tracking: `Dev_Tracking.md`, `Dev_Tracking_S3.md`
 
 ---
 
