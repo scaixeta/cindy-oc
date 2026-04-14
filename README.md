@@ -1,4 +1,4 @@
-﻿# Cindy Agent
+# Cindy Agent
 
 Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter a governanca DOC2.5, a documentacao canonica, a persona operacional da Cindy no Hermes e os artefatos de referencia que serao replicados para outros projetos do ecossistema.
 
@@ -36,24 +36,29 @@ O runtime Hermes foi revalidado em `2026-04-14` e atualizado para `v0.9.0`, mant
 - manter a documentacao DOC2.5 aderente ao estado real do projeto
 - registrar bugs, testes e decisoes da sprint ativa com evidencia verificavel
 
-## Projetos principais da Cindy
+## Visão Operacional AIOps
 
-O arquivo `Replicar.md` deve ser lido como o mapa dos **projetos principais da Cindy** no estado atual.
+A Cindy evoluiu de uma assistente reativa para uma **Plataforma AIOps (Autonomous IT Operations)** corporativa, operando sob o framework **DOC 2.5**.
 
-Alvos registrados:
+### 1. O que ela faz atualmente
+- **Governança Autônoma:** Mantém integridade entre Sprints, documentação canônica (KB) e rastreabilidade técnica (Dev_Tracking) sem intervenção constante.
+* **Validação E2E:** Executa suítes de teste (Pytest, Playwright) de forma isolada, diagnostica deadlocks em containers e verifica métricas de saúde sistêmica.
+* **Execuções Headless:** Opera via OpenCode com perfis especializados, reduzindo alucinações e isolando acessos em sandboxes seguras.
+* **Governança HITL (PO Gates):** Opera autonomamente entre fronteiras de aprovação, escalando para o PO apenas em decisões de arquitetura, custos ou bloqueios críticos.
 
-1. `C:\Cindy-OC`
-2. `C:\01 - Sentivis\Sentivis IA Code`
-3. `C:\01 - Sentivis\Sentivis SIM`
-4. `C:\Users\sacai\OneDrive\Documentos\FinTechN8N`
-5. `C:\01- Astronomus Brasilis\Astro AI Br`
-6. `C:\MCP-Projects`
-7. `C:\Project Health`
-8. `C:\Cindy`
+### 2. O Time AIOps (Multiagente)
+A carga operacional é distribuída em uma malha de especialistas (**ACP Mesh**):
+- **Cindy (Orquestradora):** Gateway de interface e Context Router macro.
+- **Builder (Engenharia):** Implementação de código, refatoração e infraestrutura.
+- **Reviewer (Gatekeeper):** Validação técnica, QA e aprovação de handoffs.
+- **Documenter (Scribe):** Manutenção silenciosa de docs, memórias e registros de sprint.
+- **PlatformOps (SRE):** Observabilidade, diagnóstico de infra e saúde do runtime.
 
-**Repositorio principal de trabalho no momento:** `C:\01 - Sentivis\Sentivis SIM`
-
-> A replicacao entre esses projetos continua como atividade planejada. Nao deve ser executada sem validacao por repositorio, confirmacao de branch/remote e tracking individual.
+### 3. Como ela opera (Arquitetura)
+- **ACP Mesh (Redis):** Protocolo de comunicação assíncrona com máquina de estados (Queued -> Running -> Review -> Done/Escalated).
+- **Handoffs Rastreáveis:** Toda troca de responsabilidade entre agentes gera um trace_id persistente para auditoria.
+- **Observabilidade:** Monitoramento de throughput, taxa de sucesso e retrabalho (rework) via telemetria no Redis.
+- **Isolamento OpenCode:** Ferramentas de sistema são executadas através de perfis com permissões granulares e governadas.
 
 ## Operacao rapida
 
@@ -81,7 +86,7 @@ Modelo padrao: `minimax/MiniMax-M2.7`
 - `docs/DEVELOPMENT.md` — fluxo de evolucao e backlog
 - `docs/OPERATIONS.md` — operacao corrente do runtime Hermes
 - `tests/bugs_log.md` — bugs, testes e evidencias
-- `Replicar.md` — mapa dos projetos principais da Cindy e alvos de replicacao
+- `KB/` — Base de Conhecimento (aiops, hermes, meta)
 
 ## Leitura recomendada
 
@@ -94,7 +99,7 @@ Modelo padrao: `minimax/MiniMax-M2.7`
 7. `docs/OPERATIONS.md`
 8. `Dev_Tracking.md`
 9. `Dev_Tracking_S3.md`
-10. `Replicar.md`
+10. `KB/aiops/S3_EXECUTION_PLAN.md`
 
 ---
 
