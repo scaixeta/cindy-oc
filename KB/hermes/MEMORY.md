@@ -20,6 +20,8 @@
 - Telegram é o canal principal de interação operacional quando o gateway estiver ativo.
 - `acorde` é uma retomada lógica; não é wake-on-LAN.
 - Se a máquina estiver desligada, suspensa ou sem gateway, o Telegram não inicia o Hermes sozinho.
+- Git oficial para autenticação e operações de publicação no GitHub deve usar o Windows quando houver dependência de login/credencial gráfica.
+- Quando `git push` falhar no WSL por credencial, o procedimento preferencial é executar `git push` no repositório Windows correspondente.
 - Commit e push apenas sob ordem explícita do PO.
 - Não expor segredos.
 - Não inventar resultados nem conteúdo de arquivos.
