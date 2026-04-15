@@ -4,7 +4,7 @@
 
 Acompanhar a transição do CindyAgent de um runtime centralizado para um time AIOps multiagente com Microsoft Agent Framework como plataforma de gestão.
 
-> Status consolidado mais recente: ver `KB/aiops/HANDOFF_S3_2026-04-14.md`.
+> Status consolidado mais recente: ver `KB/aiops/HANDOFF_S3_FINAL.md`.
 
 **Decisão central:** Nomes de agentes são baseados em papel — não em modelo. Microsoft Agent Framework é a plataforma de gestão approved — não mais referência futura.
 
@@ -60,8 +60,8 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 2. **Fase 2** — ACP ampliado como mesh governado ✅
 3. **Fase 3** — Materializar os especialistas (workers) ✅
 4. **Fase 4** — Integrar OpenCode como executor ✅
-5. **Fase 5** — Observabilidade e governança ← **próxima**
-6. **Fase 6** — Adoção Microsoft Agent Framework
+5. **Fase 5** — Observabilidade e governança ✅
+6. **Fase 6** — Adoção Microsoft Agent Framework ← **em execução (S4)**
 
 ---
 
@@ -98,4 +98,4 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 
 ---
 
-*Board atualizado em 2026-04-14. Documento oficial de execução: `KB/aiops/S3_EXECUTION_PLAN.md`. Próxima ação: PO confirma Fase 1 (agent_cards) para iniciar execução da S3.*
+*Board atualizado em 2026-04-14. Documento oficial de encerramento S3: `KB/aiops/HANDOFF_S3_FINAL.md`. Próxima ação: Kickoff da S4 (Microsoft Agent Framework).*

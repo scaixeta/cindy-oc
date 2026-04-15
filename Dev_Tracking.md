@@ -1,16 +1,16 @@
-﻿# Dev_Tracking.md — Índice de Sprints
+# Dev_Tracking.md — Índice de Sprints
 
 ## Sprint Ativa
 
 | ID | Status | Inicio | Escopo |
 |---|---|---|---|
-| S3 | Ativa | 2026-04-14 | Time AIOps multiagente com Microsoft Agent Framework — agent cards, ACP mesh governado, OpenCode executor, Playwright + SonarCloud, PO gates — Modelo de pensamento: Codex |
+| S4 | Ativa | 2026-04-14 | Microsoft Agent Framework & Advanced IoT Observability — Integração inter-agente via framework, SonarCloud e métricas de infra avançadas |
 
 ## Sprints Encerradas
 
 | ID | Status | Periodo | Entrega |
 |---|---|---|---|
-| S1 | Encerrada | 2026-04-09 a 2026-04-13 | Cindy Agent v1.0 — Hermes + Telegram + DOC2.5 + OpenCode + equipe de 5 agentes com ACP via Redis |
+| S3 | Encerrada | 2026-04-14 a 2026-04-14 | Materialização do time AIOps (Fases 1-5) — ACP Mesh, Workers Especialistas, OpenCode Profiles e Smoke Tests |
 | S2 | Encerrada (substituída) | 2026-04-13 a 2026-04-14 | Ferramentas internas da Cindy — substituída por S3 com novo objetivo time AIOps |
 
 ---
@@ -36,17 +36,18 @@
 - `2026-04-14` — D-S3-11: Codex é o modelo de pensamento e validação do time
 - `2026-04-14` — Runtime Linux do Hermes corrigido após reboot: `MiniMax-M2.7` mantido como primário e `gpt-5.3-codex` como fallback
 - `2026-04-14` — `hermes-gateway.service` reiniciado com sucesso; healthcheck `/health` e `hermes chat -Q` validados no Linux
-- `2026-04-14` — Remote oficial reconciliado como `https://github.com/scaixeta/CindyAgent`
-- `2026-04-14` — Passagem de bastão registrada em `KB/aiops/HANDOFF_S3_2026-04-14.md`
-- `2026-04-14` — Hermes atualizado de `v0.8.0` para `v0.9.0`; alteração local em `cron/scheduler.py` preservada com stash e patch de backup antes do update
+| 2026-04-14 | — | ST-S1-22: Reconciliação do Remote oficial como `https://github.com/scaixeta/CindyAgent` |
+| 2026-04-14 | — | ST-S3-FINAL: Sprint S3 encerrada com materialização funcional do time AIOps e handoff gerado |
+| 2026-04-14 | — | ST-S4: Abertura da Sprint S4 focada em Microsoft Agent Framework e SonarCloud |
 
 
 ## Estrutura de Tracking
 
 - `Dev_Tracking.md` — indice das sprints
-- `Dev_Tracking_S3.md` — sprint ativa
+- `Dev_Tracking_S4.md` — sprint ativa
+- `Dev_Tracking_S3.md` — sprint encerrada
 - `Sprint/` — historico de sprints encerradas
 
 ## Referencia
 
-Consulte `Dev_Tracking_S3.md` para backlog, decisões e pendências da sprint ativa.
+Consulte `Dev_Tracking_S4.md` para backlog, decisões e pendências da sprint ativa.

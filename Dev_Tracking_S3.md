@@ -5,9 +5,10 @@
 | Campo | Valor |
 |---|---|
 | Sprint | S3 |
-| Status | **Ativa** |
+| Status | **Concluída** |
 | Início | 2026-04-14 |
-| Versão | 1.0 |
+| Fim | 2026-04-14 |
+| Versão | 1.1 |
 | PO | A definir |
 | Substitui | S2 — substituída por este novo objetivo |
 
@@ -121,14 +122,14 @@ Governança e HITL:
 | ST-S3-03 | Definir agent_card do Reviewer: missão de validação, domínio de QA e compliance, habilidades de revisão semântica e auditoria, ferramentas permitidas (Playwright, SonarCloud, grep), limites de autonomia | 3 | — | Done |
 | ST-S3-04 | Definir agent_card do Documenter: missão de documentação técnica, domínio de contratos e material operacional, habilidades de escrita técnica, ferramentas permitidas (markdown, docs), limites de autonomia | 3 | — | Done |
 | ST-S3-05 | Definir agent_card do PlatformOps: missão de infraestrutura, domínio de IoT/telemetria/runtime, habilidades de ops e integrações (n8n, ThingsBoard), ferramentas permitidas (docker, redis-cli, terminal), limites de autonomia | 3 | — | Done |
-| ST-S3-06 | Microsoft Agent Framework: instalar ambiente de avaliação, configurar projeto-teste, documentar API de agent management, avaliar Agent Governance Toolkit como referência de guardrails | 8 | — | Pending |
+| ST-S3-06 | Microsoft Agent Framework: instalar ambiente de avaliação, configurar projeto-teste, documentar API de agent management, avaliar Agent Governance Toolkit como referência de guardrails | 8 | — | Transferred to S4 |
 | ST-S3-07 | ACP Capability Registry: implementar registro de capacidades por agente (nome, domínio, ferramentas, skills, workflows, limites), permitir roteamento por capacidade no mesh | 5 | ST-S3-01 a ST-S3-05 | Done |
 | ST-S3-08 | ACP Task Lifecycle: formalizar estados de tarefa (`queued`, `claimed`, `running`, `blocked`, `review`, `done`, `failed`, `escalated`), implementar transições e políticas de lock/lease | 5 | ST-S3-07 | Done |
 | ST-S3-09 | ACP Handoffs: implementar protocolo formal de passagem de tarefa entre agentes, com trace_id, artifact_ref, deadline e semântica de resposta esperada | 5 | ST-S3-08 | Done |
 | ST-S3-10 | OpenCode Integration: criar perfis especializados (planner, coder, reviewer, tester, docs-writer, sre-debugger, context-scout), definir permissões e MCPs por perfil, integrar chamada ao ACP mesh | 8 | ST-S3-01 a ST-S3-05 | Done |
 | ST-S3-11 | OpenCode Executor Flow: implementar fluxo Cindy -> worker do agente -> OpenCode -> resultado com artefatos -> ACP, isolar tarefas complexas em worktree/sandbox | 5 | ST-S3-10 | Done |
 | ST-S3-12 | Playwright Validation Suite: criar testes automatizados para validação básica de comportamento multiagente (smoke tests de handoff, smoke tests de task lifecycle) | 5 | Playwright instalado (ST-S2-03) | Done |
-| ST-S3-13 | SonarCloud Configuration: configurar SonarScanner apontando para `scaixeta/CindyAgent`, integrar ao pipeline de validação (depende de credenciais — ST-S2-04 bloqueado) | 3 | Credenciais SonarCloud (ST-S2-04) | Pending |
+| ST-S3-13 | SonarCloud Configuration: configurar SonarScanner apontando para `scaixeta/CindyAgent`, integrar ao pipeline de validação (depende de credenciais — ST-S2-04 bloqueado) | 3 | Credenciais SonarCloud (ST-S2-04) | Transferred to S4 |
 | ST-S3-14 | PO Gate Definition: documentar gates formais do PO (criação/ajuste sprint, aprovação plano, decisões de escopo/arquitetura/custo/risco, aceite final), definir política de quando PO entra e quando não entra | 3 | — | Done |
 | ST-S3-15 | Observabilidade Multiagente: implementar tracing por tarefa, log de handoffs, métricas de throughput/falhas/retrabalho, dashboard de saúde da sprint | 8 | ST-S3-08, ST-S3-09 | Done |
 
@@ -182,18 +183,18 @@ Governança e HITL:
 | ST-S3-03 (Agent Card Reviewer) | 2026-04-14T23:20:00-ST | 2026-04-14T23:27:00-FN | Done |
 | ST-S3-04 (Agent Card Documenter) | 2026-04-14T23:20:00-ST | 2026-04-14T23:27:40-FN | Done |
 | ST-S3-05 (Agent Card PlatformOps) | 2026-04-14T23:20:00-ST | 2026-04-14T23:28:20-FN | Done |
-| ST-S3-06 (MS Agent Framework) | — | — | Pending |
+| ST-S3-06 (MS Agent Framework) | — | — | Transferred to S4 |
 | ST-S3-07 (Capability Registry) | 2026-04-14T23:20:00-ST | 2026-04-14T23:24:10-FN | Done |
 | ST-S3-08 (Task Lifecycle) | 2026-04-14T23:20:00-ST | 2026-04-14T23:23:20-FN | Done |
 | ST-S3-09 (ACP Handoffs) | 2026-04-14T23:24:00-ST | 2026-04-14T23:25:00-FN | Done |
 | ST-S3-10 (OpenCode Integration) | 2026-04-14T23:28:00-ST | 2026-04-14T23:29:20-FN | Done |
 | ST-S3-11 (OpenCode Executor Flow) | 2026-04-14T23:28:00-ST | 2026-04-14T23:29:00-FN | Done |
 | ST-S3-12 (Playwright Suite) | 2026-04-14T23:37:00-ST | 2026-04-14T23:43:40-FN | Done |
-| ST-S3-13 (SonarCloud Config) | — | — | Pending |
+| ST-S3-13 (SonarCloud Config) | — | — | Transferred to S4 |
 | ST-S3-14 (PO Gate Definition) | 2026-04-14T23:37:00-ST | 2026-04-14T23:37:30-FN | Done |
 | ST-S3-15 (Observabilidade) | 2026-04-14T23:37:30-ST | 2026-04-14T23:37:50-FN | Done |
 | Hermes update v0.9.0 | 2026-04-14T21:18:22-ST | 2026-04-14T21:21:51-FN | Done |
-| Sprint close | — | — | Pending |
+| Sprint close | 2026-04-14T20:58:30-ST | 2026-04-14T21:00:00-FN | Done |
 
 ---
 
