@@ -9,7 +9,7 @@
 ```
 REPLICAR_PACKAGE/
 ├── README.md                        # Este arquivo
-├── SCRIPTS/
+├── scripts/
 │   ├── 00_setup_wsl.sh              # Pré-requisitos do WSL2
 │   ├── 01_install_hermes.sh         # Instalação do Hermes Agent
 │   ├── 02_configure_env.sh          # Configuração de variáveis de ambiente
@@ -20,20 +20,20 @@ REPLICAR_PACKAGE/
 │   ├── 07_install_ollama.sh         # GLM-5.1 via Ollama (opcional)
 │   ├── 08_setup_acp.sh              # Configuração do ACP via Redis
 │   └── 99_activate.sh               # Ativação final
-├── CONFIGS/
+├── configs/
 │   ├── config.yaml.template         # Template do config.yaml do Hermes
 │   ├── .env.template                # Template do .env (sem segredos)
 │   ├── SOUL.md.template             # Persona canônica da Cindy
 │   ├── USER.md.template             # Preferências do operador
 │   ├── MEMORY.md.template           # Memória operacional da Cindy
 │   └── dual_model_gate.py          # Gate de roteamento para 5 agentes
-├── RUNTIME_EXPORT/                  # Exportação do runtime vivo
+├── runtime_export/                  # Exportação do runtime vivo
 │   ├── config.runtime.yaml          # Config.yaml exportado (sem segredos)
 │   ├── auth.export.json             # Auth providers (tokens censurados)
 │   ├── skills_list.txt             # Lista de skills instaladas
 │   ├── redis_dump.redis            # Dump do Redis (opcional)
 │   └── system_info.txt             # Info do sistema original
-└── DOCS/
+└── docs/
     ├── REPLICAR.md                  # Guia de replicação
     ├── CHECKLIST.md                 # Checklist de validação
     └── TROUBLESHOOT.md             # Problemas comuns
@@ -47,14 +47,14 @@ cp -r /mnt/c/CindyAgent/REPLICAR_PACKAGE ~/
 
 # 2. Executar em ordem
 cd ~/REPLICAR_PACKAGE
-bash SCRIPTS/00_setup_wsl.sh      # Pré-requisitos
-bash SCRIPTS/03_install_redis.sh   # Redis
-bash SCRIPTS/01_install_hermes.sh # Hermes
-bash SCRIPTS/02_configure_env.sh  # .env e config.yaml
-bash SCRIPTS/04_install_opencode.sh # OpenCode CLI
-bash SCRIPTS/06_sync_kb.sh        # KB canônica
-bash SCRIPTS/08_setup_acp.sh      # Scripts ACP
-bash SCRIPTS/99_activate.sh       # Validação final
+bash scripts/00_setup_wsl.sh        # Pré-requisitos
+bash scripts/03_install_redis.sh    # Redis
+bash scripts/01_install_hermes.sh   # Hermes
+bash scripts/02_configure_env.sh    # .env e config.yaml
+bash scripts/04_install_opencode.sh # OpenCode CLI
+bash scripts/06_sync_kb.sh          # KB canônica
+bash scripts/08_setup_acp.sh        # Scripts ACP
+bash scripts/99_activate.sh         # Validação final
 ```
 
 ## O que cada script faz
@@ -62,7 +62,7 @@ bash SCRIPTS/99_activate.sh       # Validação final
 | Script | O que instala/configura |
 |---|---|
 | `00_setup_wsl.sh` | Pacotes base: git, curl, build-essential, python3.11, python3-pip, redis-server |
-| `01_install_hermes.sh` | Clona hermes-agent repo, cria venv, instala dependências |
+| `01_install_hermes.sh` | Instala o Hermes a partir de uma fonte local configurada ou URL explícita, cria venv e instala dependências |
 | `02_configure_env.sh` | Copia templates, solicita API keys, valida configuração |
 | `03_install_redis.sh` | Instala e configura Redis 7.0+ |
 | `04_install_opencode.sh` | Instala OpenCode CLI, configura MINIMAX_API_KEY |
@@ -131,7 +131,7 @@ Este pacote foi gerado a partir do ambiente:
 - **Python:** `3.11.15` (venv: `/root/.hermes/hermes-agent/venv`)
 - **Node:** `v22.22.2`
 - **Redis:** `7.0.15`
-- **Hermes Agent:** `v0.8.0` (git tag `RELEASE_v0.8.0.md`)
+- **Hermes Agent:** fonte oficial `https://github.com/nousresearch/hermes-agent`
 - **Runtime path:** `/root/.hermes/`
 - **Config path:** `~/.hermes/config.yaml`
 - **Repo principal:** `https://github.com/scaixeta/CindyAgent`
