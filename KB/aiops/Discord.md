@@ -65,10 +65,10 @@ Artefatos / tracking / docs / bugs_log
 
 * receber comandos do PO e da equipe
 * abrir tarefas e threads operacionais
-* mostrar status de projetos, sprints, incidentes e handoffs
-* centralizar aprovações rápidas
+* mostrar status operacional da Cindy
+* centralizar aprovações rápidas quando os comandos de cockpit existirem
 * exibir alertas de execução e falhas
-* servir como painel de acompanhamento multi-projeto
+* servir como painel de acompanhamento multi-projeto no futuro
 
 ### 5.2 O que o Discord não fará
 
@@ -217,7 +217,16 @@ Padrão de nome:
 
 ## 10.1 Comandos mínimos iniciais
 
-* `/project status <project>`
+O runtime live do Hermes foi reduzido ao MVP mínimo abaixo:
+
+* `/status`
+* `/help`
+* `/clear`
+
+## 10.2 Comandos de cockpit ainda pendentes
+
+Os comandos abaixo permanecem como intenção arquitetural, mas não fazem parte do catálogo vivo atual:
+
 * `/project summary <project>`
 * `/task create <project> <title>`
 * `/task assign <task_id> <agent>`
@@ -228,15 +237,18 @@ Padrão de nome:
 * `/incident status <incident_id>`
 * `/handoff <task_id> <agent>`
 * `/sprint status <project>`
-
-## 10.2 Comandos de administração futura
-
 * `/project open`
 * `/project archive`
 * `/agent status`
 * `/agent heartbeat`
 * `/mesh status`
 * `/trace <trace_id>`
+
+### Catálogo vivo observado no runtime Hermes
+
+O runtime atual não expõe o comando `project status` como slash command. O catálogo vivo observado no cliente Discord ficou reduzido a `/status`, `/help` e `/clear`.
+
+O runtime atual ainda registra o teto de 100 comandos do Discord quando o catálogo de skills é expandido, mas o MVP live ficou enxuto no guild.
 
 ---
 
@@ -323,7 +335,8 @@ Estado atual:
 * app do Discord validado na API
 * comandos slash globais registrados
 * `DISCORD_GUILD_ID` configurado no ambiente local
-* instalação no guild de teste ainda bloqueada no acesso do bot ao servidor
+* catálogo do guild realinhado ao runtime Hermes atual
+* MVP live reduzido a `/status`, `/help` e `/clear`
 
 Saída esperada:
 
@@ -343,7 +356,7 @@ Entregas:
 * padrão de threads por tarefa/incidente
 Dependência atual:
 
-* autorização efetiva do bot no guild de teste para registrar comandos no escopo do servidor
+* manter o catálogo vivo sincronizado com a superfície mínima enquanto os comandos de cockpit permanecem pendentes
 Saída esperada:
 
 * gestão multi-projeto visível

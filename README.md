@@ -12,6 +12,7 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 - **Fallback do runtime Hermes:** `gpt-5.3-codex` via `openai-codex`
 - **Canal operacional principal:** Telegram, via `hermes-gateway.service`
 - **Healthcheck validado:** `http://127.0.0.1:8642/health`
+- **WebUI local validada:** `hermes dashboard` em `http://127.0.0.1:9119`
 - **KB canonica da Cindy para Hermes:** `KB/hermes/`
 - **Sincronizacao viva do runtime:** `/root/.hermes/SOUL.md`, `/root/.hermes/memories/USER.md`, `/root/.hermes/memories/MEMORY.md`
 - **Remote oficial:** `https://github.com/scaixeta/CindyAgent`
@@ -28,7 +29,7 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 | Base operacional validada | Hermes + Telegram + health + chat + tracking DOC2.5 |
 | Discord | app validado na API; guild de teste ainda bloqueado |
 
-O runtime Hermes foi revalidado em `2026-04-15` com uma bateria de 5 reinicializações do `hermes-gateway.service`, mantendo `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `telegram=connected`, `api_server=connected`, healthcheck `ok` e teste local `hermes chat -Q` respondendo `OK`.
+O runtime Hermes foi revalidado em `2026-04-15` com uma bateria de 5 reinicializações do `hermes-gateway.service`, mantendo `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `telegram=connected`, `api_server=connected`, healthcheck `ok`, WebUI local em `http://127.0.0.1:9119` e teste local `hermes chat -Q` respondendo `OK`.
 
 O plano de Discord foi deslocado para a sprint ativa S4, com foco em cockpit de gestão, threads, bridge com Cindy/ACP e reflexo canônico. O app do Discord já foi validado na API, os comandos slash globais foram registrados e o `DISCORD_GUILD_ID` está configurado, mas a instalação no guild de teste ainda está bloqueada no acesso do bot ao servidor. O backlog técnico de Microsoft Agent Framework, SonarCloud e observabilidade IoT ficou na S5.
 

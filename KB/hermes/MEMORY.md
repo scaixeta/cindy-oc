@@ -5,8 +5,9 @@
 - Projeto: Cindy Agent
 - `workspace_root`: `C:\CindyAgent` | `C:\cindyagent`
 - Workspace em WSL: `/mnt/c/CindyAgent`
-- Stack operacional: Hermes + Telegram
+- Stack operacional: Hermes + Telegram, com API server habilitado para WebUI externa e profiles para instâncias paralelas
 - Runtime principal de acompanhamento: Hermes via gateway no Telegram
+- WebUI local validada em `http://127.0.0.1:9119` via `hermes dashboard`
 
 ### Git e repositório
 
@@ -34,6 +35,9 @@
 - O plano de ação desta linha de evolução está em `KB/aiops/AIOPS_TEAM_ACTION_PLAN.md`.
 - O estado real atual do time: Fases 1 a 4 da S3 foram materializadas em código local (`.agents/scripts/`). Cindy é operacional localmente, o Mesh ACP em Redis foi codificado, os Workers de cada papel (Builder, Reviewer, Documenter, PlatformOps) foram estruturados com isolamento de contexto OpenCode.
 - A direção aprovada (e parcialmente implementada) é operar num time em mesh governado, com agentes independentes por domínio e o PO atuando como HITL por gates.
+- O caminho oficial para WebUI no Hermes é `hermes dashboard` local ou um cliente Open WebUI apontando para o API server.
+- O caminho oficial para “Swarm” no Hermes é `hermes profile` + `--profile` + `--worktree`, criando instâncias isoladas e paralelas.
+- A validação do WebUI local não encerra a S4; a sprint permanece aberta para o Discord.
 - A solução arquitetural aprovada segue princípio `Microsoft first`, mas com adoção incremental e compatível com restrições de licença.
 - Microsoft Agent Framework é a plataforma de gestão approved — não é mais apenas referência de arquitetura.
 - ACP/Redis continua como mesh interno durante a transição para Microsoft Agent Framework.
@@ -108,6 +112,8 @@
 | Fallback base_url | `https://chatgpt.com/backend-api/codex` |
 | Login Codex | Válido por subscription |
 | Serviço gateway | `hermes-gateway.service` (systemd de sistema) — `active (running)` |
+| WebUI oficial | `hermes dashboard` e Open WebUI via API server |
+| Swarm oficial | `hermes profile` + `--profile` + `--worktree` |
 
 **Nota sobre `systemd (user)`:** o `hermes status` pode mostrar "stopped" no manager `systemd (user)`, mas o serviço real em uso é o systemd de sistema, que está ativo.
 

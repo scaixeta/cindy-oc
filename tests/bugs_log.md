@@ -195,3 +195,83 @@
 - **Resultado:** `DISCORD_GUILD_ID` está presente no env; `PUT /applications/{app}/guilds/{guild}/commands` retornou `403`; `GET /users/@me/guilds` não listou o guild alvo, indicando que o bot ainda não está autorizado/instalado no servidor
 - **Evidência:** `DISCORD_GUILD_ID`, `users/@me/guilds`, `applications/{app}/guilds/{guild}/commands`
 - **Status:** Bloqueado
+
+### TEST-S4-04 — Discord instalado no guild e comandos do servidor registrados
+
+- **Data:** 2026-04-15
+- **Escopo:** confirmar que o bot está visível no guild de teste e que os comandos slash do escopo do servidor foram registrados
+- **Resultado:** `GET /users/@me/guilds` retornou o guild `Cindy_Discord`; `PUT /applications/{app}/guilds/{guild}/commands` registrou `project`, `task`, `review`, `approve`, `incident`, `handoff` e `sprint` no guild
+- **Evidência:** `users/@me/guilds`, `applications/{app}/guilds/{guild}/commands`
+- **Status:** Passou
+
+### TEST-S4-05 — Provisionamento de canais e roles bloqueado por permissões insuficientes
+
+- **Data:** 2026-04-15
+- **Escopo:** criar as categorias, canais e roles previstos para o cockpit Discord
+- **Resultado:** a API retornou `Missing Permissions` ao tentar `POST /guilds/{guild}/channels` e `POST /guilds/{guild}/roles`; o bot não possui permissões suficientes para criar canais/roles no guild
+- **Evidência:** `guilds/{guild}/channels`, `guilds/{guild}/roles`
+- **Status:** Bloqueado
+
+### TEST-S4-06 — Revalidação após ajuste de permissão de canal ainda bloqueada no nível do guild
+
+- **Data:** 2026-04-15
+- **Escopo:** repetir o provisionamento após ajuste de permissão de canal para a Cindy
+- **Resultado:** a criação de categorias/canais/roles continuou retornando `Missing Permissions`; o ajuste de canal não concedeu permissão de gestão no nível do guild
+- **Evidência:** `guilds/{guild}/channels`, `guilds/{guild}/roles`
+- **Status:** Bloqueado
+
+### TEST-S4-07 — WebUI local do Hermes validado
+
+- **Data:** 2026-04-15
+- **Escopo:** validar a subida da WebUI local do Hermes via `hermes dashboard` sem encerrar a sprint S4
+- **Resultado:** `hermes dashboard --no-open --host 127.0.0.1 --port 9119` subiu com sucesso; o servidor respondeu em `http://127.0.0.1:9119` e a porta ficou em escuta local
+- **Evidência:** `curl http://127.0.0.1:9119`, `ss -ltnp | rg ':9119'`
+- **Status:** Passou
+
+### TEST-S4-07 — Cockpit Discord provisionado com roles, categorias e canais base
+
+- **Data:** 2026-04-15
+- **Escopo:** criar as roles, categorias e canais previstos para o cockpit Discord após correção das permissões
+- **Resultado:** as roles `Cindy`, `Builder`, `Reviewer`, `Documenter` e `PlatformOps` foram criadas; as categorias `PORTFOLIO`, `PO_GATES`, `AGENT_OPS`, `INCIDENTS`, `AUTOMATION`, `ARCHIVE` e `PROJECT | CindyAgent` foram criadas; os canais base foram provisionados sob suas categorias
+- **Evidência:** `guilds/{guild}/roles`, `guilds/{guild}/channels`
+- **Status:** Passou
+
+### TEST-S4-08 — Smoke test de mensagem no canal Cindy executado com sucesso
+
+- **Data:** 2026-04-15
+- **Escopo:** validar que a Cindy consegue publicar mensagens no canal `cindy-commands`
+- **Resultado:** a mensagem `Smoke test DOC2.5: Cindy operando no Discord no guild de teste...` foi postada com sucesso no canal `cindy-commands` e retornou pelo endpoint de mensagens do Discord
+- **Evidência:** `channels/1493994494738305104/messages`
+- **Status:** Passou
+
+### TEST-S4-09 — Slash command `project status` registrado, mas sem resposta do aplicativo
+
+- **Data:** 2026-04-15
+- **Escopo:** validar a execução real do slash command `Project status` no início do canal `#proj-status`
+- **Resultado:** o Discord exibiu `O aplicativo não respondeu`, indicando que o comando foi reconhecido pela plataforma, mas a Cindy ainda não responde à interação do slash command
+- **Evidência:** UI do Discord com mensagem `O aplicativo não respondeu`
+- **Status:** Bloqueado
+
+### TEST-S4-10 — Catálogo do guild realinhado ao catálogo global atual do runtime Hermes
+
+- **Data:** 2026-04-15
+- **Escopo:** remover o catálogo stale de `project/task/review/approve/incident/handoff/sprint` do guild e espelhar o catálogo global atual do runtime Hermes
+- **Resultado:** `PUT /applications/{app}/guilds/{guild}/commands` retornou `200` com `100` comandos; o catálogo do guild passou a conter `status` e não contém mais `project`
+- **Evidência:** REST Discord `applications/{app}/commands` e `applications/{app}/guilds/{guild}/commands`
+- **Status:** Passou
+
+### TEST-S4-11 — `/status` validado end-to-end no cliente Discord
+
+- **Data:** 2026-04-15
+- **Escopo:** confirmar que o comando Hermes-aligned `/status` responde no cliente Discord após o realinhamento do catálogo do guild
+- **Resultado:** `/status` respondeu com sucesso no Discord; o caminho mínimo operacional do runtime ficou validado sem depender do catálogo stale `project/*`
+- **Evidência:** cliente Discord com resposta bem-sucedida do comando `/status`
+- **Status:** Passou
+
+### TEST-S4-12 — Validação Playwright do MVP Discord com canais paralelos
+
+- **Data:** 2026-04-15
+- **Escopo:** executar login web do Discord, abrir os canais `#geral` e `#runtime-status`, validar autocomplete mínimo e testar `/status`, `/help` e `/clear` em ambos os canais
+- **Resultado:** login web concluído; autocomplete mostrou a superfície mínima com `/status`, `/help` e `/clear`; `/help` e `/clear` passaram nos dois canais; `/status` não retornou payload útil verificável no navegador dentro do timeout da bateria; `project` apareceu apenas como texto da árvore lateral do servidor, não como sugestão de slash command
+- **Evidência:** sessão Playwright do Discord web, canais `1493981841747611671` e `1493994500287107225`, respostas dos comandos e DOM do client
+- **Status:** Parcial

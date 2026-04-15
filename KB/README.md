@@ -21,8 +21,8 @@ KB/
 | `AIOPS_TEAM_BASELINE.md` | Estado real do time, lacunas e arquitetura alvo |
 | `AIOPS_TEAM_ACTION_PLAN.md` | Plano de ação detalhado em 6 fases |
 | `AGENT_TRANSITION_BOARD.md` | Board de decisões, bloqueios e pontos de validação |
-| `Discord.md` | Plano de uso do Discord como cockpit de gestão |
-| `Discord_Operating_Model.md` | Modelo operacional do Discord após validação inicial |
+| `Discord.md` | Plano de uso do Discord como cockpit de gestão, com foco no MVP live atual e no catálogo mínimo |
+| `Discord_Operating_Model.md` | Modelo operacional do Discord após validação inicial, com superfície MVP reduzida e estado vivo do runtime |
 | `HANDOFF_S3_2026-04-14.md` | Passagem de bastão — estado ao fim do ciclo operacional 2026-04-14 |
 
 ## hermes/
@@ -34,11 +34,23 @@ KB/
 | `USER.md` | Perfil do PO |
 | `RUNTIME_EXPORT.md` | Exportação do estado do runtime |
 | `README.md` | Guia de uso dos arquivos Hermes |
+| `WEBUI_SWARM.md` | Guia operacional para WebUI e operação paralela por profiles |
 | `fallback_diagnosis.md` | Diagnóstico do fallback MiniMax (BUG-S3-01) |
 | `runtime_export/` | Snapshots de configuração e estado do runtime |
+
+Estado atual documentado:
+
+- o WebUI local do Hermes foi validado em `http://127.0.0.1:9119`
+- a S4 continua aberta e focada no Discord como cockpit de gestão
 
 ## meta/
 
 | Arquivo | Descrição |
 |---|---|
 | `REPOSITORIES_STATUS.md` | Status dos repositórios do ecossistema Cindy |
+
+## Configs de Exemplo
+
+| Arquivo | Descrição |
+|---|---|
+| `cline_mcp_settings.json` | Template seguro de MCP para Cline, sem credenciais embutidas |

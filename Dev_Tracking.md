@@ -47,10 +47,18 @@
 - `2026-04-15` — S4 registrada como sprint de implantação e validação do Discord; S5 criada como sprint futura para o backlog técnico deslocado
 - `2026-04-15` — Discord app validado na API; comandos slash registrados globalmente e install params ajustados para guild install
 - `2026-04-15` — `DISCORD_GUILD_ID` configurado no env; teste de guild retornou `403` e o bot ainda não aparece entre os guilds acessíveis
+- `2026-04-15` — Catálogo do guild realinhado ao runtime Hermes atual via overwrite do conjunto global; comandos stale `project/*` removidos do guild
+- `2026-04-15` — Validação Playwright do Discord executada: login web concluído; `/help` e `/clear` passaram; `/status` permaneceu pendente de payload útil verificável
+- `2026-04-15` — WebUI local do Hermes validada em `http://127.0.0.1:9119` via `hermes dashboard`; API server manteve resposta em `/health` e `/v1`
 - `2026-04-14` — ST-S1-22: Reconciliação do Remote oficial como `https://github.com/scaixeta/CindyAgent`
 - `2026-04-14` — ST-S3-FINAL: Sprint S3 encerrada com materialização funcional do time AIOps e handoff gerado
 - `2026-04-15` — ST-S4: Sprint S4 reclassificada para Discord; Microsoft Agent Framework e observabilidade movidos para S5
+- `2026-04-15` — Pré-work ST-S4-01: dead code de 119 linhas removido de `discord.py` (8 comandos duplicados); toolset `hermes-discord` validado como existente; G1 (toolsets) marcado como résolvido
+- `2026-04-15` — ST-S4-01 concluída: DISCORD_COCKPIT_DEFINITION.md produzido com papel do Discord, categorias/canais, envelope de tarefa (13 campos) e contrato Discord→ACP. D-S4-11 registrada
+- `2026-04-15` — ST-S4-02 concluída: DISCORD_SERVER_SETUP.md criado com estrutura de roles (Cindy, PO, Agent-Ops, Developer, Viewer), categorias/canais, slash commands de cockpit (7 comandos) e script `scripts/discord_cockpit_setup.py`. D-S4-12 registrada
+- `2026-04-15` — ST-S4-03 concluída: 7 handlers de cockpit implementados em `gateway/platforms/discord.py` — /project, /task, /incident, /review, /sprint, /agent, /mesh — publicação ACP via ACPRedis.publish(). DISCORD_SLASH_HANDLERS.md criado. D-S4-13 registrada
 
+## Timestamp UTC (planejado)
 
 ## Estrutura de Tracking
 
