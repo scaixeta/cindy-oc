@@ -4,7 +4,8 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 
 ## Estado atual
 
-- **Sprint ativa:** `S3` — time AIOps multiagente com Microsoft Agent Framework como plataforma de gestao approved
+- **Sprint ativa:** `S4` — Discord em implantação e validação operacional
+- **Sprint futura:** `S5` — Microsoft Agent Framework e observabilidade IoT avançada
 - **Runtime principal:** Hermes em WSL (`Ubuntu`), com runtime vivo em `/root/.hermes`
 - **Versao atual do Hermes:** `v0.9.0 (2026.4.13)`
 - **Modelo primario do runtime Hermes:** `MiniMax-M2.7` via `minimax`
@@ -17,24 +18,29 @@ Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter 
 - **Branch atual de trabalho:** `v1.1`
 - **Segredo local protegido:** `.scr/.env` permanece fora de versionamento
 
-## Sprint S3 — Estado
+## Sprint S4 — Estado
 
 | Item | Estado |
 |---|---|
-| Sprint | `S3` |
+| Sprint | `S4` |
 | Status | Ativa |
-| Foco | Materializar o time AIOps multiagente com mesh governado |
-| Base operacional validada | Hermes + Telegram + KB canônica + tracking DOC2.5 |
+| Foco | Discord como cockpit de gestão e reflexo canônico DOC2.5 |
+| Base operacional validada | Hermes + Telegram + health + chat + tracking DOC2.5 |
+| Discord | app validado na API; guild de teste ainda bloqueado |
 
-O runtime Hermes foi revalidado em `2026-04-14` e atualizado para `v0.9.0`, mantendo `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e teste local `hermes chat -Q` respondendo `OK`.
+O runtime Hermes foi revalidado em `2026-04-15` com uma bateria de 5 reinicializações do `hermes-gateway.service`, mantendo `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `telegram=connected`, `api_server=connected`, healthcheck `ok` e teste local `hermes chat -Q` respondendo `OK`.
 
-## Escopo atual da S3
+O plano de Discord foi deslocado para a sprint ativa S4, com foco em cockpit de gestão, threads, bridge com Cindy/ACP e reflexo canônico. O app do Discord já foi validado na API, os comandos slash globais foram registrados e o `DISCORD_GUILD_ID` está configurado, mas a instalação no guild de teste ainda está bloqueada no acesso do bot ao servidor. O backlog técnico de Microsoft Agent Framework, SonarCloud e observabilidade IoT ficou na S5.
 
-- materializar o time AIOps multiagente com papeis operacionais claros
-- manter Hermes + Telegram como base operacional estavel da Cindy
-- preservar a KB canonica e a memoria operacional alinhadas ao runtime vivo
-- manter a documentacao DOC2.5 aderente ao estado real do projeto
-- registrar bugs, testes e decisoes da sprint ativa com evidencia verificavel
+## Escopo atual da S4
+
+- definir o papel do Discord como cockpit de gestão e portfólio
+- estruturar categorias, canais, threads e comandos mínimos
+- materializar a Cindy/Bot no Discord
+- instalar e validar o bot no guild de teste
+- integrar Discord -> Cindy -> ACP/Redis e refletir status de volta
+- espelhar eventos relevantes em `Dev_Tracking` e `tests/bugs_log.md`
+- manter Hermes + Telegram como base operacional estável da Cindy
 
 ## Visão Operacional AIOps
 
@@ -80,7 +86,8 @@ Modelo padrao: `minimax/MiniMax-M2.7`
 
 - `README.md` — entry point do projeto
 - `Dev_Tracking.md` — indice de sprints
-- `Dev_Tracking_S3.md` — sprint ativa
+- `Dev_Tracking_S4.md` — sprint ativa
+- `Dev_Tracking_S5.md` — sprint futura planejada
 - `docs/SETUP.md` — ambiente, instalacao e preparo operacional
 - `docs/ARCHITECTURE.md` — arquitetura atual
 - `docs/DEVELOPMENT.md` — fluxo de evolucao e backlog
@@ -98,8 +105,9 @@ Modelo padrao: `minimax/MiniMax-M2.7`
 6. `docs/DEVELOPMENT.md`
 7. `docs/OPERATIONS.md`
 8. `Dev_Tracking.md`
-9. `Dev_Tracking_S3.md`
-10. `KB/aiops/S3_EXECUTION_PLAN.md`
+9. `Dev_Tracking_S4.md`
+10. `Dev_Tracking_S5.md`
+11. `KB/aiops/AIOPS_TEAM_ACTION_PLAN.md`
 
 ---
 

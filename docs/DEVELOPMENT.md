@@ -2,14 +2,15 @@
 
 ## Visao Geral
 
-O desenvolvimento atual do Cindy Agent esta dentro da **Sprint S3**, com foco em materializar o time AIOps multiagente sem perder a base operacional do runtime Hermes, da KB canonica da Cindy e da documentacao DOC2.5.
+O desenvolvimento atual do Cindy Agent esta dentro da **Sprint S4**, com foco em materializar o Discord como cockpit de gestao da Cindy sem perder a base operacional do runtime Hermes, da KB canonica e da documentacao DOC2.5.
 
 ## Estado atual da sprint
 
-- **Sprint ativa:** `S3`
+- **Sprint ativa:** `S4`
 - **Status:** ativa
-- **Escopo corrente:** time AIOps multiagente + Hermes/Telegram + KB/hermes + docs canonicos + tracking
-- **Estado operacional validado em 2026-04-14:** `MiniMax-M2.7` primario no Hermes, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e healthcheck OK
+- **Escopo corrente:** Discord validado na API + Hermes/Telegram como baseline + KB/hermes + docs canonicos + tracking
+- **Estado Discord atual:** app validado, comandos slash globais registrados, `DISCORD_GUILD_ID` configurado, instalacao em guild ainda bloqueada
+- **Estado operacional validado em 2026-04-15:** `MiniMax-M2.7` primario no Hermes, `gpt-5.3-codex` como fallback, `hermes-gateway.service` ativo e healthcheck OK
 
 ## Fluxo DOC2.5 aplicado neste projeto
 
@@ -65,17 +66,21 @@ Retorno ao PO
 
 - manter o repositorio-base Cindy Agent coerente com o estado real do Hermes
 - manter `MiniMax-M2.7` como primario do runtime Linux do Hermes e `gpt-5.3-codex` como fallback
-- OpenCode CLI como tool de delegacao para raciocinio profundo
+- estruturar o Discord como cockpit de gestao e coordenacao operacional
+- definir categorias, canais, threads e comandos minimos no Discord
+- instalar e validar o bot no guild de teste
+- integrar Discord -> Cindy -> ACP/Redis com reflexo em tracking
 - documentar KB/hermes e runtime vivo do Hermes
-- documentar operacao via Telegram e gateway
+- documentar operacao via Telegram, gateway e Discord
 - registrar bugs, testes e decisoes da sprint ativa
 - planejar evolucao multiagente sem executar mudancas estruturais fora do gate
 
 ### Fora do escopo atual
 
 - alterar em lote os repositorios listados em `Replicar.md`
-- fechar a sprint S3
+- fechar a sprint S4
 - endurecer o bootstrap Windows do gateway sem aprovacao especifica
+- iniciar o backlog tecnico da S5 antes da entrega do Discord
 
 ## Portfolio principal da Cindy
 
@@ -116,7 +121,9 @@ Toda mudanca relevante deve refletir:
 - `README.md`
 - `docs/`
 - `Dev_Tracking.md`
-- `Dev_Tracking_S3.md`
+- `Dev_Tracking_S4.md`
+- `Dev_Tracking_S5.md`
+- `Sprint/Dev_Tracking_S3.md`
 - `tests/bugs_log.md` quando houver bug ou teste real
 
 ## Qualidade
@@ -127,4 +134,4 @@ Toda mudanca relevante deve refletir:
 
 ## Referencia
 
-Consulte `Dev_Tracking_S3.md` para backlog, decisoes e pendencias da sprint ativa.
+Consulte `Dev_Tracking_S4.md` para backlog, decisoes e pendencias da sprint ativa e `Dev_Tracking_S5.md` para o backlog futuro deslocado.

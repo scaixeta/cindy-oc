@@ -356,7 +356,7 @@ Documentar formalmente quando o PO entra:
 Para qualquer story ser considerada concluída:
 
 - [ ] Entrega funciona conforme critério de pronto da fase
-- [ ] Rastreabilidade registrada em `Dev_Tracking_S3.md`
+- [ ] Rastreabilidade registrada em `Sprint/Dev_Tracking_S3.md`
 - [ ] Bug ou evidência de teste em `tests/bugs_log.md` quando aplicável
 - [ ] Nenhum commit/push sem ordem expressa do PO
 
@@ -379,7 +379,8 @@ Para qualquer story ser considerada concluída:
 
 ## Referências
 
-- `Dev_Tracking_S3.md` — sprint ativa e backlog
+- `Sprint/Dev_Tracking_S3.md` — sprint encerrada e backlog histórico
+- `Dev_Tracking_S4.md` — sprint ativa e backlog atual
 - `KB/aiops/AIOPS_TEAM_BASELINE.md` — estado real e arquitetura alvo
 - `KB/aiops/AIOPS_TEAM_ACTION_PLAN.md` — plano de ação detalhado
 - `KB/aiops/AGENT_TRANSITION_BOARD.md` — decisões e bloqueios

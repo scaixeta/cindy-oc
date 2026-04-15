@@ -26,8 +26,8 @@ A Sprint S3 focou na **materialização funcional** do time AIOps multiagente. O
 - **Suite de Smoke Tests:** Validada execução de tarefas e handoffs via `tests/test_acp_mesh.py` rodando em WSL.
 - **DOC 2.5 Compliance:** Toda a documentação de sprint e KB foi sincronizada.
 
-## 5. Itens Pendentes (Backlog S4)
-- **Fase 6 — Microsoft Agent Framework:** Avaliação e adoção como plataforma de gestão (Movida para S4 por estratégia de tempo).
+## 5. Itens Pendentes (Backlog S5)
+- **Fase 6 — Microsoft Agent Framework:** Avaliação e adoção como plataforma de gestão (Movida para S5 por estratégia de tempo).
 - **SonarCloud:** Depende de credenciais externas (ST-S2-04).
 
 ## 6. Estado do Runtime

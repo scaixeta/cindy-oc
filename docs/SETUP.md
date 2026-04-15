@@ -2,7 +2,7 @@
 
 ## Visao Geral
 
-O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como canal operacional principal, `hermes-gateway.service` como servico ativo no Linux e OpenCode CLI como tool de raciocinio profundo.
+O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como canal operacional principal, Discord como cockpit em validacao, `hermes-gateway.service` como servico ativo no Linux e OpenCode CLI como tool de raciocinio profundo.
 
 ## Ambiente atual confirmado
 
@@ -19,6 +19,7 @@ O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como ca
 | Estado do gateway | `active (running)` |
 | Modelo Hermes primario | `MiniMax-M2.7` via `minimax` |
 | Fallback Hermes | `gpt-5.3-codex` via `openai-codex` |
+| Discord | app validado na API; `DISCORD_GUILD_ID` configurado; guild de teste ainda bloqueado |
 | OpenCode CLI | `run_opencode.bat` (wrapper) |
 | Modelo OpenCode | `minimax/MiniMax-M2.7` |
 
@@ -28,6 +29,7 @@ O projeto opera sobre **Windows + WSL2 + Ubuntu + Hermes**, com Telegram como ca
 - distro Ubuntu instalada
 - Hermes instalado dentro do WSL
 - credenciais do Telegram já configuradas no runtime Hermes
+- credenciais do Discord já configuradas e validadas na API
 - MINIMAX_API_KEY do Coding Plan em `.scr/.env` (nunca versionar)
 - OpenCode CLI acessível via `run_opencode.bat`
 - Redis 7.0+ rodando em `localhost:6379` (já instalado no ambiente)
@@ -109,6 +111,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 - `.scr/.env` e segredo local e nao deve ser versionado
 - o runtime atual do Hermes esta vinculado ao usuario `root` no WSL
 - Telegram e canal principal **somente** quando o gateway esta ativo
+- Discord depende de instalacao efetiva no guild de teste antes de operar como cockpit
 - `acorde` deve ser interpretado como retomada logica, nao wake da maquina
 - OpenCode e tool de delegacao — nao substitui o Hermes
 
@@ -120,6 +123,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 | Aviso de `Gateway Service: stopped` no `hermes status` (`systemd user`) | Conhecido / benigno |
 | Revisao da alteracao local em `cron/scheduler.py` preservada antes do update do Hermes | Pendente |
 | Replicacao para outros projetos da Cindy | Planejada (ST-S1-16) |
+| Discord validado na API, mas guild de teste ainda nao autorizado para comandos | Pendente |
 | GSD (Get Shit Done) | Nao faz parte deste projeto |
 
 ## Referências da equipe

@@ -316,6 +316,14 @@ Entregas:
 * definição de canais e categorias
 * definição do contrato Discord → ACP
 * definição do que vira tracking e do que fica só no chat
+* confirmação do estado real da instalação no guild de teste
+
+Estado atual:
+
+* app do Discord validado na API
+* comandos slash globais registrados
+* `DISCORD_GUILD_ID` configurado no ambiente local
+* instalação no guild de teste ainda bloqueada no acesso do bot ao servidor
 
 Saída esperada:
 
@@ -333,7 +341,9 @@ Entregas:
 * Cindy/Bot presente no servidor
 * comandos mínimos manuais ou semiautomáticos
 * padrão de threads por tarefa/incidente
+Dependência atual:
 
+* autorização efetiva do bot no guild de teste para registrar comandos no escopo do servidor
 Saída esperada:
 
 * gestão multi-projeto visível

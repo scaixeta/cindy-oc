@@ -158,8 +158,40 @@
 
 ## Notas
 
-- A sprint ativa atual é a `S3`
+- A sprint ativa atual é a `S4` (Discord)
 - `Sprint/Dev_Tracking_S1.md` e `Sprint/Dev_Tracking_S2.md` preservam o histórico das sprints anteriores
 - `Replicar.md` passa a ser tratado como mapa dos projetos principais da Cindy
 - A replicação entre projetos ainda está em fase de planejamento e não foi executada neste ciclo
 - `2026-04-11` — ST-S1-16: escopo Embrapa/café movido para Sentivis SIM (S5) — não pertence ao CindyAgent. Backlog do CindyAgent corrigido para 16 itens (ST-S1-16 renarrada como desalocação de escopo).
+
+---
+
+## Sprint S5
+
+### TEST-S5-01 — Bateria de 5 reinicializações do Hermes Gateway validada
+
+- **Data:** 2026-04-15
+- **Escopo:** reiniciar o `hermes-gateway.service` cinco vezes, validar `systemctl is-active`, `gateway_state.json`, `curl /health` e `hermes chat -Q`
+- **Resultado:** 5/5 ciclos concluídos com sucesso; o gateway final permaneceu `active (running)`, `telegram=connected`, `api_server=connected`, healthcheck respondeu `{"status":"ok","platform":"hermes-agent"}` e `hermes chat -Q --source tool -q "Responda apenas OK"` retornou `OK`
+- **Observação:** o primeiro lote de reinicializações atingiu `start-limit-hit`; a unidade foi rearmada com `systemctl reset-failed hermes-gateway.service` e a bateria foi concluída com janela maior entre os ciclos
+- **Evidência:** `systemctl status hermes-gateway.service --no-pager -l`, `/root/.hermes/gateway_state.json`, `curl http://127.0.0.1:8642/health`, `hermes chat -Q`
+- **Status:** Passou
+
+## Sprint S4
+
+### TEST-S4-02 — Discord app validado e comandos slash registrados
+
+- **Data:** 2026-04-15
+- **Escopo:** confirmar conectividade do bot do Discord com a API, ajustar os install params do app para `bot + applications.commands` e registrar o conjunto mínimo de comandos slash
+- **Resultado:** `GET /users/@me` retornou o bot esperado; `GET /applications/{app}/commands` mostrou a API disponível; `POST /applications/{app}/commands` e `PUT /applications/{app}/commands` registraram com sucesso o scaffold de comandos
+- **Observação:** no momento desse teste ainda não havia `DISCORD_GUILD_ID` no env, então a instalação em guild permanecia pendente
+- **Evidência:** `users/@me`, `applications/{app}`, `applications/{app}/commands`
+- **Status:** Passou
+
+### TEST-S4-03 — Guild Discord configurado, mas bot ainda não autorizado no servidor
+
+- **Data:** 2026-04-15
+- **Escopo:** validar a instalação efetiva do bot no guild configurado e registrar comandos no contexto do servidor
+- **Resultado:** `DISCORD_GUILD_ID` está presente no env; `PUT /applications/{app}/guilds/{guild}/commands` retornou `403`; `GET /users/@me/guilds` não listou o guild alvo, indicando que o bot ainda não está autorizado/instalado no servidor
+- **Evidência:** `DISCORD_GUILD_ID`, `users/@me/guilds`, `applications/{app}/guilds/{guild}/commands`
+- **Status:** Bloqueado

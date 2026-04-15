@@ -21,6 +21,8 @@ KB/
 | `AIOPS_TEAM_BASELINE.md` | Estado real do time, lacunas e arquitetura alvo |
 | `AIOPS_TEAM_ACTION_PLAN.md` | Plano de ação detalhado em 6 fases |
 | `AGENT_TRANSITION_BOARD.md` | Board de decisões, bloqueios e pontos de validação |
+| `Discord.md` | Plano de uso do Discord como cockpit de gestão |
+| `Discord_Operating_Model.md` | Modelo operacional do Discord após validação inicial |
 | `HANDOFF_S3_2026-04-14.md` | Passagem de bastão — estado ao fim do ciclo operacional 2026-04-14 |
 
 ## hermes/

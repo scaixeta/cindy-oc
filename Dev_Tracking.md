@@ -4,7 +4,13 @@
 
 | ID | Status | Inicio | Escopo |
 |---|---|---|---|
-| S4 | Ativa | 2026-04-14 | Microsoft Agent Framework & Advanced IoT Observability — Integração inter-agente via framework, SonarCloud e métricas de infra avançadas |
+| S4 | Ativa | 2026-04-15 | Discord em implantação e validação operacional — cockpit de gestão, bridge com Cindy/ACP e reflexo canônico DOC2.5 |
+
+## Sprints Futuras
+
+| ID | Status | Inicio | Escopo |
+|---|---|---|---|
+| S5 | Planejada | A definir | Microsoft Agent Framework & Advanced IoT Observability — backlog deslocado da S4 por decisão do PO |
 
 ## Sprints Encerradas
 
@@ -36,18 +42,24 @@
 - `2026-04-14` — D-S3-11: Codex é o modelo de pensamento e validação do time
 - `2026-04-14` — Runtime Linux do Hermes corrigido após reboot: `MiniMax-M2.7` mantido como primário e `gpt-5.3-codex` como fallback
 - `2026-04-14` — `hermes-gateway.service` reiniciado com sucesso; healthcheck `/health` e `hermes chat -Q` validados no Linux
-| 2026-04-14 | — | ST-S1-22: Reconciliação do Remote oficial como `https://github.com/scaixeta/CindyAgent` |
-| 2026-04-14 | — | ST-S3-FINAL: Sprint S3 encerrada com materialização funcional do time AIOps e handoff gerado |
-| 2026-04-14 | — | ST-S4: Abertura da Sprint S4 focada em Microsoft Agent Framework e SonarCloud |
+- `2026-04-15` — Bateria operacional de 5 reinicializações do `hermes-gateway.service` validada; gateway final permaneceu `active (running)` com `telegram=connected`, `api_server=connected`, healthcheck `ok` e `hermes chat -Q` retornando `OK`
+- `2026-04-15` — PO reclassificou a S4 para Discord e deslocou o backlog técnico de Microsoft Agent Framework, SonarCloud e observabilidade para a S5
+- `2026-04-15` — S4 registrada como sprint de implantação e validação do Discord; S5 criada como sprint futura para o backlog técnico deslocado
+- `2026-04-15` — Discord app validado na API; comandos slash registrados globalmente e install params ajustados para guild install
+- `2026-04-15` — `DISCORD_GUILD_ID` configurado no env; teste de guild retornou `403` e o bot ainda não aparece entre os guilds acessíveis
+- `2026-04-14` — ST-S1-22: Reconciliação do Remote oficial como `https://github.com/scaixeta/CindyAgent`
+- `2026-04-14` — ST-S3-FINAL: Sprint S3 encerrada com materialização funcional do time AIOps e handoff gerado
+- `2026-04-15` — ST-S4: Sprint S4 reclassificada para Discord; Microsoft Agent Framework e observabilidade movidos para S5
 
 
 ## Estrutura de Tracking
 
 - `Dev_Tracking.md` — indice das sprints
 - `Dev_Tracking_S4.md` — sprint ativa
-- `Dev_Tracking_S3.md` — sprint encerrada
+- `Dev_Tracking_S5.md` — sprint futura planejada
+- `Sprint/Dev_Tracking_S3.md` — sprint encerrada
 - `Sprint/` — historico de sprints encerradas
 
 ## Referencia
 
-Consulte `Dev_Tracking_S4.md` para backlog, decisões e pendências da sprint ativa.
+Consulte `Dev_Tracking_S4.md` para backlog, decisões e pendências da sprint ativa e `Dev_Tracking_S5.md` para o backlog futuro deslocado.

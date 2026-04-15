@@ -61,7 +61,7 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 3. **Fase 3** — Materializar os especialistas (workers) ✅
 4. **Fase 4** — Integrar OpenCode como executor ✅
 5. **Fase 5** — Observabilidade e governança ✅
-6. **Fase 6** — Adoção Microsoft Agent Framework ← **em execução (S4)**
+6. **Fase 6** — Adoção Microsoft Agent Framework ← **planejada (S5)**
 
 ---
 
@@ -71,7 +71,7 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 |---|---|---|
 | ST-S2-05: porta 11434 do Ollama bloqueada para WSL2 | Builder não consegue usar Ollama local | Usuário libera firewall/Norton |
 | ST-S2-04: credenciais SonarCloud pendentes | Análise de código bloqueada | PO fornece credenciais |
-| Sprint S3 aberta, backlog não priorizado para execução | Materialização multiagente não iniciada | **PO confirma Fase 1 (agent_cards) para iniciar** |
+| Sprint S5 aguardando priorização para execução | Materialização multiagente não iniciada | **PO confirma Fase 1 (agent_cards) para iniciar** |
 
 > **Bloqueio encerrado (2026-04-14):** "Bootstrap Windows não endurecido para o serviço systemd" — resolvido pelo fix permanente de bytecode no unit file (D7, BUG-S3-04). Gateway agora limpa `.pyc` automaticamente em todo start, incluindo reboots.
 
@@ -84,7 +84,7 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 | P1 | Todos os nomes de papel estão refletidos na KB canônica | Cindy | ✅ |
 | P2 | MAF aparece como plataforma approved (não "futuro") nos docs | Cindy | ✅ |
 | P3 | `KB/aiops/AGENT_TRANSITION_BOARD.md` criado e acessível | Cindy | ✅ |
-| P4 | Backlog da S3 priorizado pelo PO antes de iniciar execução | PO | ⏳ pendente |
+| P4 | Backlog da S5 priorizado pelo PO antes de iniciar execução | PO | ⏳ pendente |
 | P5 | Gateway estável após reboot sem intervenção manual | Cindy | ✅ (D7 / BUG-S3-04) |
 
 ---
@@ -94,8 +94,8 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 - Baseline: `KB/aiops/AIOPS_TEAM_BASELINE.md`
 - Plano: `KB/aiops/AIOPS_TEAM_ACTION_PLAN.md`
 - Memória: `KB/hermes/MEMORY.md`
-- Tracking: `Dev_Tracking.md`, `Dev_Tracking_S3.md`
+- Tracking: `Dev_Tracking.md`, `Dev_Tracking_S4.md`, `Dev_Tracking_S5.md`, `Sprint/Dev_Tracking_S3.md`
 
 ---
 
-*Board atualizado em 2026-04-14. Documento oficial de encerramento S3: `KB/aiops/HANDOFF_S3_FINAL.md`. Próxima ação: Kickoff da S4 (Microsoft Agent Framework).*
+*Board atualizado em 2026-04-15. Documento oficial de encerramento S3: `KB/aiops/HANDOFF_S3_FINAL.md`. Próxima ação: consolidar a S4 (Discord) e abrir a S5 (Microsoft Agent Framework).*

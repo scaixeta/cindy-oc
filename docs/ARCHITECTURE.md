@@ -9,6 +9,7 @@ Cindy Agent e o repositorio-base da Cindy, usado para integrar:
 - OpenCode CLI como tool de raciocinio profundo
 - persona operacional da Cindy
 - canal Telegram
+- cockpit Discord em validacao para gestao operacional
 - documentacao e rastreabilidade
 - futura replicacao controlada para outros projetos da Cindy
 
@@ -35,7 +36,12 @@ Cindy Agent e o repositorio-base da Cindy, usado para integrar:
                     ┌──────▼─────────┐    ┌──────────────┐
                     │ Telegram Gateway│   │ OpenCode CLI │
                     └────────────────┘    │ (delegacao)  │
-                                            └──────────────┘
+                                          └──────────────┘
+                           │
+                    ┌──────▼─────────┐
+                    │ Discord cockpit │
+                    │ (validacao)     │
+                    └────────────────┘
 ```
 
 ## Componentes principais
@@ -97,6 +103,15 @@ E o canal operacional principal quando o gateway esta ativo.
 
 Sem gateway ativo, o Telegram nao desperta o sistema sozinho.
 
+### 6. Discord
+
+O Discord e o cockpit de gestao da sprint S4.
+
+- app validado na API do Discord
+- comandos slash globais registrados
+- `DISCORD_GUILD_ID` configurado no ambiente local
+- instalacao no guild de teste ainda bloqueada no acesso do bot ao servidor
+
 ## Fluxo principal atual
 
 1. ajustar KB canonica no repositorio-base
@@ -105,7 +120,8 @@ Sem gateway ativo, o Telegram nao desperta o sistema sozinho.
 4. operar a Cindy via Telegram ou CLI
 5. para tarefas complexas de codigo, delegar ao OpenCode via `mcp_delegate_task`
 6. registrar fatos, decisoes e pendencias na documentacao e tracking
-7. planejar replicacao para outros projetos antes de qualquer alteracao externa
+7. validar e operar o Discord como cockpit da S4
+8. planejar replicacao para outros projetos antes de qualquer alteracao externa
 
 ## Arquitetura Dual-Modelo
 
@@ -228,6 +244,7 @@ Roteamento semântico por palavras-chave — zero LLM no caminho de classificaç
 - Cindy Agent como repositorio-base
 - Hermes + Telegram funcionando no ambiente local
 - `hermes-gateway.service` ativo no Linux com healthcheck local validado
+- Discord validado na API, com comandos globais registrados e guild de teste ainda bloqueado
 - OpenCode CLI como tool de delegacao (MiniMax M2.7)
 - documentacao canonica e tracking da sprint S3
 - mapa de replicacao em `Replicar.md`

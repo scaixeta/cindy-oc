@@ -2,7 +2,7 @@
 
 ## Visao Geral
 
-Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Telegram como canal principal, `hermes-gateway.service` como servico operacional real no Linux e OpenCode CLI como tool de delegacao.
+Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Telegram como canal principal, Discord em validacao como cockpit secundario, `hermes-gateway.service` como servico operacional real no Linux e OpenCode CLI como tool de delegacao.
 
 ## Estado operacional atual
 
@@ -15,6 +15,7 @@ Este documento descreve a operacao atual do Cindy Agent com Hermes em WSL, Teleg
 | Modelo primario do runtime | `MiniMax-M2.7` via `minimax` |
 | Fallback do runtime | `gpt-5.3-codex` via `openai-codex` |
 | Telegram | configurado e pareado |
+| Discord | credenciais validadas na API; guild de teste ainda nao acessivel |
 | Gateway | funcional via `hermes-gateway.service` |
 | OpenCode | integrado via wrapper |
 | Servico persistente | instalado e ativo no systemd de sistema |
@@ -46,6 +47,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 ## Semantica operacional da Cindy
 
 - **Canal principal:** Telegram, quando o gateway esta ativo
+- **Discord:** cockpit em implantacao; app validado na API, mas sem operacao de guild ainda
 - **`acorde`:** retomada logica da sessao/contexto
 - **Nao significa:** ligar maquina, acordar WSL ou iniciar Hermes do zero automaticamente
 - **Commit/push:** somente com autorizacao explicita do PO
@@ -83,6 +85,7 @@ wsl -d Ubuntu --user root -- /root/.hermes/hermes-agent/venv/bin/hermes chat -Q 
 | `hermes status` mostra `Gateway Service: stopped` | status do `systemd (user)` e nao do servico real | conferir `systemctl status hermes-gateway.service --no-pager` |
 | Update do Hermes encontra mudanca local no repo | risco de sobrescrever ajuste operacional | gerar patch de backup, aplicar `git stash` e so depois atualizar |
 | OpenCode retorna "invalid api key" | MINIMAX_API_KEY expirada ou invalida | verificar chave em `.scr/.env` |
+| Discord retorna 403 ao registrar comandos no guild | bot ainda nao instalado ou autorizado no servidor | instalar o app no guild de teste e repetir o registro |
 | Warnings de `.env` no WSL | arquivo com `CRLF` | normalizar para `LF` |
 | Caracteres quebrados no terminal Windows | encoding do console | usar terminal UTF-8 / PowerShell com code page adequada |
 

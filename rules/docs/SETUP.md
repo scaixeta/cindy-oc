@@ -43,7 +43,7 @@ Arquivos minimos esperados:
 - `tests/bugs_log.md`
 - `rules/WORKSPACE_RULES.md`
 
-Na Cindy atual, o arquivo ativo e `Dev_Tracking_S3.md`.
+Na Cindy atual, o arquivo ativo e `Dev_Tracking_S4.md` (S4/Discord). O backlog tecnico deslocado fica em `Dev_Tracking_S5.md`.
 
 ### 4. Executar validacoes locais, se necessario
 
@@ -82,12 +82,14 @@ CindyAgent/
 ├── README.md
 ├── Cindy_Contract.md
 ├── Dev_Tracking.md
-├── Dev_Tracking_S3.md
+├── Dev_Tracking_S4.md
+├── Dev_Tracking_S5.md
 ├── docs/
 ├── rules/
 ├── Templates/
 ├── tests/
 └── Sprint/
+    └── Dev_Tracking_S3.md
 ```
 
 ## Proximos passos
