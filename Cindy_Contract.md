@@ -11,6 +11,12 @@ Este contrato define o contexto discoverable da Cindy no inicio de cada run.
 | `workspace_root` | `{{WORKSPACE_ROOT}}` | CWD |
 | `doutrina` | `DOC2.5` | `rules/WORKSPACE_RULES.md` |
 
+Estado operacional atual:
+
+- Sprint ativa: `Dev_Tracking_S4.md`
+- Sprint S4 mantida aberta por decisao do PO
+- Time AIOps canonico: `Cindy`, `AICoders`, `Escriba`, `Gateway`, `QA`
+
 ## 2. Orquestradores Validos
 
 | Orchestrator | Entry Point | Rules | Skills |
@@ -70,7 +76,7 @@ DISPATCH_REGRAS:
   - rules/WORKSPACE_RULES.md: fonte operacional obrigatoria
   - Cindy_Contract.md: contrato canonico de descoberta
   - baseline de geracao: quando README.md/tracking/docs finais ainda nao existirem, usar Templates/README.md como ponto de partida
-  - docs/: apenas 4 documentos canonicos
+  - nesta base, os 4 docs canonicos vivem em `rules/docs/`; em projetos derivados, podem viver em `docs/`
   - Templates/: fonte principal de geracao documental
   - commits: apenas por ordem expressa do PO
 ```

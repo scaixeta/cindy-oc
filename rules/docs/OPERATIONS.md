@@ -4,6 +4,16 @@
 
 Orientar como operar, validar e manter a Cindy.
 
+## Momento atual
+
+- Data de referencia: `2026-04-27`
+- Sprint S4 permanece aberta
+- Time AIOps canonico: `Cindy`, `AICoders`, `Escriba`, `Gateway`, `QA`
+- `OpenCode` e o executor tecnico dos subagentes
+- `Playwright` e `SonarScanner CLI` estao funcionais no WSL
+- `Gateway` e `QA` formam o ciclo de validacao antes do aceite
+- O servidor local do SonarQube ainda depende de um daemon Docker disponivel no host
+
 ## Natureza operacional
 
 A Cindy e um repositorio-base de governanca, skills e workflows. Ela opera principalmente em ambiente local para:
@@ -28,24 +38,16 @@ Antes de agir, a Cindy deve declarar em qual etapa esta operando:
 
 Sem essa declaracao, a Cindy deve permanecer em leitura e sintese.
 
-Comando curto como `execute` nao deve ser interpretado como autorizacao imediata para criar artefatos.
-
 ### 1. Validacao estrutural
 
 Conferencias minimas:
 
 - `README.md` presente e coerente com a sprint ativa
-- `docs/` com os 4 arquivos canonicos
+- `rules/docs/` com os 4 arquivos canonicos nesta base
 - `rules/WORKSPACE_RULES.md` presente
-- `Dev_Tracking.md` e `Dev_Tracking_SX.md` ativo coerentes
+- `Dev_Tracking.md` e `Dev_Tracking_S4.md` coerentes
 - `tests/bugs_log.md` atualizado
 - gate manual `doc25-preflight` executado antes de alegar conformidade
-
-Para projetos derivados recem-criados:
-
-- usar `Templates/` como base oficial de bootstrap documental
-- validar se o resultado final reproduz os artefatos canonicos esperados
-- nao considerar aceitavel um projeto cuja estrutura exista, mas cujo `README.md` ou tracking inicial nao reflitam o baseline definido pela Cindy
 
 ### 2. Audit DOC2.5
 
@@ -56,52 +58,25 @@ Conduzir auditoria manual com foco em:
 - ausencia de artefatos legados fora do baseline atual
 - consistencia de naming, idioma e `Timestamp UTC`
 
-### 2.1 Gate de contexto
+### 3. Verificacao de ferramentas
 
-Usar para:
+O ciclo tecnico atual deve ser funcional:
 
-- medir o custo contextual da etapa atual
-- listar apenas os arquivos necessarios
-- resumir pendencias da sprint ativa
-- alertar sobre reprocessamento desnecessario
+- `OpenCode` para execucao especializada
+- `Playwright` para navegacao e smoke/E2E
+- `SonarScanner CLI` para analise tecnica
+- `Java 17` para suporte ao scanner
 
-Tambem usar para:
+Se o daemon Docker do host estiver indisponivel, o scanner continua valido, mas o servidor SonarQube local nao deve ser declarado operacional.
 
-- impedir expansao precoce para execucao
-- justificar por que a leitura atual e suficiente
-- separar contexto permanente, ativo e temporario antes de agir
-
-### 3. Verificacao de espelho de skills
-
-Ao adicionar ou portar skills, validar coerencia entre:
-
-- `.agents/skills/` (Canonical SoT Antigravity)
-- `.cline/skills/` (Counterpart)
-- `.codex/skills/` (Counterpart)
-
-### 4. Verificacao de workflows
-
-- manter apenas workflows DOC2.5 genericos na Cindy pura
-- remover workflows especificos de outros projetos
-- manter referencias coerentes com `README.md`, tracking e regras vigentes
-
-### 5. Verificacao de tracking
+### 4. Verificacao de tracking
 
 - apenas um `Dev_Tracking_SX.md` ativo na raiz
 - `Sprint/` so recebe sprints arquivadas
 - `Timestamp UTC` deve refletir os eventos relevantes do projeto
 - fechamento de sprint e proibido sem ordem explicita do PO
-- referencias de testes e roadmap devem permanecer coerentes entre artefatos
 
-### 6. Politica de remotes e push
-
-- identificar os remotes reais com `git remote -v`
-- se houver apenas um remote configurado, operar em `single remote`
-- se houver mais de um remote, nao assumir push dual automaticamente
-- `dual remote` so vale quando o PO determinar explicitamente
-- se nao houver remote identificavel, interromper e perguntar antes de qualquer commit/push
-
-## Seguranca operacional
+### 5. Seguranca operacional
 
 - nunca versionar credenciais
 - nunca documentar segredos
@@ -110,7 +85,7 @@ Ao adicionar ou portar skills, validar coerencia entre:
 
 ## Resposta a falhas
 
-1. confirmar contexto em `Dev_Tracking_SX.md` ativo
+1. confirmar contexto em `Dev_Tracking_S4.md`
 2. interromper o fluxo que falhou
 3. registrar bug ou teste em `tests/bugs_log.md`
 4. corrigir o artefato minimo necessario
@@ -124,8 +99,6 @@ Falha operacional inclui:
 - repeticao de erro equivalente
 - loop ate interrupcao manual
 
-Nesses casos, a Cindy deve trocar de estrategia e nao insistir no mesmo padrao de comando.
-
 ## Disciplina de verdade canonica
 
 - arquitetura sugerida permanece hipotese ate evidencia ou aprovacao do PO
@@ -135,8 +108,8 @@ Nesses casos, a Cindy deve trocar de estrategia e nao insistir no mesmo padrao d
 
 ## Referencias
 
-- `docs/SETUP.md`
-- `docs/ARCHITECTURE.md`
-- `docs/DEVELOPMENT.md`
-- `Dev_Tracking_SX.md`
+- `rules/docs/SETUP.md`
+- `rules/docs/ARCHITECTURE.md`
+- `rules/docs/DEVELOPMENT.md`
+- `Dev_Tracking_S4.md`
 - `tests/bugs_log.md`

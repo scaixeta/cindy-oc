@@ -1,121 +1,107 @@
 # Cindy Agent
 
-Repositorio-base local da Cindy no workspace `C:\CindyAgent`, usado para manter a governanca DOC2.5, a documentacao canonica, a persona operacional da Cindy no Hermes e os artefatos de referencia que serao replicados para outros projetos do ecossistema.
+Repositorio-base local da Cindy no workspace `C:\CindyAgent`. Este repo guarda a governanca DOC2.5, a documentacao canonica, a persona operacional da Cindy e os artefatos de referencia do ecossistema.
 
 ## Estado atual
 
-- **Sprint ativa:** `S4` — Discord em implantação e validação operacional
-- **Sprint futura:** `S5` — Microsoft Agent Framework e observabilidade IoT avançada
-- **Runtime principal:** Hermes em WSL (`Ubuntu`), com runtime vivo em `/root/.hermes`
-- **Versao atual do Hermes:** `v0.9.0 (2026.4.13)`
-- **Modelo primario do runtime Hermes:** `MiniMax-M2.7` via `minimax`
-- **Fallback do runtime Hermes:** `gpt-5.3-codex` via `openai-codex`
-- **Canal operacional principal:** Telegram, via `hermes-gateway.service`
-- **Healthcheck validado:** `http://127.0.0.1:8642/health`
-- **WebUI local validada:** `hermes dashboard` em `http://127.0.0.1:9119`
-- **KB canonica da Cindy para Hermes:** `KB/hermes/`
-- **Sincronizacao viva do runtime:** `/root/.hermes/SOUL.md`, `/root/.hermes/memories/USER.md`, `/root/.hermes/memories/MEMORY.md`
-- **Remote oficial:** `https://github.com/scaixeta/CindyAgent`
-- **Branch atual de trabalho:** `v1.1`
-- **Segredo local protegido:** `.scr/.env` permanece fora de versionamento
+- Data de referencia: `2026-04-27`
+- Sprint ativa: `S4` mantida aberta
+- Runtime operacional atual: `Cindy Agent 2026.4.14` no WSL2 Ubuntu, com gateway LAN e Telegram habilitados
+- Time AIOps canonico: `Cindy`, `AICoders`, `Escriba`, `Gateway`, `QA`
+- Cindy atua como orquestradora, consolidacao e Scrum Master operacional
+- `AICoders` executa via `OpenCode` com subagentes independentes
+- `Gateway` valida codigo, qualidade e seguranca com `Playwright`, `SonarScanner CLI` e `Sec`
+- `QA` faz validacao funcional e aceite final
+- `Playwright 1.59.1` instalado e browsers baixados no WSL
+- `SonarScanner CLI 8.0.1.6346` instalado e funcional
+- `OpenJDK 17.0.18` instalado
+- O servidor local do SonarQube ainda depende de daemon Docker disponivel no host
+- Canal operacional principal: Telegram
+- Discord cockpit validado e em uso como superficie de gestao
+- `.scr/.env` continua fora de versionamento
+- Remote oficial: `https://github.com/scaixeta/CindyAgent`
+- Branch principal de trabalho: `main`
 
-## Sprint S4 — Estado
+## Sprint S4
 
 | Item | Estado |
 |---|---|
 | Sprint | `S4` |
-| Status | Ativa |
-| Foco | Discord como cockpit de gestão e reflexo canônico DOC2.5 |
-| Base operacional validada | Hermes + Telegram + health + chat + tracking DOC2.5 |
-| Discord | app validado na API; guild de teste ainda bloqueado |
+| Status | Ativa e mantida aberta |
+| Foco | Cindy Agent operacional, Discord cockpit e consolidacao da documentacao do time AIOps |
+| Base operacional validada | Cindy Agent + Telegram + gateway LAN + tracking DOC2.5 |
+| Ferramentas de gate | `OpenCode`, `Playwright`, `SonarScanner CLI`, `OpenJDK 17` |
 
-O runtime Hermes foi revalidado em `2026-04-15` com uma bateria de 5 reinicializações do `hermes-gateway.service`, mantendo `MiniMax-M2.7` como primario, `gpt-5.3-codex` como fallback, `telegram=connected`, `api_server=connected`, healthcheck `ok`, WebUI local em `http://127.0.0.1:9119` e teste local `hermes chat -Q` respondendo `OK`.
+## Visao operacional AIOps
 
-O plano de Discord foi deslocado para a sprint ativa S4, com foco em cockpit de gestão, threads, bridge com Cindy/ACP e reflexo canônico. O app do Discord já foi validado na API, os comandos slash globais foram registrados e o `DISCORD_GUILD_ID` está configurado, mas a instalação no guild de teste ainda está bloqueada no acesso do bot ao servidor. O backlog técnico de Microsoft Agent Framework, SonarCloud e observabilidade IoT ficou na S5.
+A Cindy opera como plataforma AIOps sob DOC2.5.
 
-## Escopo atual da S4
+### Papel de cada funcao
+- **Cindy:** coordena, roteia, consolida, remove bloqueios e age como Scrum Master operacional.
+- **AICoders:** implementa, refatora, depura e automatiza com `OpenCode` e subagentes independentes.
+- **Escriba:** documentacao tecnica, contratos, KB e runbooks.
+- **Gateway:** gate tecnico antes da subida, incluindo qualidade, testes, `Playwright`, `SonarScanner CLI` e seguranca.
+- **QA:** validacao funcional, regressao, smoke e aceite final.
 
-- definir o papel do Discord como cockpit de gestão e portfólio
-- estruturar categorias, canais, threads e comandos mínimos
-- materializar a Cindy/Bot no Discord
-- instalar e validar o bot no guild de teste
-- integrar Discord -> Cindy -> ACP/Redis e refletir status de volta
-- espelhar eventos relevantes em `Dev_Tracking` e `tests/bugs_log.md`
-- manter Hermes + Telegram como base operacional estável da Cindy
-
-## Visão Operacional AIOps
-
-A Cindy evoluiu de uma assistente reativa para uma **Plataforma AIOps (Autonomous IT Operations)** corporativa, operando sob o framework **DOC 2.5**.
-
-### 1. O que ela faz atualmente
-- **Governança Autônoma:** Mantém integridade entre Sprints, documentação canônica (KB) e rastreabilidade técnica (Dev_Tracking) sem intervenção constante.
-* **Validação E2E:** Executa suítes de teste (Pytest, Playwright) de forma isolada, diagnostica deadlocks em containers e verifica métricas de saúde sistêmica.
-* **Execuções Headless:** Opera via OpenCode com perfis especializados, reduzindo alucinações e isolando acessos em sandboxes seguras.
-* **Governança HITL (PO Gates):** Opera autonomamente entre fronteiras de aprovação, escalando para o PO apenas em decisões de arquitetura, custos ou bloqueios críticos.
-
-### 2. O Time AIOps (Multiagente)
-A carga operacional é distribuída em uma malha de especialistas (**ACP Mesh**):
-- **Cindy (Orquestradora):** Gateway de interface e Context Router macro.
-- **Builder (Engenharia):** Implementação de código, refatoração e infraestrutura.
-- **Reviewer (Gatekeeper):** Validação técnica, QA e aprovação de handoffs.
-- **Documenter (Scribe):** Manutenção silenciosa de docs, memórias e registros de sprint.
-- **PlatformOps (SRE):** Observabilidade, diagnóstico de infra e saúde do runtime.
-
-### 3. Como ela opera (Arquitetura)
-- **ACP Mesh (Redis):** Protocolo de comunicação assíncrona com máquina de estados (Queued -> Running -> Review -> Done/Escalated).
-- **Handoffs Rastreáveis:** Toda troca de responsabilidade entre agentes gera um trace_id persistente para auditoria.
-- **Observabilidade:** Monitoramento de throughput, taxa de sucesso e retrabalho (rework) via telemetria no Redis.
-- **Isolamento OpenCode:** Ferramentas de sistema são executadas através de perfis com permissões granulares e governadas.
+### Fluxo operacional atual
+- PO define direcao e aprova gates maiores.
+- Cindy classifica, distribui e consolida.
+- AICoders executa com subagentes autonomos.
+- Gateway bloqueia, aprova ou devolve bugs.
+- QA confirma comportamento e aceite.
+- Cindy fecha a consolidacao e apresenta o resultado ao PO.
 
 ## Operacao rapida
 
-### Subir Hermes + Cindy no Telegram
+### Subir o gateway do runtime
 
 ```powershell
-.\start_hermes_cindy_telegram.bat
+# Execute o script de inicializacao do gateway da Cindy Agent no workspace
 ```
 
-### OpenCode — usar reasoning profundo
+### OpenCode
 
-```batch
-.\run_opencode.bat "prompt aqui"
+```bash
+./run_opencode.bat "prompt aqui"
 ```
-
-Modelo padrao: `minimax/MiniMax-M2.7`
 
 ## Estrutura canonica
 
-- `README.md` — entry point do projeto
-- `Dev_Tracking.md` — indice de sprints
-- `Dev_Tracking_S4.md` — sprint ativa
-- `Dev_Tracking_S5.md` — sprint futura planejada
-- `docs/SETUP.md` — ambiente, instalacao e preparo operacional
-- `docs/ARCHITECTURE.md` — arquitetura atual
-- `docs/DEVELOPMENT.md` — fluxo de evolucao e backlog
-- `docs/OPERATIONS.md` — operacao corrente do runtime Hermes
-- `tests/bugs_log.md` — bugs, testes e evidencias
-- `KB/` — Base de Conhecimento (aiops, hermes, meta)
+No workspace base da Cindy, os docs canonicos vivem em `rules/docs/`. Em projetos derivados, a mesma estrutura aparece em `docs/`.
+
+- `README.md`
+- `Dev_Tracking.md`
+- `Dev_Tracking_S4.md`
+- `Dev_Tracking_S5.md`
+- `rules/docs/SETUP.md`
+- `rules/docs/ARCHITECTURE.md`
+- `rules/docs/DEVELOPMENT.md`
+- `rules/docs/OPERATIONS.md`
+- `tests/bugs_log.md`
+- `rules/WORKSPACE_RULES.md`
+- `KB/`
 
 ## Leitura recomendada
 
 1. `rules/WORKSPACE_RULES.md`
 2. `Cindy_Contract.md`
 3. `README.md`
-4. `docs/SETUP.md`
-5. `docs/ARCHITECTURE.md`
-6. `docs/DEVELOPMENT.md`
-7. `docs/OPERATIONS.md`
+4. `rules/docs/SETUP.md`
+5. `rules/docs/ARCHITECTURE.md`
+6. `rules/docs/DEVELOPMENT.md`
+7. `rules/docs/OPERATIONS.md`
 8. `Dev_Tracking.md`
 9. `Dev_Tracking_S4.md`
 10. `Dev_Tracking_S5.md`
-11. `KB/aiops/AIOPS_TEAM_ACTION_PLAN.md`
+11. `KB/aiops/AIOPS_TEAM_BASELINE.md`
+12. `KB/aiops/AIOPS_TEAM_ACTION_PLAN.md`
 
 ---
 
-## Cindy — Orquestradora (Context Router)
+## Cindy - Orquestradora (Context Router)
 
-A Cindy é o agente principal do projeto. Em cada run, ela identifica o orchestrator ativo (Cline/Codex/Antigravity), a superfície de execução (VSCode/CLI) e o workspace root; em seguida, descobre e seleciona as skills/workflows disponíveis no contexto atual, respeitando os gates DOC2.5 (plano aprovado antes de execução; commit/push apenas sob ordem explícita do PO).
+A Cindy e o agente principal do projeto. Em cada run, ela identifica o orchestrator ativo (Cline/Codex/Antigravity), a superficie de execucao (VSCode/CLI) e o workspace root; em seguida, descobre e seleciona as skills e workflows disponiveis no contexto atual, respeitando os gates DOC2.5.
 
 <p align="center">
-  <img src=".brand/Cindy.jpg" alt="Cindy — Orquestradora" width="220" />
+  <img src=".brand/Cindy.jpg" alt="Cindy - Orquestradora" width="220" />
 </p>

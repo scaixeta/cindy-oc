@@ -60,6 +60,7 @@ class Task:
         context: Optional[str] = None,
         expected_response: Optional[str] = None,
         escalation_reason: Optional[str] = None,
+        escalation_gate: Optional[str] = None,
     ):
         self.task_id       = task_id or str(uuid.uuid4())
         self.trace_id      = trace_id or str(uuid.uuid4())
@@ -73,6 +74,7 @@ class Task:
         self.context       = context
         self.expected_response = expected_response
         self.escalation_reason = escalation_reason
+        self.escalation_gate = escalation_gate
         self.created_at    = datetime.now(timezone.utc).isoformat()
         self.updated_at    = self.created_at
         self.history: list[dict] = []
@@ -113,6 +115,7 @@ class Task:
             "context":           self.context,
             "expected_response": self.expected_response,
             "escalation_reason": self.escalation_reason,
+            "escalation_gate":   self.escalation_gate,
             "created_at":        self.created_at,
             "updated_at":        self.updated_at,
             "history":           self.history,
@@ -132,6 +135,7 @@ class Task:
             context          = data.get("context"),
             expected_response= data.get("expected_response"),
             escalation_reason= data.get("escalation_reason"),
+            escalation_gate  = data.get("escalation_gate"),
         )
         t.state      = TaskState(data["state"])
         t.created_at = data["created_at"]

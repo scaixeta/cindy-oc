@@ -4,6 +4,8 @@
 
 Transformar o CindyAgent de um runtime centralizado na Cindy com infraestrutura parcial de delegação em um time AIOps/de desenvolvimento multiagente real, com especialistas independentes, mesh governado, OpenCode como executor e PO atuando como human-in-the-loop por gates.
 
+**Atualização de momento:** 2026-04-27. A Sprint permanece aberta, o time AIOps canônico já está definido e as ferramentas de gate já estão funcionais no WSL; o que segue é consolidação operacional e endurecimento, não redefinição de time.
+
 ## Premissas confirmadas
 
 - A documentação canônica continua em `docs/`
@@ -13,7 +15,7 @@ Transformar o CindyAgent de um runtime centralizado na Cindy com infraestrutura 
 - O mesh interno será implementado sobre ACP via Redis
 - O stack seguirá princípio `Microsoft first`, com pragmatismo de licenças
 - O OpenCode será integrado como executor dos especialistas
-- Nomes de agente são baseados em papel — não em modelo: Candid, Builder, Reviewer, Documenter, PlatformOps
+- Nomes de agente são baseados em papel — não em modelo: Cindy, AICoders, Escriba, Gateway, QA
 - Microsoft Agent Framework é a plataforma de gestão approved — não mais referência futura
 
 ## Resultado esperado
@@ -40,7 +42,7 @@ Ao final da implementação, o sistema deve permitir:
 
 ### Ações
 
-1. Definir `agent_card` para Cindy, Builder, Reviewer, Documenter e PlatformOps
+1. Definir `agent_card` para Cindy, AICoders, Escriba, Gateway e QA
 2. Definir ferramentas permitidas e proibidas por agente
 3. Definir workflows padrão por agente
 4. Definir critérios de entrada, saída e handoff
@@ -112,7 +114,7 @@ Ao final da implementação, o sistema deve permitir:
 1. Criar perfis OpenCode:
    - `planner`
    - `coder`
-   - `reviewer`
+   - `qa`
    - `tester`
    - `docs-writer`
    - `sre-debugger`

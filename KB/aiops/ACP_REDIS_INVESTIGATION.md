@@ -81,28 +81,28 @@ Duas camadas para cobrir todos os casos de uso:
 
 **Pub/Sub:**
 ```redis
-PUBLISH acp:messages '{"id":"...","type":"COMMAND","from":"scribe","to":"minimax",...}'
+PUBLISH acp:messages '{"id":"...","type":"COMMAND","from":"scribe","to":"gateway",...}'
 SUBSCRIBE acp:messages
 PSUBSCRIBE acp:*
 ```
 
 **Streams (producer):**
 ```redis
-XADD acp:stream:minimax '*' id "..." type "TASK" from "scribe" payload '{...}'
-XADD acp:stream:scribe '*' id "..." type "RESPONSE" from "minimax" ...
+XADD acp:stream:gateway '*' id "..." type "TASK" from "scribe" payload '{...}'
+XADD acp:stream:scribe '*' id "..." type "RESPONSE" from "gateway" ...
 ```
 
 **Streams (consumer group):**
 ```redis
-XGROUP CREATE acp:stream:minimax mygroup $ MKSTREAM
-XREADGROUP GROUP mygroup consumer1 COUNT 10 STREAMS acp:stream:minimax ">"
-XPENDING acp:stream:minimax mygroup
-XACK acp:stream:minimax mygroup message_id
+XGROUP CREATE acp:stream:gateway mygroup $ MKSTREAM
+XREADGROUP GROUP mygroup consumer1 COUNT 10 STREAMS acp:stream:gateway ">"
+XPENDING acp:stream:gateway mygroup
+XACK acp:stream:gateway mygroup message_id
 ```
 
 **Query/Estado:**
 ```redis
-XRANGE acp:stream:minimax - + COUNT 50
+XRANGE acp:stream:gateway - + COUNT 50
 XREVRANGE acp:stream:scribe + - COUNT 10
 ```
 
@@ -167,7 +167,7 @@ XREVRANGE acp:stream:scribe + - COUNT 10
 
 1. **Criar biblioteca Python mínima** (`acp_redis.py`) com interface `publish()`, `subscribe()`, `stream_produce()`, `stream_consume()`
 2. **Definir schema JSON** — validar com Pydantic antes de implementar
-3. **Testar Pub/Sub** entre dois processos simulados (MiniMax ↔ Scribe)
+3. **Testar Pub/Sub** entre dois processos simulados (AICoders ↔ Escriba)
 4. **Implementar consumer group** no stream para tarefas de longa duração
 5. **Adicionar TTL automático** nos streams via `XADD` com `MAXLEN` ou `EXPIRE`
 6. **Considerar autenticação Redis** (`requirepass`) se os dados forem sensíveis

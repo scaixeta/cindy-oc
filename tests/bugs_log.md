@@ -168,6 +168,30 @@
 
 ## Sprint S5
 
+### BUG-S5-01 — Split-brain operacional: conflito entre systemd e tmux como supervisores do Hermes Gateway no WSL2
+
+- **Data:** 2026-04-15
+- **Severidade:** Alta
+- **Evidência:** O WSL2 possui dois planos de controle concorrentes para o Hermes Gateway:
+  - **Plano A:** `/etc/wsl.conf` executa `/usr/local/bin/hermes-wsl-gateway ensure` no boot, que usa `tmux` como supervisor e **desabilita systemd** explicitamente
+  - **Plano B:** `/etc/systemd/system/hermes-gateway.service` está ativo e rodando via systemd
+  - Runner WSL mostra `tmux session: hermes-gateway (stopped)` mas `/health` responde OK
+  - VSCode mascara o problema mantendo a instância WSL viva
+- **Impacto:** Comportamento inconsistente de startup; não existe método canônico único de restart; risco de falha em cold boot quando VSCode não está aberto
+- **Causa raiz inferida:** Recovery parcial do baseline pré-Discord voltou o código e o unit file systemd, mas não voltou a camada de boot WSL (`/etc/wsl.conf` e `/usr/local/bin/hermes-wsl-gateway`), criando arquitetura híbrida inconsistente
+- **Análise completa:** `KB/hermes/WSL2_ORCHESTRATION_SPLIT_BRAIN.md`
+- **Opções de resolução:**
+  - **Opção A (Recomendada):** Padronizar em systemd — remover boot command do `wsl.conf`, manter unit file systemd
+  - **Opção B:** Padronizar em tmux — desabilitar systemd permanentemente, manter runner WSL
+  - **Opção C (Não Recomendada):** Híbrido controlado com detecção de conflito
+- **Correção aplicada (Opção A):**
+  1. Backup criado: `/etc/wsl.conf.bak`
+  2. Removido `command=/usr/local/bin/hermes-wsl-gateway ensure` do `/etc/wsl.conf`
+  3. Executado `systemctl enable hermes-gateway.service`
+  4. WSL shutdown para cold boot
+- **Validação:** Após cold boot: `systemctl status` = `active (running)` e `enabled`; `/health` = `ok`; `gateway_state.json` = `telegram: connected`, `api_server: connected`; `hermes chat -Q` = `OK`
+- **Status:** Corrigido
+
 ### TEST-S5-01 — Bateria de 5 reinicializações do Hermes Gateway validada
 
 - **Data:** 2026-04-15
@@ -275,3 +299,25 @@
 - **Resultado:** login web concluído; autocomplete mostrou a superfície mínima com `/status`, `/help` e `/clear`; `/help` e `/clear` passaram nos dois canais; `/status` não retornou payload útil verificável no navegador dentro do timeout da bateria; `project` apareceu apenas como texto da árvore lateral do servidor, não como sugestão de slash command
 - **Evidência:** sessão Playwright do Discord web, canais `1493981841747611671` e `1493994500287107225`, respostas dos comandos e DOM do client
 - **Status:** Parcial
+
+### TEST-S4-13 — Toolchain do Gateway validada no WSL2 para o momento atual
+
+- **Data:** 2026-04-27
+- **Escopo:** validar a base funcional do Gateway na Cindy Agent com `Playwright`, browsers do Playwright, `SonarScanner CLI` e `OpenJDK`
+- **Resultado:** `playwright --version` retornou `1.59.1`; browsers instalados em `/root/.cache/ms-playwright/` incluindo `chromium`, `chromium_headless_shell` e `ffmpeg`; `sonar-scanner --version` retornou `SonarScanner CLI 8.0.1.6346`; `java -version` retornou `OpenJDK 17.0.18`
+- **Observação:** o servidor SonarQube continua dependente de daemon Docker no host para ficar online; o scanner e a toolchain local estão funcionais
+- **Evidência:** saída dos comandos de versão e instalação no WSL2 Ubuntu
+- **Status:** Passou
+
+---
+
+## Sprint S5
+
+### TEST-S5-01 — Instalação da Cindy Agent 2026.4.14 no WSL2 Ubuntu
+
+- **Data:** 2026-04-16
+- **Escopo:** Substituir Hermes Agent quebrado no WSL2 Ubuntu pelo runtime atual da Cindy Agent
+- **Resultado:** Runtime atual da Cindy Agent 2026.4.14 instalado com sucesso; Node.js v22.22.2 configurado; comando `--version` confirmou a build `2026.4.14 (323493f)`; help mostra capacidades de gateway, channels, agents, webhooks
+- **Evidência:** Output do comando `--version` no WSL2 Ubuntu (hostname: SentivisIA); binário do runtime instalado no sistema
+- **Status:** Passou
+- **Decisão:** D-S5-05 em Dev_Tracking_S5.md

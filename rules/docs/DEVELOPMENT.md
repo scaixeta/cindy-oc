@@ -7,54 +7,70 @@ Descrever como o desenvolvimento deve ser conduzido na Cindy seguindo DOC2.5.
 ## Principios
 
 - uma sprint ativa por vez
+- a Sprint S4 permanece aberta ate ordem explicita do PO
 - tracking obrigatorio
 - mudanca minima necessaria
 - governanca antes de execucao
 - sem estruturas paralelas fora do modelo canonico
-- `rules/WORKSPACE_RULES.md` e fonte operacional obrigatoria, nao contexto opcional
-- preflight DOC2.5 e validacao de contexto devem acontecer antes de alegar conformidade
+- `rules/WORKSPACE_RULES.md` e fonte operacional obrigatoria
+- preflight DOC2.5 e validacao de contexto antes de alegar conformidade
+- `OpenCode` e o executor tecnico de `AICoders`
+- subagentes podem divergir e convergir para a mesma decisao
+
+## Time operacional
+
+- `Cindy`: coordena, roteia, consolida e atua como Scrum Master operacional
+- `AICoders`: implementa, corrige e automatiza
+- `Escriba`: documenta e integra
+- `Gateway`: valida qualidade e seguranca
+- `QA`: valida comportamento e aceite final
+- `PO`: aprova gates grandes e encerra sprint
 
 ## Fluxo geral
 
 ### 1. Ler contexto
 
 - `README.md`
-- `rules/WORKSPACE_RULES.md` e `.agents/rules`
-- `.clinerules/WORKSPACE_RULES_GLOBAL.md` (Cline) ou `~/.gemini/GEMINI.md` (Antigravity Global)
+- `rules/WORKSPACE_RULES.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_SX.md` ativo
+- `Dev_Tracking_S4.md`
 - `tests/bugs_log.md`
+- `rules/docs/SETUP.md`
+- `rules/docs/ARCHITECTURE.md`
+- `rules/docs/OPERATIONS.md`
 - gate `doc25-context-check`
 
 ### 2. Planejar antes de editar
 
 - resumir entendimento
 - propor plano claro
-- obter aprovacao explicita do PO
+- obter aprovacao explicita do PO quando houver alteracao ou gate
 
 ### 3. Executar
 
 - aplicar a menor mudanca possivel
-- atualizar backlog em tabela `Status | Estoria`
-- registrar decisoes como `[D-SX-YY] - descricao`
-- referenciar bugs e testes em `tests/bugs_log.md`
-- se houver mudanca estrutural, registrar pelo menos 1 teste estrutural no `tests/bugs_log.md`
-- evitar linguagem de encerramento prematuro sem ordem explicita do PO
+- atualizar backlog e decisoes quando necessario
+- registrar evidencias e testes em `tests/bugs_log.md`
+- evitar linguagem de encerramento prematuro sem ordem do PO
 
-### 4. Atualizar rastreabilidade
+### 4. Validar
 
-- refletir o trabalho em `Dev_Tracking_SX.md` ativo
-- atualizar `Dev_Tracking.md` se o estado da sprint mudar
-- atualizar docs canonicos e templates quando a realidade da base mudar
-- resumir no `Dev_Tracking_SX.md` os testes estruturais executados
-- manter coerencia entre `README.md`, `Dev_Tracking.md`, `Dev_Tracking_SX.md` e `tests/bugs_log.md`
+- `Gateway` valida qualidade tecnica, Playwright, SonarScanner e seguranca
+- `QA` valida funcionalidade, regressao e aceite final
+- falhas devem voltar ao time de desenvolvimento com evidencia objetiva
 
-### 5. Preflight, editorial pass e autoauditoria
+### 5. Atualizar rastreabilidade
 
-- executar o gate manual `doc25-preflight` antes de reportar conclusao
+- refletir o trabalho em `Dev_Tracking_S4.md`
+- atualizar `Dev_Tracking.md` se o indice mudar
+- atualizar docs canonicos quando a realidade da base mudar
+- manter coerencia entre `README.md`, `Dev_Tracking.md`, `Dev_Tracking_S4.md` e `tests/bugs_log.md`
+
+### 6. Preflight e autoauditoria
+
+- executar `doc25-preflight` antes de reportar conclusao
 - validar `Timestamp UTC` como gate bloqueante
-- executar passe editorial minimo: typos, nomes de arquivo, mistura PT-BR/EN e wording simples
-- incluir autoauditoria final: o que mudou, coerencia dos artefatos, pendencias de governanca e dependencias do PO
+- incluir autoauditoria final: o que mudou, coerencia dos artefatos e pendencias de governanca
 
 ## Politica de leitura vs alteracao
 
@@ -73,25 +89,26 @@ Descrever como o desenvolvimento deve ser conduzido na Cindy seguindo DOC2.5.
 - `git push`
 - criacao/remocao de arquivos
 - instalacao de dependencias
+- alteracoes estruturais fora do objetivo aprovado
 
 ## Skills e workflows
 
-- Skills canonicas devem estar coerentes entre `.agents/`, `.cline/` e `.codex/`
-- Workflows DOC2.5 ficam em `.clinerules/workflows/` e `.agents/workflows/`
-- O uso de skills deve preceder improviso ou duplicacao de logica
-- Processos de IA/ML (modelagem, classificação, RAG) exigem obrigatoriamente a orquestração via skill `crisp-dm-workflow-doc25`, mapeando todo o ciclo de vida à estrutura de controle e logging do DOC2.5 sem criar dependências de governança paralelas.
+- skills canonicas devem estar coerentes entre `.agents/`, `.cline/` e `.codex/`
+- workflows DOC2.5 ficam em `rules/docs/` e nos runtimes espelho quando aplicavel
+- o uso de skills deve preceder improviso
+- processos de IA/ML exigem orquestracao via `crisp-dm-workflow-doc25` quando aplicavel
 
 ## Tests e bugs
 
 - `tests/bugs_log.md` e o log centralizado
-- `Dev_Tracking_SX.md` ativo recebe apenas resumo e referencias cruzadas
-- `Timestamp UTC` deve refletir os eventos relevantes ja executados
+- `Dev_Tracking_S4.md` recebe resumo e referencias cruzadas
+- `Timestamp UTC` deve refletir eventos relevantes ja executados
 - validacao cruzada curta deve substituir reprocessamento completo quando nao houver mudancas em artefatos estaveis
 
 ## Referencias
 
 - `README.md`
 - `Dev_Tracking.md`
-- `Dev_Tracking_SX.md`
+- `Dev_Tracking_S4.md`
 - `tests/bugs_log.md`
 - `rules/WORKSPACE_RULES.md`

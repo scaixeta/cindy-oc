@@ -26,6 +26,8 @@ from acp.task_lifecycle import Task, TaskState, TaskStore
 from acp.capability_registry import CapabilityRegistry
 
 log = logging.getLogger("acp.mesh")
+STREAM_MAXLEN = 1000
+STREAM_TTL_SECONDS = 3600
 
 
 class ACPMesh:
@@ -195,20 +197,28 @@ class ACPMesh:
         return task
 
     def escalate(self, task_id: str, agent: str, reason: str) -> Task:
+        return self.escalate_with_gate(task_id, agent, reason, gate=None)
+
+    def escalate_with_gate(self, task_id: str, agent: str, reason: str, gate: Optional[str] = None) -> Task:
         task = self.store.transition(task_id, TaskState.ESCALATED, agent, reason)
+        task.escalation_reason = reason
+        task.escalation_gate = gate
+        self.store.save(task)
         self.store.log_event(task_id, task.trace_id, "task_escalated", agent, reason)
         # Notifica Cindy via stream
         escalation_task = Task(
             action     = "po_gate",
-            payload    = {"original_task_id": task_id, "reason": reason},
+            payload    = {"original_task_id": task_id, "reason": reason, "gate": gate},
             from_agent = agent,
             to_agent   = "cindy",
             trace_id   = task.trace_id,
             context    = f"ESCALATION from {agent}: {reason}",
+            escalation_reason = reason,
+            escalation_gate   = gate,
         )
         self.store.save(escalation_task)
         self._publish_to_stream("cindy", escalation_task)
-        log.warning("[MESH] task_escalated task_id=%s agent=%s reason=%s", task_id, agent, reason)
+        log.warning("[MESH] task_escalated task_id=%s agent=%s reason=%s gate=%s", task_id, agent, reason, gate)
         return task
 
     def request_review(self, task_id: str, agent: str, artifact_ref: str) -> Task:
@@ -271,7 +281,9 @@ class ACPMesh:
             "from":      task.from_agent,
             "timestamp": datetime.now(timezone.utc).isoformat(),
         }
-        return self._r.xadd(stream_key, entry, maxlen=5000)
+        entry_id = self._r.xadd(stream_key, entry, maxlen=STREAM_MAXLEN, approximate=True)
+        self._r.expire(stream_key, STREAM_TTL_SECONDS)
+        return entry_id
 
     def _record_handoff(self, task: Task) -> None:
         key = f"{self.HANDOFF_PREFIX}:{task.trace_id}"

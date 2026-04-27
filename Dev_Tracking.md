@@ -4,18 +4,20 @@
 
 | ID | Status | Inicio | Escopo |
 |---|---|---|---|
-| S4 | Ativa | 2026-04-15 | Discord em implantação e validação operacional — cockpit de gestão, bridge com Cindy/ACP e reflexo canônico DOC2.5 |
+| S4 | Ativa | 2026-04-15 | Cindy Agent como runtime operacional atual, com Discord cockpit e documentação de time AIOps em consolidação |
 
 ## Sprints Futuras
 
 | ID | Status | Inicio | Escopo |
 |---|---|---|---|
-| S5 | Planejada | A definir | Microsoft Agent Framework & Advanced IoT Observability — backlog deslocado da S4 por decisão do PO |
+| S5 | Planejada | A definir | Backlog técnico deslocado, consolidação do time AIOps e endurecimento do stack |
+| S6 | Planejada | A definir | Próximos ciclos de desenvolvimento |
 
 ## Sprints Encerradas
 
 | ID | Status | Periodo | Entrega |
 |---|---|---|---|
+| S4 | Mantida aberta | 2026-04-15 até agora | Sprint ativa; documentação e operação continuam em consolidação |
 | S3 | Encerrada | 2026-04-14 a 2026-04-14 | Materialização do time AIOps (Fases 1-5) — ACP Mesh, Workers Especialistas, OpenCode Profiles e Smoke Tests |
 | S2 | Encerrada (substituída) | 2026-04-13 a 2026-04-14 | Ferramentas internas da Cindy — substituída por S3 com novo objetivo time AIOps |
 
@@ -57,6 +59,11 @@
 - `2026-04-15` — ST-S4-01 concluída: DISCORD_COCKPIT_DEFINITION.md produzido com papel do Discord, categorias/canais, envelope de tarefa (13 campos) e contrato Discord→ACP. D-S4-11 registrada
 - `2026-04-15` — ST-S4-02 concluída: DISCORD_SERVER_SETUP.md criado com estrutura de roles (Cindy, PO, Agent-Ops, Developer, Viewer), categorias/canais, slash commands de cockpit (7 comandos) e script `scripts/discord_cockpit_setup.py`. D-S4-12 registrada
 - `2026-04-15` — ST-S4-03 concluída: 7 handlers de cockpit implementados em `gateway/platforms/discord.py` — /project, /task, /incident, /review, /sprint, /agent, /mesh — publicação ACP via ACPRedis.publish(). DISCORD_SLASH_HANDLERS.md criado. D-S4-13 registrada
+- `2026-04-16` — **Cindy Agent 2026.4.14 instalado no WSL2 Ubuntu** substituindo Hermes Agent quebrado; ST-S4-06 a ST-S4-11 concluídas
+- `2026-04-16` — Credenciais configuradas: MiniMax API Key, Telegram Bot Token, Gateway Token — D-S4-14, D-S4-15, D-S4-17 registradas
+- `2026-04-16` — **Gateway LAN configurado** bind=lan em 0.0.0.0:18789 — acessível em http://192.168.15.4:18789/ — D-S4-16 registrada
+- `2026-04-16` — **Modelo MiniMax-M2.7 configurado** como default agent model — D-S4-18 registrada
+- `2026-04-27` — Sprint S4 mantida aberta pelo PO; índice e docs sincronizados com o estado operacional atual
 
 ## Timestamp UTC (planejado)
 
@@ -70,4 +77,4 @@
 
 ## Referencia
 
-Consulte `Dev_Tracking_S4.md` para backlog, decisões e pendências da sprint ativa e `Dev_Tracking_S5.md` para o backlog futuro deslocado.
+Consulte `Dev_Tracking_S5.md` para backlog, decisões e pendências da sprint ativa.

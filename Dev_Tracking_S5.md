@@ -55,6 +55,9 @@ O backup completo do Hermes foi criado localmente em `backups/hermes/` e o diret
 | D-S5-01 | S5 herda o backlog técnico deslocado da S4 após decisão do PO | 2026-04-15 |
 | D-S5-02 | Bateria operacional de 5 reinicializações do `hermes-gateway.service` validada com Telegram conectado, healthcheck `ok` e `hermes chat -Q` retornando `OK` | 2026-04-15 |
 | D-S5-03 | Estado atual registrado: Hermes/Telegram validado, backup completo do runtime criado em `backups/hermes/` e `backups/` excluído do git | 2026-04-15 |
+| D-S5-04 | **BUG-S5-01 diagnosticado:** Split-brain operacional entre systemd e tmux como supervisores do Hermes Gateway no WSL2. Análise completa em `KB/hermes/WSL2_ORCHESTRATION_SPLIT_BRAIN.md`. Aguardando aprovação do PO para escolha da estratégia de resolução (Opção A: systemd / Opção B: tmux / Opção C: híbrido) | 2026-04-15 |
+| D-S5-05 | **OpenClaw 2026.4.14 instalado no WSL2 Ubuntu** substituindo Hermes Agent. Hermes do Linux server foi formatado/removido. OpenClaw instalado via `curl -fsSL https://openclaw.ai/install.sh | bash` | 2026-04-16 |
+| D-S5-06 | **OpenClaw configurado**: MiniMax API key (sk-cp-...) configurado; Telegram bot token (8683504450:...) configurado; Gateway porta 18789; Scripts criados em `scripts/start_openclaw_setup.ps1` e `scripts/start_openclaw_gateway.ps1` | 2026-04-16 |
 
 ---
 

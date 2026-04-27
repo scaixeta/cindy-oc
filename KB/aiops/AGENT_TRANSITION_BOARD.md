@@ -8,6 +8,18 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 
 **Decisão central:** Nomes de agentes são baseados em papel — não em modelo. Microsoft Agent Framework é a plataforma de gestão approved — não mais referência futura.
 
+## Momento Atual
+
+**Data de referência:** 2026-04-27
+
+- A Sprint permanece aberta.
+- O time AIOps canônico já está documentado.
+- `OpenCode` está sendo usado como executor dos subagentes da Cindy.
+- `Playwright` e `SonarScanner CLI` estão funcionalmente instalados no WSL.
+- O servidor SonarQube local ainda depende de um daemon Docker disponível no host.
+- A Cindy continua responsável por routing, consolidação e proteção do fluxo.
+- O PO segue como aprovador de gates e decisões grandes.
+
 ---
 
 ## Papéis do time
@@ -15,10 +27,10 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 | Papel | Responsabilidade | Status atual |
 |---|---|---|
 | Cindy (Coordenação) | Coordenação operacional, roteamento, visibilidade | Ativo |
-| Builder | Execução técnica, código, automação | Materializado (Worker + OpenCode) |
-| Reviewer | Validação, revisão, qualidade | Materializado (Worker + OpenCode) |
-| Documenter | Documentação, kb, procedimentos | Materializado (Worker + OpenCode) |
-| PlatformOps | Infraestrutura, runtime, observabilidade | Materializado (Worker + OpenCode) |
+| AICoders | Execução técnica, código, automação | Materializado (Worker + OpenCode) |
+| Escriba | Documentação, kb, procedimentos | Materializado (Worker + OpenCode) |
+| Gateway | Validação técnica, qualidade e segurança | Materializado (Worker + OpenCode) |
+| QA | Validação, revisão, aceite final | Materializado (Worker + OpenCode) |
 
 > Nenhum papel está atrelado a modelo ou provedor específico. Modelo é runtime strategy — não identidade.
 
@@ -69,7 +81,7 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 
 | Bloqueio | Impacto | Ação necessária |
 |---|---|---|
-| ST-S2-05: porta 11434 do Ollama bloqueada para WSL2 | Builder não consegue usar Ollama local | Usuário libera firewall/Norton |
+| ST-S2-05: porta 11434 do Ollama bloqueada para WSL2 | AICoders não consegue usar Ollama local | Usuário libera firewall/Norton |
 | ST-S2-04: credenciais SonarCloud pendentes | Análise de código bloqueada | PO fornece credenciais |
 | Sprint S5 aguardando priorização para execução | Materialização multiagente não iniciada | **PO confirma Fase 1 (agent_cards) para iniciar** |
 
@@ -98,4 +110,4 @@ Acompanhar a transição do CindyAgent de um runtime centralizado para um time A
 
 ---
 
-*Board atualizado em 2026-04-15. Documento oficial de encerramento S3: `KB/aiops/HANDOFF_S3_FINAL.md`. Próxima ação: consolidar a S4 (Discord) e abrir a S5 (Microsoft Agent Framework).*
+*Board atualizado em 2026-04-27. Documento oficial de encerramento S3: `KB/aiops/HANDOFF_S3_FINAL.md`. Sprint atual permanece aberta enquanto a documentação canônica e auxiliar é sincronizada com o estado funcional da Cindy Agent.*

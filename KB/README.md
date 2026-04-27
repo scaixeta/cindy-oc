@@ -11,7 +11,7 @@ KB/
   meta/       — Status de repositórios e metadados gerais do projeto
 ```
 
-> Conteúdo do ecossistema Sentivis fica em `C:\01 - Sentivis\Sentivis SIM\KB\`.
+> Conteúdo legado do ecossistema anterior fica fora deste KB canônico.
 
 ## aiops/
 
@@ -35,11 +35,17 @@ KB/
 | `RUNTIME_EXPORT.md` | Exportação do estado do runtime |
 | `README.md` | Guia de uso dos arquivos Hermes |
 | `WEBUI_SWARM.md` | Guia operacional para WebUI e operação paralela por profiles |
-| `fallback_diagnosis.md` | Diagnóstico do fallback MiniMax (BUG-S3-01) |
+| `fallback_diagnosis.md` | Diagnóstico histórico de fallback (BUG-S3-01) |
 | `runtime_export/` | Snapshots de configuração e estado do runtime |
 
 Estado atual documentado:
 
+- Data de referência: `2026-04-27`
+- A Sprint permanece aberta.
+- O time AIOps canônico está definido como `Cindy`, `AICoders`, `Escriba`, `Gateway` e `QA`.
+- `OpenCode` é o executor orquestrado pelos subagentes da Cindy.
+- `Playwright` e `SonarScanner CLI` já estão funcionais no WSL.
+- O servidor SonarQube local ainda depende do daemon Docker do host.
 - o WebUI local do Hermes foi validado em `http://127.0.0.1:9119`
 - a S4 continua aberta e focada no Discord como cockpit de gestão
 

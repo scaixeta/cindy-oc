@@ -6,6 +6,19 @@ Este documento registra o estado real atual do time CindyAgent, a direção dese
 
 Ele deve servir como referência de arquitetura operacional e de priorização para a materialização do time de desenvolvimento real orquestrado pela Cindy, com o PO atuando como human-in-the-loop apenas nos gates adequados.
 
+## Momento Atual
+
+**Data de referência:** 2026-04-27
+
+- A Sprint permanece aberta.
+- O time AIOps canônico já está definido como `Cindy`, `AICoders`, `Escriba`, `Gateway` e `QA`.
+- `OpenCode` já está sendo usado como executor orquestrado pelos subagentes.
+- `Playwright` está instalado e com browsers baixados no WSL.
+- `SonarScanner CLI` está instalado e funcional no WSL.
+- O servidor local do SonarQube ainda depende de um daemon Docker disponível para subir com estabilidade.
+- A Cindy deve manter consolidação, routing e Scrum Master operacional.
+- O PO continua responsável pelos gates grandes e pelo aceite final.
+
 ## Estado real confirmado hoje
 
 ### Runtime e canais ativos
@@ -23,19 +36,19 @@ Ele deve servir como referência de arquitetura operacional e de priorização p
 
 ### Ferramentas disponíveis hoje
 
-#### 1. Hermes
+#### 1. Runtime ativo da Cindy Agent
 
 - Runtime principal da Cindy
 - Sessões persistidas em `/root/.hermes`
 - Gateway ativo para Telegram
 - API server OpenAI-compatible via `8642`
-- Base atual do modelo padrão: MiniMax
+- Base operacional atual: Cindy Agent + ACP + OpenCode
+- Estado de validação recente: `Playwright 1.59.1`, browsers baixados, `SonarScanner CLI 8.0.1.6346`, `OpenJDK 17.0.18`
 
 ### 2. Telegram
 
 - Canal principal de interação operacional com a Cindy
-- Diretório de canais mostra DM ativa `Sentivis AI`
-- Depende do gateway Hermes ativo
+- Depende do gateway ativo
 
 ### 3. Redis
 
@@ -48,16 +61,15 @@ Ele deve servir como referência de arquitetura operacional e de priorização p
 - Biblioteca local: `.agents/scripts/acp_redis.py`
 - Script de teste: `.agents/scripts/test_acp_multi_agent.py`
 - Streams existentes confirmados:
-  - `acp:stream:minimax`
-  - `acp:stream:sentivis`
+  - `acp:stream:cindy`
+  - `acp:stream:aicoders`
 - Há mensagens persistidas de teste nos streams
 
 ### 5. OpenCode
 
 - Wrapper local disponível: `run_opencode.bat`
 - Função atual: raciocínio profundo e tarefas de código
-- Modelo operacional documentado: `MiniMax-M2.7`
-- Deve evoluir para executor técnico dos agentes especialistas, não para barramento do sistema
+- Executor técnico dos agentes especialistas, não barramento do sistema
 
 ### 6. Codex
 
@@ -95,7 +107,7 @@ Ou seja:
 - Hermes fornece runtime, memória, gateway e API
 - Redis e ACP existem como infraestrutura e prova de conceito
 - Codex e OpenCode existem como capacidades de apoio
-- a equipe de 5 agentes ainda está parcialmente materializada, não plenamente operacional
+- a equipe de 5 funções já está definida e em operação documental, mas a materialização técnica completa ainda depende de orquestração contínua e validações adicionais
 
 ## Direção desejada aprovada
 
@@ -143,12 +155,12 @@ Nomes baseados em papel são estáveis porque:
 ### Papéis-alvo (role-based)
 
 - `Cindy`: orquestração, triagem, gestão de dependências, consolidação, escala ao PO
-- `Builder`: código, lógica de aplicação, automações, refatorações, pipelines
-- `Reviewer`: validação semântica, QA, revisão, compliance, auditoria
-- `Documenter`: documentação técnica, contratos, dashboards, material operacional
-- `PlatformOps`: IoT, infraestrutura, telemetria, integrações de campo, n8n, ThingsBoard, runtime, observabilidade
+- `AICoders`: código, lógica de aplicação, automações, refatorações, pipelines
+- `Escriba`: documentação técnica, contratos, dashboards, material operacional
+- `Gateway`: validação técnica, qualidade de código, Playwright, SonarQube e segurança
+- `QA`: validação semântica, revisão, compliance, auditoria e aceite final
 
-**Importante:** nenhum papel está vinculado a um modelo ou provedor específico. Qualquer papel pode usar OpenAI, Codex, GPT-5.x, MiniMax, GLM ou outro provedor dependendo da tarefa, do custo e da disponibilidade.
+**Importante:** nenhum papel está vinculado a uma ferramenta, modelo ou fornecedor específico. A execução pode variar conforme a tarefa, o custo e a disponibilidade.
 
 ### Requisitos de independência por agente
 
@@ -449,7 +461,7 @@ O OpenCode deve ser integrado como motor de execução dos agentes especialistas
 
 - `planner`
 - `coder`
-- `reviewer`
+- `qa`
 - `tester`
 - `docs-writer`
 - `sre-debugger`
@@ -474,7 +486,7 @@ O OpenCode deve ser integrado como motor de execução dos agentes especialistas
 - Microsoft Agent Framework — observabilidade, aprovações, MCP e interoperabilidade
 - Google A2A — descoberta de capacidade, tarefas, artefatos e interoperabilidade entre agentes
 - Azure SRE Agent — exemplo real de AIOps com automação sob guardrails
-- Repositórios comunitários de times multiagente de desenvolvimento com planner/coder/reviewer/tester/docs
+- Repositórios comunitários de times multiagente de desenvolvimento com planner/coder/qa/tester/docs
 - OpenCode — agentes especializados, permissões, regras, comandos, MCP e execução headless
 
 ## Decisões de orientação para o CindyAgent

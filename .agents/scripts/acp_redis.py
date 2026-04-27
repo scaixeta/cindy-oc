@@ -29,6 +29,37 @@ from datetime import datetime, timezone
 from typing import Callable, Optional, Any
 
 
+MESSAGE_TYPES = {"TASK", "COMMAND", "EVENT", "RESPONSE", "PLAN"}
+DEFAULT_MESSAGE_TTL_SECONDS = 300
+DEFAULT_STREAM_TTL_SECONDS = 3600
+DEFAULT_STREAM_MAXLEN = 1000
+
+
+class ACPValidationError(ValueError):
+    """Raised when an ACP message does not match the operational schema."""
+
+
+def _validate_message(msg: dict, *, require_payload_dict: bool = False) -> None:
+    required = {"id", "type", "from", "to", "action", "payload", "meta"}
+    missing = required.difference(msg)
+    if missing:
+        raise ACPValidationError(f"Missing ACP field(s): {sorted(missing)}")
+    if msg["type"] not in MESSAGE_TYPES:
+        raise ACPValidationError(f"Invalid ACP type: {msg['type']}")
+    for field in ("id", "from", "to", "action"):
+        if not isinstance(msg[field], str) or not msg[field].strip():
+            raise ACPValidationError(f"ACP field '{field}' must be a non-empty string")
+    if require_payload_dict and not isinstance(msg["payload"], dict):
+        raise ACPValidationError("ACP payload must be a dict for stream messages")
+    if not isinstance(msg["meta"], dict):
+        raise ACPValidationError("ACP meta must be a dict")
+    meta = msg["meta"]
+    if "timestamp" not in meta or not isinstance(meta["timestamp"], str):
+        raise ACPValidationError("ACP meta.timestamp must be an ISO8601 string")
+    if "ttl_seconds" in meta and not isinstance(meta["ttl_seconds"], int):
+        raise ACPValidationError("ACP meta.ttl_seconds must be an integer when provided")
+
+
 class ACPRedis:
     """
     Interface ACP via Redis.
@@ -59,9 +90,11 @@ class ACPRedis:
             "payload": payload,
             "meta": {
                 "timestamp": datetime.now(timezone.utc).isoformat(),
-                "reply_to": None
+                "reply_to": None,
+                "ttl_seconds": DEFAULT_MESSAGE_TTL_SECONDS,
             }
         }
+        _validate_message(msg)
         import redis
         r = redis.Redis(host='localhost', port=6379, decode_responses=True)
         r.publish(self.pubsub_channel, json.dumps(msg))
@@ -108,10 +141,21 @@ class ACPRedis:
             "action": action,
             "payload": json.dumps(payload),
             "meta": json.dumps({
-                "timestamp": datetime.now(timezone.utc).isoformat()
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "ttl_seconds": DEFAULT_MESSAGE_TTL_SECONDS
             })
         }
-        r.xadd(stream_key, entry, maxlen=1000)  # TTL: max 1000 entries
+        _validate_message({
+            "id": msg_id,
+            "type": msg_type,
+            "from": from_agent,
+            "to": agent_id,
+            "action": action,
+            "payload": payload,
+            "meta": json.loads(entry["meta"]),
+        }, require_payload_dict=True)
+        r.xadd(stream_key, entry, maxlen=DEFAULT_STREAM_MAXLEN, approximate=True)
+        r.expire(stream_key, DEFAULT_STREAM_TTL_SECONDS)
         return msg_id
 
     def stream_consume(self, agent_id: str, group: str = "agents", consumer: str = "consumer1", count: int = 10) -> list:

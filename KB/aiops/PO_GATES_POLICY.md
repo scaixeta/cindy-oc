@@ -1,6 +1,6 @@
 # Política de Gates Formais do PO (AIOps Mesh)
 
-Este documento oficializa o contrato de governança **Human-In-The-Loop (HITL)** para o time multiagente (Cindy, Builder, Reviewer, Documenter, PlatformOps).
+Este documento oficializa o contrato de governança **Human-In-The-Loop (HITL)** para o time multiagente (Cindy, AICoders, Escriba, Gateway, QA).
 
 O *Product Owner (PO)* atua por exceção e aprovação de fronteiras (Gates), não por microgestão da execução das tarefas.
 
@@ -17,8 +17,8 @@ Nenhuma fase ou tarefa crítica transpassa as seguintes fronteiras de governanç
 
 ## 2. Padrões de Escalação Semântica para o PO
 
-Quando um Worker (via `EscalateToHuman` exception ou DLQ) precisar do PO para destravar uma etapa:
-- O Worker colocará a Task no estado `escalated`.
+Quando uma função da equipe (via `EscalateToHuman` exception ou DLQ) precisar do PO para destravar uma etapa:
+- A função colocará a Task no estado `escalated`.
 - O payload de escalação registrará formalmente em log qual gate foi acionado ou qual é a barreira:
    * Erro sistêmico inacessível ao agente.
    * Credenciais ou pagamentos Microsoft faltantes.

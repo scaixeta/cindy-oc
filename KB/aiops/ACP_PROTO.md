@@ -8,12 +8,12 @@
 
 ## 1. Visão Geral
 
-O ACP (Agent Communication Protocol) é o protocolo de comunicação entre os 5 agentes autônomos (Cindy, Sentivis, MiniMax, Scribe, GLM-5.1). Usa **Redis** como backbone de transporte com duas camadas: **Pub/Sub** para eventos efêmeros e **Streams** para tarefas persistidas.
+O ACP (Agent Communication Protocol) é o protocolo de comunicação entre as 5 funções autônomas da Cindy Agent: `Cindy`, `AICoders`, `Escriba`, `Gateway` e `QA`. Usa **Redis** como backbone de transporte com duas camadas: **Pub/Sub** para eventos efêmeros e **Streams** para tarefas persistidas.
 
 **Princípios:**
 - Agentes **nunca usam linguagem humana** entre si
 - Todas as mensagens são **JSON estruturado**
-- Cindy é a **coordenadora** — agentes reportam a ela
+- Cindy é a **coordenadora e Scrum Master operacional** — agentes reportam a ela
 - PO é consultado apenas para **decisões grandes**
 
 ---
@@ -54,23 +54,24 @@ PSUBSCRIBE acp:*
 **Uso:** Tarefas que exigem idempotência, retry, ou consumo ordenado com offset.
 
 **Consumer Groups:** Cada agente tem seu consumer group para evitar double-delivery.
+Cada função pode executar subagentes internos independentes via OpenCode e retornar a mesma decisão por caminhos diferentes.
 
 **Comandos Redis:**
 ```redis
 # Produzir
-XADD acp:stream:sentivis '*' id "..." type "TASK" from "cindy" payload '{...}'
+XADD acp:stream:aicoders '*' id "..." type "TASK" from "cindy" payload '{...}'
 
 # Criar consumer group
-XGROUP CREATE acp:stream:sentivis agents $ MKSTREAM
+XGROUP CREATE acp:stream:aicoders agents $ MKSTREAM
 
 # Consumir
-XREADGROUP GROUP agents consumer1 COUNT 10 STREAMS acp:stream:sentivis ">"
+XREADGROUP GROUP agents consumer1 COUNT 10 STREAMS acp:stream:aicoders ">"
 
 # Pending messages
-XPENDING acp:stream:sentivis agents
+XPENDING acp:stream:aicoders agents
 
 # Acknowledgement
-XACK acp:stream:sentivis agents message_id
+XACK acp:stream:aicoders agents message_id
 ```
 
 **Latência:** ~1–5ms local
@@ -102,10 +103,10 @@ XACK acp:stream:sentivis agents message_id
 
 | Tipo | Uso | Exemplo |
 |---|---|---|
-| `TASK` | Tarefa atribuída | Cindy → Sentivis: configurar threshold |
-| `COMMAND` | Comando de execução | GLM → MiniMax: revisar código |
-| `EVENT` | Notificação broadcast | Scribe → *: docs atualizados |
-| `RESPONSE` | Resposta a tarefa | Sentivis → Cindy: tarefa concluída |
+| `TASK` | Tarefa atribuída | Cindy → AICoders: implementar feature |
+| `COMMAND` | Comando de execução | Cindy → Gateway: revisar gate de código |
+| `EVENT` | Notificação broadcast | Escriba → *: docs atualizados |
+| `RESPONSE` | Resposta a tarefa | Gateway → Cindy: gate aprovado |
 | `PLAN` | Plano de ação | Agentes → Cindy: plano para approval |
 
 ---
@@ -120,13 +121,13 @@ from acp_redis import ACPRedis
 acp = ACPRedis()
 
 # Pub/Sub
-msg_id = acp.publish(to="sentivis", msg_type="TASK", action="configure_thresholds", payload={...}, from_agent="cindy")
+msg_id = acp.publish(to="aicoders", msg_type="TASK", action="implement_feature", payload={...}, from_agent="cindy")
 
 # Stream
-msg_id = acp.stream_produce(agent_id="sentivis", msg_type="TASK", action="...", payload={...}, from_agent="cindy")
+msg_id = acp.stream_produce(agent_id="gateway", msg_type="TASK", action="...", payload={...}, from_agent="cindy")
 
 # Consumir stream
-messages = acp.stream_consume(agent_id="minimax", group="agents", consumer="minimax-consumer")
+messages = acp.stream_consume(agent_id="qa", group="agents", consumer="qa-consumer")
 ```
 
 ### `test_acp_multi_agent.py` — Teste de ciclo completo
@@ -137,10 +138,10 @@ python3 .agents/scripts/test_acp_multi_agent.py
 
 **Resultado testado:**
 ```
-[1] Scribe faz broadcast... ✓
-[2] Cindy delega tarefa para Sentivis... ✓
-[3] MiniMax envia tarefa para Sentivis... ✓
-[4] GLM envia comando via stream... ✓
+[1] Escriba faz broadcast... ✓
+[2] Cindy delega tarefa para AICoders... ✓
+[3] AICoders envia tarefa para Gateway... ✓
+[4] QA envia comando via stream... ✓
 [5] Mensagens consumidas do stream... ✓
 [6] Keys acp:* no Redis... ✓
 ```
@@ -153,21 +154,24 @@ python3 .agents/scripts/test_acp_multi_agent.py
 
 ```
 1. PO dá direção → Cindy
-2. Cindy publica TASK para Sentivis
-   PUBLISH acp:messages {"type":"TASK","from":"cindy","to":"sentivis","action":"monitor_telemetry",...}
+2. Cindy publica TASK para AICoders
+   PUBLISH acp:messages {"type":"TASK","from":"cindy","to":"aicoders","action":"implement_feature",...}
 
-3. Sentivis analisa e responde via stream
-   XADD acp:stream:cindy {...,"action":"telemetry_plan",...}
+3. AICoders executa e encaminha para Gateway
+   XADD acp:stream:gateway {...,"action":"code_gate",...}
 
-4. Cindy consome stream e consolida
+4. Gateway valida código e segurança
+   XADD acp:stream:cindy {...,"action":"gate_result",...}
+
+5. Cindy consome stream e consolida
    XREADGROUP GROUP agents COUNT 10 STREAMS acp:stream:cindy ">"
 
-5. Cindy apresenta plano ao PO
-   {"type":"PLAN","from":"sentivis","to":"cindy","payload":{plan:"V1 com 3 widgets, refresh 30s"...}}
+6. Cindy apresenta plano ao PO
+   {"type":"PLAN","from":"gateway","to":"cindy","payload":{plan:"gate aprovado ou bug aberto"...}}
 
-6. PO aprova → Cindy distribui para execução
-7. Agentes executam via streams各自
-8. GLM valida → RESPONSE → Cindy → PO
+7. PO aprova → Cindy distribui para execução
+8. Funções executam via streams próprias
+9. QA valida → RESPONSE → Cindy → PO
 ```
 
 ---
@@ -180,7 +184,7 @@ python3 .agents/scripts/test_acp_multi_agent.py
 |---|---|---|
 | Pub/Sub publish | ✅ OK | <1ms |
 | Stream produce + consume | ✅ OK | 1-5ms |
-| Ciclo 3 agentes (Cindy, Sentivis, MiniMax) | ✅ OK | <2s total |
+| Ciclo 5 funções (Cindy, AICoders, Escriba, Gateway, QA) | ✅ OK | <2s total |
 | Keys `acp:*` no Redis | ✅ 2 streams criados | — |
 
 **Scripts:**
